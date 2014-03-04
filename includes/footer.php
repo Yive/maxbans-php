@@ -10,10 +10,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-         <p class="navbar-text" style="font-size:15px;color:white;">&copy; <a href="http://dev.bukkit.org/profiles/netherfoam/" target="_blank">Plugin Creator</a> | <a href="http://dev.bukkit.org/profiles/MCTempestCraft" target="_blank">PHP Script Creator</a></p>
+         <p class="navbar-text" style="font-size:15px;color:white;">&copy; <a href="http://dev.bukkit.org/profiles/netherfoam/" target="_blank">Plugin Creator</a> | <a href="http://dev.bukkit.org/profiles/YiveMe" target="_blank">PHP Script Creator</a></p>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/Yive/Maxbans-php/releases">Download</a></li>
 			 <p class="navbar-text" style="color:white;"><?php echo 'Players: ' . $data['players']['online'] . '/' . $data['players']['max']; ?> </p>
           </ul>
         </div>
@@ -31,7 +32,7 @@
     <h4>Credits</h4>
     <p><a href="http://dev.bukkit.org/profiles/netherfoam/" target="_blank">netherfoam - Plugin Developer</a>
 	<br/>
-	<a href="http://dev.bukkit.org/profiles/MCTempestCraft/" target="_blank">TempestCraft - PHP Developer</a>
+	<a href="http://dev.bukkit.org/profiles/YiveMe/" target="_blank">Yive - PHP Developer</a>
 	<br/>
 	<a href="https://twitter.com/boboman_13" target="_blank">boboman_13 - Helped with censoring IPs</a>
 	<br/>
