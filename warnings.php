@@ -35,9 +35,9 @@ if(! $retval )
 							<thead>
 							<tr>
 								<th><center>Name</center></th>
-								<th><center>Muted By</center></th>
+								<th><center>Warned By</center></th>
 								<th><center>Reason</center></th>
-								<th><center>Muted Until</center></th>
+								<th><center>Warned Until</center></th>
 							</tr>
 							</thead>
 							<tbody>
