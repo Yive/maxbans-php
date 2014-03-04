@@ -4,15 +4,15 @@
     <title>Bans/Tempbans - <?php echo $name; ?></title>
   </head>
 <?php
-// <<-----------------MYSQL Database Connection------------>> //
+// <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
 $sql = 'SELECT name, reason, banner, time, expires FROM bans ORDER BY time DESC LIMIT 20';
 
-$retval = mysqli_query( $sql, $conn );
+$retval = mysql_query( $sql, $conn );
 if(! $retval )
 {
-  die('Could not get data: ' . mysqli_error());
+  die('Could not get data: ' . mysql_error( $sql, $conn ));
 }
 ?>
   <body>

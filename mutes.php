@@ -4,7 +4,7 @@
     <title>Mutes/TempMutes - <?php echo $name; ?></title>
   </head>
 <?php
-// <<-----------------MYSQL Database Connection------------>> //
+// <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
 $sql = 'SELECT name, reason, muter, time, expires FROM mutes ORDER BY time DESC LIMIT 20';

@@ -4,7 +4,7 @@
     <title>IP Bans - <?php echo $name; ?></title>
   </head>
 <?php
-// <<-----------------MYSQL Database Connection------------>> //
+// <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
 $sql = 'SELECT ip, reason, banner, time, expires FROM ipbans ORDER BY time DESC LIMIT 20';

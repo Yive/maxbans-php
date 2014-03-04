@@ -4,7 +4,7 @@
     <title>Warnings - <?php echo $name; ?></title>
   </head>
 <?php
-// <<-----------------MYSQL Database Connection------------>> //
+// <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
 $sql = 'SELECT name, reason, banner, expires FROM warnings ORDER BY expires DESC LIMIT 20';
