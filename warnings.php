@@ -48,8 +48,8 @@ if(! $retval )
 									$expiresResult = date('F j, Y, g:i a', $expiresConvert);
 									?>
 							<tr>
-								<td><?php echo "<img src='http://mineskin.ca/avatar/?player=" . $row['name'] . "&size=25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['name'];?></td>
-								<td><?php echo "<img src='http://mineskin.ca/avatar/?player=" . $row['banner'] . "&size=25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner'];?></td>
+								<td><?php echo "<img src='http://mineskin.ca/v2/avatar/?player=" . $row['name'] . "&size=25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['name'];?></td>
+								<td><?php echo "<img src='http://mineskin.ca/v2/avatar/?player=" . $row['banner'] . "&size=25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner'];?></td>
 								<td style="width: 30%;"><?php echo $row['reason'];?></td>
 								<td><?php if($row['expires'] == 0) {
 								echo 'Permanent Warning';
