@@ -14,7 +14,6 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="https://github.com/Yive/Maxbans-php/releases">Download</a></li>
 			 <p class="navbar-text" style="color:white;"><?php echo 'Players: ' . $data['players']['online'] . '/' . $data['players']['max']; ?> </p>
           </ul>
         </div>
