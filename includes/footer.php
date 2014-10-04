@@ -1,5 +1,5 @@
 <?php 
-  $data = json_decode( file_get_contents('http://minecraft-api.com/v1/get/?server=' .$serverip ), true);
+  $data = json_decode( file_get_contents('http://mcapi.ca/v2/query/info/?ip=' .$serverip ), true);
 ?>
     <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
       <div class="container">
@@ -34,9 +34,6 @@
 	<a href="http://dev.bukkit.org/profiles/YiveMe/" target="_blank">Yive - PHP Developer</a>
 	<br/>
 	<a href="https://twitter.com/boboman_13" target="_blank">boboman_13 - Helped with censoring IPs</a>
-	<br/>
-	<a href="https://twitter.com/Senither" target="_blank">Alexis Tan - API service that provides the player count in the bottom right.</a>
-	</p>
 </div>
       </div>
       <div class="modal-footer">
