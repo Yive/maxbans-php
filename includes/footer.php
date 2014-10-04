@@ -31,7 +31,7 @@
     <h4>Credits</h4>
     <p><a href="http://dev.bukkit.org/profiles/netherfoam/" target="_blank">netherfoam - Plugin Developer</a>
 	<br/>
-	<a href="http://dev.bukkit.org/profiles/YiveMe/" target="_blank">Yive - PHP Developer</a>
+	<a href="http://twitter.com/ItsYive" target="_blank">Yive - PHP Developer</a>
 	<br/>
 	<a href="https://twitter.com/boboman_13" target="_blank">boboman_13 - Helped with censoring IPs</a>
 </div>
