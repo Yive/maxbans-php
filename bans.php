@@ -68,7 +68,7 @@ if (!$retval) {
                             echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banned_by_name']; ?></td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
                         <td><?php echo $timeResult; ?></td>
-                        <td><?php if ($row['expires'] <= 0) {
+                        <td><?php if ($row['until'] <= 0) {
                                 echo 'Permanent Ban';
                             } else {
                                 echo $expiresResult;
