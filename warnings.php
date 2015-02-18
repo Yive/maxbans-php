@@ -7,11 +7,11 @@
 // <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
-$sql = 'SELECT name, reason, banner, expires FROM warnings ORDER BY expires DESC LIMIT 20';
+$sql = 'SELECT time,until,reason,name,banned_by_name FROM warnings INNER JOIN history on warnings.uuid=history.uuid WHERE active=1 GROUP BY name ORDER BY time DESC LIMIT 20';
 
 $retval = mysql_query($sql, $conn);
 if (!$retval) {
-    die('Could not get data: ' . mysql_error());
+    die('Could not get data: ' . mysql_error($conn));
 }
 ?>
 <body>
@@ -50,15 +50,15 @@ if (!$retval) {
                 <tbody>
                 <?php while ($row = mysql_fetch_assoc($retval)) {
                     // <<-----------------Expiration Time Converter------------>> //
-                    $expiresEpoch = $row['expires'];
+                    $expiresEpoch = $row['until'];
                     $expiresConvert = $expiresEpoch / 1000;
                     $expiresResult = date('F j, Y, g:i a', $expiresConvert);
                     ?>
                     <tr>
                         <td><?php echo "<img src='https://minotar.net/avatar/" . $row['name'] . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['name']; ?></td>
-                        <td><?php echo "<img src='https://minotar.net/avatar/" . $row['banner'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner']; ?></td>
+                        <td><?php echo "<img src='https://minotar.net/avatar/" . $row['banned_by_name'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banned_by_name']; ?></td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
-                        <td><?php if ($row['expires'] == 0) {
+                        <td><?php if ($row['until'] == 0) {
                                 echo 'Permanent Warning';
                             } else {
                                 echo $expiresResult;
