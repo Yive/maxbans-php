@@ -34,19 +34,19 @@ if (!$retval) {
                 <thead>
                 <tr>
                     <th>
-                        <center>IP</center>
+                        <div style="text-align: center;">IP</div>
                     </th>
                     <th>
-                        <center>Banned By</center>
+                        <div style="text-align: center;">Banned By</div>
                     </th>
                     <th>
-                        <center>Reason</center>
+                        <div style="text-align: center;">Reason</div>
                     </th>
                     <th>
-                        <center>Banned On</center>
+                        <div style="text-align: center;">Banned On</div>
                     </th>
                     <th>
-                        <center>Banned Until</center>
+                        <div style="text-align: center;">Banned Until</div>
                     </th>
                 </tr>
                 </thead>

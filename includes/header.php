@@ -16,10 +16,10 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="bans">Bans</a></li>
-                        <li><a href="mutes">Mutes</a></li>
-                        <li><a href="ipbans">IP Bans</a></li>
-                        <li><a href="warnings">Warnings</a></li>
+                        <li><a href="bans.php">Bans</a></li>
+                        <li><a href="mutes.php">Mutes</a></li>
+                        <li><a href="ipbans.php">IP Bans</a></li>
+                        <li><a href="warnings.php">Warnings</a></li>
                     </ul>
                 </li>
             </ul>
