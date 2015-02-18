@@ -1,7 +1,4 @@
-maxbans-php
+litebans-php
 ===========
 
-PHP listings script for MaxBans
-
-
-Demo: http://yive.me/maxbans/
+PHP listings script for LiteBans

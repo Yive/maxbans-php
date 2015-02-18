@@ -22,7 +22,7 @@ if (!$retval) {
         <div class="col-lg-12">
             <h1 class="page-header">Warnings</h1>
             <ol class="breadcrumb">
-                <li><a href="index">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li class="active">Warnings</li>
             </ol>
         </div>
@@ -34,16 +34,16 @@ if (!$retval) {
                 <thead>
                 <tr>
                     <th>
-                        <center>Name</center>
+                        <div style="text-align: center;">Name</div>
                     </th>
                     <th>
-                        <center>Warned By</center>
+                        <div style="text-align: center;">Warned By</div>
                     </th>
                     <th>
-                        <center>Reason</center>
+                        <div style="text-align: center;">Reason</div>
                     </th>
                     <th>
-                        <center>Warned Until</center>
+                        <div style="text-align: center;">Warned Until</div>
                     </th>
                 </tr>
                 </thead>

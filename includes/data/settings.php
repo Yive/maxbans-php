@@ -1,5 +1,5 @@
 <?php
 // <<---------Ban Listing Settings (Simplified)--------->> //
-$name = 'Maxbans';
+$name = 'LiteBans';
 $serverip = 'mc.example.com';
 ?>
