@@ -1,7 +1,7 @@
 <?php include 'includes/head.php'; ?>
 <?php include 'includes/header.php'; ?>
 <head>
-    <title>Bans/Tempbans - <?php echo $banned; ?></title>
+    <title>Bans/Tempbans - <?php echo $name; ?></title>
 </head>
 <?php
 // <<-----------------mysql Database Connection------------>> //
@@ -63,7 +63,7 @@ if (!$retval) {
                     ?>
                     <tr>
                         <td><?php $banned = $row['history.name'];
-                            echo "<img src='https://minotar.net/avatar/" . $banned . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['history.name']; ?></td>
+                            echo "<img src='https://minotar.net/avatar/" . $banned . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banned; ?></td>
                         <td><?php $banner = $row['banned_by_name'];
                             echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banned_by_name']; ?></td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
