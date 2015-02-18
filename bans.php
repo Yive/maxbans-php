@@ -7,7 +7,7 @@
 // <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
-$sql = 'SELECT time,until,reason,name,banned_by_name FROM bans INNER JOIN history on bans.uuid=history.uuid WHERE active=1 ORDER BY time DESC LIMIT 20';
+$sql = 'SELECT time,until,reason,name,banned_by_name FROM bans INNER JOIN history on bans.uuid=history.uuid WHERE active=1 GROUP BY name ORDER BY time DESC LIMIT 20';
 
 $retval = mysql_query($sql, $conn);
 if (!$retval) {
@@ -62,7 +62,7 @@ if (!$retval) {
                     $expiresResult = date('F j, Y, g:i a', $expiresConvert);
                     ?>
                     <tr>
-                        <td><?php $banned = $row['history.name'];
+                        <td><?php $banned = $row['name'];
                             echo "<img src='https://minotar.net/avatar/" . $banned . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banned; ?></td>
                         <td><?php $banner = $row['banned_by_name'];
                             echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banned_by_name']; ?></td>
