@@ -7,11 +7,11 @@
 // <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
-$sql = 'SELECT time,until,reason,name,banned_by_name FROM bans WHERE active=1 INNER JOIN history on bans.uuid=history.uuid ORDER BY time DESC LIMIT 20';
+$sql = 'SELECT time,until,reason,name,banned_by_name FROM bans INNER JOIN history on bans.uuid=history.uuid WHERE active=1 ORDER BY time DESC LIMIT 20';
 
 $retval = mysql_query($sql, $conn);
 if (!$retval) {
-    die('Could not get data: ' . mysql_error($sql, $conn));
+    die('Could not get data: ' . mysql_error($conn));
 }
 ?>
 <body>
