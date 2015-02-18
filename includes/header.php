@@ -18,7 +18,6 @@
                     <ul class="dropdown-menu">
                         <li><a href="bans.php">Bans</a></li>
                         <li><a href="mutes.php">Mutes</a></li>
-                        <li><a href="ipbans.php">IP Bans</a></li>
                         <li><a href="warnings.php">Warnings</a></li>
                     </ul>
                 </li>
