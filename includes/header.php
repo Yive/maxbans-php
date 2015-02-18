@@ -11,7 +11,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="index">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a data-toggle="modal" data-target="#about">About</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
