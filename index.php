@@ -9,9 +9,9 @@
 
     <!-- Main Page -->
     <div class="jumbotron">
-        <h1>Welcome to <?php echo $name; ?>'s Ban List</h1>
+        <div style="text-align: center;"><h2>Welcome to <?php echo $name; ?>'s Ban List.</h2></div>
 
-        <p>Here is where our Bans, IP-Bans, Mutes &amp; Warnings are listed.</p>
+        <div style="text-align: center;"><p>Here is where our Bans, Mutes, and Warnings are listed.</p></div>
     </div>
 
 </div>
