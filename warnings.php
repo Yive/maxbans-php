@@ -7,7 +7,7 @@
 // <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
-$sql = 'SELECT time,until,reason,name,banned_by_name FROM ' . $table_warnings . ' INNER JOIN ' . $table_history . ' on ' . $table_bans . '.uuid=' . $table_history . '.uuid WHERE active=1 GROUP BY name ORDER BY time DESC LIMIT 20';
+$sql = 'SELECT time,until,reason,name,banned_by_name FROM ' . $table_warnings . ' INNER JOIN ' . $table_history . ' on ' . $table_warnings . '.uuid=' . $table_history . '.uuid WHERE active=1 GROUP BY name ORDER BY time DESC LIMIT 20';
 
 $retval = mysql_query($sql, $conn);
 if (!$retval) {
