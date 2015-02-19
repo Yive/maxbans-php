@@ -1,5 +1,7 @@
- <?php include 'includes/head.php'; ?>
-<?php include 'includes/header.php'; ?>
+ <?php
+ include 'includes/head.php';
+ include 'includes/header.php';
+ ?>
  <head>
     <title>Index - <?php echo $name; ?></title>
   </head>
