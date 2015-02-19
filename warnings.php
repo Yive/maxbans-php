@@ -58,7 +58,7 @@ if (!$retval) {
                         <td><?php echo "<img src='https://minotar.net/avatar/" . $row['name'] . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['name']; ?></td>
                         <td><?php echo "<img src='https://minotar.net/avatar/" . $row['banned_by_name'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banned_by_name']; ?></td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
-                        <td><?php if ($row['until'] == 0) {
+                        <td><?php if ($row['until'] <= 0) {
                                 echo 'Permanent Warning';
                             } else {
                                 echo $expiresResult;
