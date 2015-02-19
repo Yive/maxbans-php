@@ -1,4 +1,4 @@
 litebans-php
 ===========
 
-PHP listings script for LiteBans
+Web interface for LiteBans
