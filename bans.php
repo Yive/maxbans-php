@@ -9,10 +9,10 @@ require 'includes/data/database.php';
 
 $sql = 'SELECT time,until,reason,name,banned_by_name FROM ' . $table_bans . ' INNER JOIN ' . $table_history . ' on ' . $table_bans . '.uuid=' . $table_history . '.uuid WHERE active=1 GROUP BY name ORDER BY time DESC LIMIT 20';
 
-$retval = mysql_query($sql, $conn);
-if (!$retval) {
-    die('Could not get data: ' . mysql_error($conn));
+if(!$result = $conn->query($sql)) {
+    die('Query error [' . $conn->error . ']');
 }
+
 ?>
 <body>
 <div class="container">
@@ -51,7 +51,7 @@ if (!$retval) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysql_fetch_assoc($retval)) {
+                <?php while($row = $result->fetch_assoc()){
                     // <<-----------------Ban Date Converter------------>> //
                     $timeEpoch = $row['time'];
                     $timeConvert = $timeEpoch / 1000;
@@ -75,7 +75,7 @@ if (!$retval) {
                             } ?></td>
                     </tr>
                 <?php }
-                mysql_close($conn);
+                $result->free();
                 echo "</tbody></table>";
                 ?>
         </div>
