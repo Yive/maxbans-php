@@ -53,6 +53,7 @@ if(!$result = $conn->query($sql)) {
                 <tbody>
                 <?php while($row = $result->fetch_assoc()){
                     // <<-----------------Ban Date Converter------------>> //
+                    date_default_timezone_set("UTC");
                     $timeEpoch = $row['time'];
                     $timeConvert = $timeEpoch / 1000;
                     $timeResult = date('F j, Y, g:i a', $timeConvert);
@@ -64,8 +65,8 @@ if(!$result = $conn->query($sql)) {
                     <tr>
                         <td><?php $banned = $row['name'];
                             echo "<img src='https://minotar.net/avatar/" . $banned . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banned; ?></td>
-                        <td><?php $banner = $row['banned_by_name'];
-                            echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banned_by_name']; ?></td>
+                        <td><?php $banner = get_banner_name($row['banned_by_name']);
+                            echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banner ?></td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
                         <td><?php echo $timeResult; ?></td>
                         <td><?php if ($row['until'] <= 0) {
