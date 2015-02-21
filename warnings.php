@@ -65,7 +65,7 @@ if(!$result = $conn->query($sql)) {
                             } ?></td>
                     </tr>
                 <?php }
-                $result->close();
+                $result->free();
                 echo "</tbody></table>";
                 ?>
         </div>
