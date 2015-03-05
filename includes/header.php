@@ -1,3 +1,4 @@
+<?php $data = json_decode( file_get_contents('https://mcapi.ca/query/' .$serverip. '/info' ), true); ?>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
    <div class="container">
       <div class="navbar-header">
@@ -22,6 +23,9 @@
                   <li><a href="warnings">Warnings</a></li>
                </ul>
             </li>
+         </ul>
+         <ul class="nav navbar-nav navbar-right">
+            <p class="navbar-text" style="color:white;"><?php echo 'Players Online: ' . $data['players']['online'] . '/' . $data['players']['max']; ?> </p>
          </ul>
       </div>
    </div>

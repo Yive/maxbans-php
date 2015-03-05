@@ -1,10 +1,10 @@
 <?php
-   $dbhost = 'localhost';
-   $dbuser = 'root';
-   $dbpass = 'password';
-   $conn = mysql_connect($dbhost, $dbuser, $dbpass);
-   if(! $conn ) {
-     die('Could not connect: ' . mysql_error());
-   }
-   mysql_select_db('maxbans');
+$dbhost = 'localhost';
+$dbuser = 'root';
+$dbpass = 'password';
+$dbname = 'database';
+$conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
 ?>
