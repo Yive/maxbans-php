@@ -11,7 +11,7 @@
 
       <!-- Main Page -->
       <div class="jumbotron">
-        <h1>Welcome to <?php echo $name; ?>'s Ban List</h1>
+        <h1>Welcome to <?php if(substr($name, -1) == "s"){ echo $name."'"; } else { echo $name."'s";} ?> Ban List</h1>
         <p>Here is where our Bans, IP-Bans, Mutes &amp; Warnings are listed.</p>
       </div>
 
