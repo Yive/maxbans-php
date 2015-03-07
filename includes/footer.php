@@ -21,29 +21,5 @@ $data = json_decode(file_get_contents('https://mcapi.ca/v2/query/info/?ip=' . $s
         </div>
     </div>
 </div>
-<div class="modal" id="about" tabindex="-1" role="dialog" aria-labelledby="aboutlabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="aboutlabel">About Script</h4>
-            </div>
-            <div class="modal-body">
-                <div class="well well-sm">
-                    <h4>Credits</h4>
-                    <a href="http://www.spigotmc.org/resources/litebans.3715/" target="_blank">Ruan - LiteBans
-                        Developer</a>
-                    <br>
-                    <a href="http://twitter.com/ItsYive" target="_blank">Yive - Original web interface design</a>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="includes/js/bootstrap.min.js"></script>

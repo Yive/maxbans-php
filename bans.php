@@ -7,9 +7,11 @@
 // <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
-$sql = 'SELECT time,until,reason,name,banned_by_name FROM ' . $table_bans . ' INNER JOIN ' . $table_history . ' on ' . $table_bans . '.uuid=' . $table_history . '.uuid WHERE active=1 GROUP BY name ORDER BY time DESC LIMIT 20';
+$table = $table_bans;
+$sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
+    ' GROUP BY name ORDER BY time DESC LIMIT ' . $limit_per_page;
 
-if(!$result = $conn->query($sql)) {
+if (!$result = $conn->query($sql)) {
     die('Query error [' . $conn->error . ']');
 }
 
@@ -51,7 +53,7 @@ if(!$result = $conn->query($sql)) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while($row = $result->fetch_assoc()){
+                <?php while ($row = $result->fetch_assoc()) {
                     // <<-----------------Ban Date Converter------------>> //
                     date_default_timezone_set("UTC");
                     $timeEpoch = $row['time'];
@@ -63,17 +65,25 @@ if(!$result = $conn->query($sql)) {
                     $expiresResult = date('F j, Y, g:i a', $expiresConvert);
                     ?>
                     <tr>
+
                         <td><?php $banned = $row['name'];
-                            echo "<img src='https://minotar.net/avatar/" . $banned . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banned; ?></td>
+                            echo "<img src='https://minotar.net/avatar/" . $banned . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banned; ?>
+                        </td>
                         <td><?php $banner = get_banner_name($row['banned_by_name']);
-                            echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banner ?></td>
+                            echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banner ?>
+                        </td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
                         <td><?php echo $timeResult; ?></td>
-                        <td><?php if ($row['until'] <= 0) {
-                                echo 'Permanent Ban';
-                            } else {
-                                echo $expiresResult;
-                            } ?></td>
+                        <td>
+                            <?php if ($row['until'] <= 0) {
+                                $expiresResult = 'Permanent Ban';
+                            }
+                            if ($row['active'] == 0) {
+                                $expiresResult .= ' (Unbanned)';
+                            }
+                            echo $expiresResult;
+                            ?>
+                        </td>
                     </tr>
                 <?php }
                 $result->free();

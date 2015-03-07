@@ -7,9 +7,11 @@
 // <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
-$sql = 'SELECT time,until,reason,name,banned_by_name FROM ' . $table_mutes . ' INNER JOIN ' . $table_history . ' on ' . $table_mutes . '.uuid=' . $table_history . '.uuid WHERE active=1 GROUP BY name ORDER BY time DESC LIMIT 20';
+$table = $table_mutes;
+$sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
+    ' GROUP BY name ORDER BY time DESC LIMIT ' . $limit_per_page;
 
-if(!$result = $conn->query($sql)) {
+if (!$result = $conn->query($sql)) {
     die('Query error [' . $conn->error . ']');
 }
 ?>
@@ -40,7 +42,7 @@ if(!$result = $conn->query($sql)) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while($row = $result->fetch_assoc()){
+                <?php while ($row = $result->fetch_assoc()) {
                     // <<-----------------Ban Date Converter------------>> //
                     date_default_timezone_set("UTC");
                     $timeEpoch = $row['time'];
@@ -57,11 +59,16 @@ if(!$result = $conn->query($sql)) {
                             echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banner; ?></td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
                         <td><?php echo $timeResult; ?></td>
-                        <td><?php if ($row['until'] <= 0) {
-                                echo 'Permanent Mute';
-                            } else {
-                                echo $expiresResult;
-                            } ?></td>
+                        <td>
+                            <?php if ($row['until'] <= 0) {
+                                $expiresResult = 'Permanent Mute';
+                            }
+                            if ($row['active'] == 0) {
+                                $expiresResult .= ' (Unmuted)';
+                            }
+                            echo $expiresResult;
+                            ?>
+                        </td>
                     </tr>
                 <?php }
                 $result->free();

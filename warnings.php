@@ -7,7 +7,9 @@
 // <<-----------------mysql Database Connection------------>> //
 require 'includes/data/database.php';
 
-$sql = 'SELECT time,until,reason,name,banned_by_name FROM ' . $table_warnings . ' INNER JOIN ' . $table_history . ' on ' . $table_warnings . '.uuid=' . $table_history . '.uuid WHERE active=1 ORDER BY time DESC LIMIT 20';
+$table = $table_warnings;
+$sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
+    ' GROUP BY name ORDER BY time DESC LIMIT ' . $limit_per_page;
 
 if(!$result = $conn->query($sql)) {
     die('Query error [' . $conn->error . ']');
@@ -60,11 +62,16 @@ if(!$result = $conn->query($sql)) {
                         <td><?php $banner = get_banner_name($row['banned_by_name']);
                             echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banner; ?></td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
-                        <td><?php if ($row['until'] <= 0) {
-                                echo 'Permanent Warning';
-                            } else {
-                                echo $expiresResult;
-                            } ?></td>
+                        <td>
+                            <?php if ($row['until'] <= 0) {
+                                $expiresResult = 'Permanent Warning';
+                            }
+                            if ($row['active'] == 0) {
+                                $expiresResult .= ' (Inactive)';
+                            }
+                            echo $expiresResult;
+                            ?>
+                        </td>
                     </tr>
                 <?php }
                 $result->free();
