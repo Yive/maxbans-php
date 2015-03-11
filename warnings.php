@@ -1,24 +1,19 @@
-<?php include 'includes/head.php'; ?>
-<?php include 'includes/header.php'; ?>
 <head>
     <title>Warnings - <?php echo $name; ?></title>
 </head>
 <?php
-// <<-----------------mysql Database Connection------------>> //
-require 'includes/data/database.php';
+require 'includes/page.php';
 
 $table = $table_warnings;
 $sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
     ' GROUP BY name ORDER BY time DESC LIMIT ' . $limit_per_page;
 
-if(!$result = $conn->query($sql)) {
+if (!$result = $conn->query($sql)) {
     die('Query error [' . $conn->error . ']');
 }
-
 ?>
 <body>
 <div class="container">
-    <!-- Example row of columns -->
     <div class="row">
 
         <div class="col-lg-12">
@@ -50,7 +45,7 @@ if(!$result = $conn->query($sql)) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while($row = $result->fetch_assoc()){
+                <?php while ($row = $result->fetch_assoc()) {
                     // <<-----------------Expiration Time Converter------------>> //
                     date_default_timezone_set("UTC");
                     $expiresEpoch = $row['until'];

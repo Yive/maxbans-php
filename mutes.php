@@ -1,11 +1,8 @@
-<?php include 'includes/head.php'; ?>
-<?php include 'includes/header.php'; ?>
 <head>
-    <title>Mutes/TempMutes - <?php echo $name; ?></title>
+    <title>TempMutes - <?php echo $name; ?></title>
 </head>
 <?php
-// <<-----------------mysql Database Connection------------>> //
-require 'includes/data/database.php';
+require 'includes/page.php';
 
 $table = $table_mutes;
 $sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
@@ -17,7 +14,6 @@ if (!$result = $conn->query($sql)) {
 ?>
 <body>
 <div class="container">
-    <!-- Example row of columns -->
     <div class="row">
 
         <div class="col-lg-12">

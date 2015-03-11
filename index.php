@@ -6,8 +6,6 @@
 <body>
 
 <div class="container">
-
-    <!-- Main Page -->
     <div class="jumbotron">
         <div style="text-align: center;"><h2>Welcome to <?php echo $name; ?>'s Ban List.</h2></div>
 
@@ -15,7 +13,6 @@
     </div>
 
 </div>
-<!-- /container -->
 <?php
 include 'includes/footer.php';
 ?>

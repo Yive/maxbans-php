@@ -1,6 +1,4 @@
-<?php
-include 'includes/data/settings.php';
-?>
+<?php require 'includes/data/settings.php'; ?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

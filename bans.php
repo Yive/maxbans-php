@@ -1,11 +1,8 @@
-<?php include 'includes/head.php'; ?>
-<?php include 'includes/header.php'; ?>
 <head>
-    <title>Bans/Tempbans - <?php echo $name; ?></title>
+    <title>Tempbans - <?php echo $name; ?></title>
 </head>
 <?php
-// <<-----------------mysql Database Connection------------>> //
-require 'includes/data/database.php';
+require 'includes/page.php';
 
 $table = $table_bans;
 $sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
@@ -14,11 +11,9 @@ $sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $t
 if (!$result = $conn->query($sql)) {
     die('Query error [' . $conn->error . ']');
 }
-
 ?>
 <body>
 <div class="container">
-    <!-- Example row of columns -->
     <div class="row">
 
         <div class="col-lg-12">
