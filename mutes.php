@@ -1,8 +1,10 @@
+<?php
+require 'includes/page.php';
+?>
 <head>
     <title>TempMutes - <?php echo $name; ?></title>
 </head>
 <?php
-require 'includes/page.php';
 
 $table = $table_mutes;
 $sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
