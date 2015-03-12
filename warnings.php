@@ -40,8 +40,8 @@
                     $expiresResult = date('F j, Y, g:i a', $row['until'] / 1000);
                     ?>
                     <tr>
-                        <td><?php echo get_avatar($row['name']); ?> </td>
-                        <td><?php echo get_avatar($row['banned_by_name']); ?> </td>
+                        <td><?php echo get_avatar($row['name']); ?></td>
+                        <td><?php echo get_avatar($row['banned_by_name']); ?></td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
                         <td>
                             <?php if ($row['until'] <= 0) {
