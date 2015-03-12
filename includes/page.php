@@ -1,7 +1,9 @@
 <?php
 require 'head.php';
 require 'header.php';
-require 'data/database.php';
+require 'settings.php';
+
+connect();
 
 function get_query($table) {
     global $table_history, $active_query, $limit_per_page;
@@ -12,13 +14,20 @@ function get_query($table) {
 function run_query($table) {
     global $conn;
     if (!$result = $conn->query(get_query($table))) {
-        die('Query error [' . $conn->error . ']');
+        die('Query error: "' . $conn->error . '"');
     }
     return $result;
 }
 
 function get_avatar($name) {
     return "<img src='https://minotar.net/avatar/" . $name . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $name;
+}
+
+function get_banner_name($banner) {
+    if ($banner === "CONSOLE") {
+        return "Console";
+    }
+    return $banner;
 }
 
 ?>

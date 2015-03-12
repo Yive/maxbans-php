@@ -1,8 +1,5 @@
 <?php require 'includes/page.php'; ?>
-<head>
-    <title>Tempbans - <?php echo $name; ?></title>
-</head>
-<body>
+<title>Tempbans - <?php echo $name; ?></title>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -37,6 +34,7 @@
                 </thead>
                 <tbody>
                 <?php
+                global $table_bans, $conn;
                 $result = run_query($table_bans);
                 while ($row = $result->fetch_assoc()) {
                     date_default_timezone_set("UTC");

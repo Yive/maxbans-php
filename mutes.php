@@ -1,8 +1,5 @@
 <?php require 'includes/page.php'; ?>
-<head>
-    <title>TempMutes - <?php echo $name; ?></title>
-</head>
-<body>
+<title>TempMutes - <?php echo $name; ?></title>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -27,6 +24,7 @@
                 </thead>
                 <tbody>
                 <?php
+                global $table_mutes, $conn;
                 $result = run_query($table_mutes);
                 while ($row = $result->fetch_assoc()) {
                     date_default_timezone_set("UTC");

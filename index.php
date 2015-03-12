@@ -1,10 +1,6 @@
 <?php include 'includes/head.php'; ?>
 <?php include 'includes/header.php'; ?>
-<head>
-    <title>Index - <?php echo $name; ?></title>
-</head>
-<body>
-
+<title>Index - <?php echo $name; ?></title>
 <div class="container">
     <div class="jumbotron">
         <div style="text-align: center;"><h2>Welcome to <?php echo $name; ?>'s Ban List.</h2></div>
@@ -13,6 +9,4 @@
     </div>
 
 </div>
-<?php
-include 'includes/footer.php';
-?>
+<?php include 'includes/footer.php'; ?>
