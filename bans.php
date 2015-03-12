@@ -5,7 +5,6 @@
 <body>
 <div class="container">
     <div class="row">
-
         <div class="col-lg-12">
             <h1 class="page-header">Bans</h1>
             <ol class="breadcrumb">
@@ -13,7 +12,6 @@
                 <li class="active">Bans</li>
             </ol>
         </div>
-
     </div>
     <div class="row" style="margin-bottom:60px;">
         <div class="col-lg-12">
@@ -41,24 +39,13 @@
                 <?php
                 $result = run_query($table_bans);
                 while ($row = $result->fetch_assoc()) {
-                    // <<-----------------Ban Date Converter------------>> //
                     date_default_timezone_set("UTC");
-                    $timeEpoch = $row['time'];
-                    $timeConvert = $timeEpoch / 1000;
-                    $timeResult = date('F j, Y, g:i a', $timeConvert);
-                    // <<-----------------Expiration Time Converter------------>> //
-                    $expiresEpoch = $row['until'];
-                    $expiresConvert = $expiresEpoch / 1000;
-                    $expiresResult = date('F j, Y, g:i a', $expiresConvert);
+                    $timeResult = date('F j, Y, g:i a', $row['time'] / 1000);
+                    $expiresResult = date('F j, Y, g:i a', $row['until'] / 1000);
                     ?>
                     <tr>
-
-                        <td><?php $banned = $row['name'];
-                            echo "<img src='https://minotar.net/avatar/" . $banned . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banned; ?>
-                        </td>
-                        <td><?php $banner = get_banner_name($row['banned_by_name']);
-                            echo "<img src='https://minotar.net/avatar/" . $banner . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $banner ?>
-                        </td>
+                        <td><?php echo get_avatar($row['name']); ?> </td>
+                        <td><?php echo get_avatar($row['banned_by_name']); ?> </td>
                         <td style="width: 30%;"><?php echo $row['reason']; ?></td>
                         <td><?php echo $timeResult; ?></td>
                         <td>
@@ -74,8 +61,10 @@
                     </tr>
                 <?php }
                 $result->free();
-                echo "</tbody></table>";
+                $conn->close();
                 ?>
+                </tbody>
+            </table>
         </div>
     </div>
     <?php include 'includes/footer.php'; ?>
