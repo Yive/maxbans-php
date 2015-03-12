@@ -1,19 +1,7 @@
-<?php
-require 'includes/page.php';
-?>
+<?php require 'includes/page.php'; ?>
 <head>
     <title>TempMutes - <?php echo $name; ?></title>
 </head>
-<?php
-
-$table = $table_mutes;
-$sql = 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
-    ' GROUP BY name ORDER BY time DESC LIMIT ' . $limit_per_page;
-
-if (!$result = $conn->query($sql)) {
-    die('Query error [' . $conn->error . ']');
-}
-?>
 <body>
 <div class="container">
     <div class="row">
@@ -40,7 +28,9 @@ if (!$result = $conn->query($sql)) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = $result->fetch_assoc()) {
+                <?php
+                $result = run_query($table_mutes);
+                while ($row = $result->fetch_assoc()) {
                     // <<-----------------Ban Date Converter------------>> //
                     date_default_timezone_set("UTC");
                     $timeEpoch = $row['time'];
@@ -74,7 +64,5 @@ if (!$result = $conn->query($sql)) {
                 ?>
         </div>
     </div>
-    <?php
-    include 'includes/footer.php';
-    ?>
+    <?php include 'includes/footer.php'; ?>
 </div>
