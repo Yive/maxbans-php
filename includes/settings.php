@@ -34,14 +34,14 @@ function connect() {
 
     $conn = new mysqli($dbhost, $username, $password, $database);
 
+    if ($conn->connect_errno > 0) {
+        die('Unable to connect to database: ' . $conn->connect_error);
+    }
+
     $table_bans     = $table_prefix . "bans";
     $table_mutes    = $table_prefix . "mutes";
     $table_warnings = $table_prefix . "warnings";
     $table_history  = $table_prefix . "history";
-
-    if ($conn->connect_errno > 0) {
-        die('Unable to connect to database: ' . $conn->connect_error);
-    }
 
     $active_query = "WHERE active=1";
     if ($show_inactive_bans) {
