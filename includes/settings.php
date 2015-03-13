@@ -24,7 +24,7 @@ $table_prefix = "";
 
 
 /*****************************************************************************/
-function connect() {
+function litebans_connect() {
     // imported
     global $dbhost, $username, $password, $database, $table_prefix, $show_inactive_bans;
 

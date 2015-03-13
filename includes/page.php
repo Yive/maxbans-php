@@ -3,7 +3,7 @@ require 'head.php';
 require 'header.php';
 require 'settings.php';
 
-connect();
+litebans_connect();
 
 function get_query($table) {
     global $table_history, $active_query, $limit_per_page;
