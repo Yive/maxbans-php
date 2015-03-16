@@ -1,0 +1,12 @@
+Options +FollowSymLinks
+RewriteEngine On
+ 
+# e.g. example.com/foo/ will redirect to example.com/foo
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [R=permanent,QSA]
+ 
+# e.g. example.com/foo will display the contents of example.com/foo.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L,QSA]
