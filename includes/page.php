@@ -8,7 +8,7 @@ litebans_connect();
 function get_query($table) {
     global $table_history, $active_query, $limit_per_page;
     return 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
-    ' GROUP BY name ORDER BY time DESC LIMIT ' . $limit_per_page;
+    ' ORDER BY time DESC LIMIT ' . $limit_per_page;
 }
 
 function run_query($table) {
