@@ -20,7 +20,7 @@ function run_query($table) {
 }
 
 function get_avatar($name) {
-    return "<img src='https://minotar.net/avatar/" . $name . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $name;
+    return "<img src='https://cravatar.eu/avatar/" . $name . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $name;
 }
 
 function get_banner_name($banner) {
