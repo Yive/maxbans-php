@@ -46,7 +46,7 @@
                                 $expiresResult = 'Permanent Warning';
                             }
                             if ($row['active'] == 0) {
-                                $expiresResult .= ' (Inactive)';
+                                $expiresResult .= ' (Expired)';
                             }
                             echo $expiresResult;
                             ?>

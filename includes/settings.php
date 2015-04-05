@@ -13,7 +13,7 @@ $password = 'password';
 // Database name
 $database = 'litebans';
 
-// Show inactive bans? Removed bans will show (Unbanned), mutes will show (Unmuted), warnings will show (Inactive).
+// Show inactive bans? Removed bans will show (Unbanned), mutes will show (Unmuted), warnings will show (Expired).
 $show_inactive_bans = true;
 
 // Amount of bans/mutes/warnings to show on each page
