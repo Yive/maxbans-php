@@ -6,6 +6,7 @@ $serverip = 'mc.example.com';
 /** MySQL settings **/
 // Server host
 $dbhost = 'localhost';
+$dbport = 3306;
 
 $username = 'root';
 $password = 'password';
@@ -27,13 +28,13 @@ $driver = 'mysql';
 /*****************************************************************************/
 function litebans_connect() {
     // imported
-    global $dbhost, $username, $password, $database, $table_prefix, $show_inactive_bans, $driver;
+    global $dbhost, $dbport, $username, $password, $database, $table_prefix, $show_inactive_bans, $driver;
 
     // exported
     global $conn, $active_query;
     global $table_bans, $table_mutes, $table_warnings, $table_history;
 
-    $dsn = $driver . ':dbname=' . $database . ';host=' . $dbhost . ';charset=utf8';
+    $dsn = $driver . ':dbname=' . $database . ';host=' . $dbhost . ';port=' . $dbport . ';charset=utf8';
 
     try {
         $conn = new PDO($dsn, $username, $password);
