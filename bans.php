@@ -12,14 +12,14 @@
     </div>
     <br/>
     <!-- Ban check form -->
-    <form id="form" class="form-inline">
+    <form onsubmit="captureForm(event);" class="form-inline">
         <div class="form-group">
             <input type="text" class="form-control" id="user" placeholder="Player">
         </div>
         <button type="submit" class="btn btn-default">Check</button>
     </form>
     <script type="text/javascript">
-        function runCheck() {
+        function captureForm(e) {
             $.ajax({
                 type: 'POST',
                 url: 'check.php',
@@ -27,19 +27,8 @@
             }).done(function (msg) {
                 document.getElementById('output').innerHTML = msg;
             });
-        }
-        // prevent page from being reloaded on submit
-        // https://stackoverflow.com/questions/5384712/capture-a-form-submit-in-javascript
-        function processForm(e) {
-            if (e.preventDefault) e.preventDefault();
-            runCheck();
+            e.preventDefault();
             return false;
-        }
-        var form = document.getElementById('form');
-        if (form.attachEvent) {
-            form.attachEvent("submit", processForm);
-        } else {
-            form.addEventListener("submit", processForm);
         }
     </script>
     <div id="output"></div>
