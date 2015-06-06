@@ -13,8 +13,10 @@ function get_query($table) {
 
 function run_query($table) {
     global $conn;
-    if (!$result = $conn->query(get_query($table))) {
-        die('Query error: "' . $conn->error . '"');
+    try {
+        $result = $conn->query(get_query($table));
+    } catch (PDOException $ex) {
+        die($ex->getMessage());
     }
     return $result;
 }

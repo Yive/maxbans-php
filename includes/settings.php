@@ -32,10 +32,12 @@ function litebans_connect() {
     global $conn, $active_query;
     global $table_bans, $table_mutes, $table_warnings, $table_history;
 
-    $conn = new mysqli($dbhost, $username, $password, $database);
+    $dsn = 'mysql:dbname=' . $database . ';host=' . $dbhost . ';charset=utf8';
 
-    if ($conn->connect_errno > 0) {
-        die('Unable to connect to database: ' . $conn->connect_error);
+    try {
+        $conn = new PDO($dsn, $username, $password);
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
     }
 
     $table_bans     = $table_prefix . "bans";

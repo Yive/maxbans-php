@@ -36,7 +36,7 @@
                 <?php
                 global $table_bans, $conn;
                 $result = run_query($table_bans);
-                while ($row = $result->fetch_assoc()) {
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     date_default_timezone_set("UTC");
                     $timeResult = date('F j, Y, g:i a', $row['time'] / 1000);
                     $expiresResult = date('F j, Y, g:i a', $row['until'] / 1000);
@@ -58,8 +58,6 @@
                         </td>
                     </tr>
                 <?php }
-                $result->free();
-                $conn->close();
                 ?>
                 </tbody>
             </table>
