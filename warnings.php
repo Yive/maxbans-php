@@ -34,8 +34,7 @@
                 global $table_warnings, $conn;
                 $result = run_query($table_warnings);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    date_default_timezone_set("UTC");
-                    $expiresResult = date('F j, Y, g:i a', $row['until'] / 1000);
+                    $expiresResult = millis_to_date($row['until']);
                     ?>
                     <tr>
                         <td><?php echo get_avatar($row['name']); ?></td>

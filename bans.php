@@ -10,6 +10,40 @@
             </ol>
         </div>
     </div>
+    <br/>
+    <!-- Ban check form -->
+    <form id="form" class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" id="user" placeholder="Player">
+        </div>
+        <button type="submit" class="btn btn-default">Check</button>
+    </form>
+    <script type="text/javascript">
+        function runCheck() {
+            $.ajax({
+                type: 'POST',
+                url: 'check.php',
+                data: {name: document.getElementById('user').value, table: 'bans'}
+            }).done(function (msg) {
+                document.getElementById('output').innerHTML = msg;
+            });
+        }
+        // prevent page from being reloaded on submit
+        // https://stackoverflow.com/questions/5384712/capture-a-form-submit-in-javascript
+        function processForm(e) {
+            if (e.preventDefault) e.preventDefault();
+            runCheck();
+            return false;
+        }
+        var form = document.getElementById('form');
+        if (form.attachEvent) {
+            form.attachEvent("submit", processForm);
+        } else {
+            form.addEventListener("submit", processForm);
+        }
+    </script>
+    <div id="output"></div>
+    <!-- End ban check form -->
     <div class="row" style="margin-bottom:60px;">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered table-condensed">
@@ -37,9 +71,8 @@
                 global $table_bans, $conn;
                 $result = run_query($table_bans);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    date_default_timezone_set("UTC");
-                    $timeResult = date('F j, Y, g:i a', $row['time'] / 1000);
-                    $expiresResult = date('F j, Y, g:i a', $row['until'] / 1000);
+                    $timeResult = millis_to_date($row['time']);
+                    $expiresResult = millis_to_date($row['until']);
                     ?>
                     <tr>
                         <td><?php echo get_avatar($row['name']); ?></td>

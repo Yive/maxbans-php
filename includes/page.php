@@ -32,4 +32,8 @@ function get_banner_name($banner) {
     return $banner;
 }
 
+function millis_to_date($millis) {
+    date_default_timezone_set("UTC");
+    return date('F j, Y, g:i a', $millis / 1000);
+}
 ?>
