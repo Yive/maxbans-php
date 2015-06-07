@@ -29,7 +29,11 @@ if (isset($_POST['name'], $_POST['table'])) {
         echo('Banned by ' . $banner . '<br>');
         echo('Reason: ' . $reason . '<br>');
         echo('Banned on: ' . $time . '<br>');
-        echo('Banned until: ' . $until . '<br>');
+        if ($until > 0) {
+            echo('Banned until: ' . $until . '<br>');
+        } else {
+            echo('Banned permanently.');
+        }
     }
 }
 ?>
