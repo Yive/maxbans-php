@@ -33,7 +33,7 @@
                     <tr>
                         <td><?php echo get_avatar($row['name']); ?></td>
                         <td><?php echo get_avatar($row['banned_by_name']); ?></td>
-                        <td style="width: 30%;"><?php echo $row['reason']; ?></td>
+                        <td style="width: 30%;"><?php echo clean($row['reason']); ?></td>
                         <td><?php echo $timeResult; ?></td>
                         <td>
                             <?php if ($row['until'] <= 0) {

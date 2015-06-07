@@ -36,4 +36,17 @@ function millis_to_date($millis) {
     date_default_timezone_set("UTC");
     return date('F j, Y, g:i a', $millis / 1000);
 }
+
+/**
+ * Removes chat colors from a string.
+ * @param $text
+ */
+function clean($text) {
+    if (strstr($text, "\xa7") || strstr($text, "&")) {
+        $regex = "/(?i)(\xa7|&)[0-9A-FK-OR]/";
+        return preg_replace($regex, "", $text);
+    }
+    return $text;
+}
+
 ?>
