@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
                 <?php
-                global $table_mutes, $conn;
+                global $table_mutes, $conn, $show_inactive_bans;
                 $result = run_query($table_mutes);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     $timeResult = millis_to_date($row['time']);
@@ -39,7 +39,7 @@
                             <?php if ($row['until'] <= 0) {
                                 $expiresResult = 'Permanent Mute';
                             }
-                            if ($row['active'] == 0) {
+                            if ($show_inactive_bans && $row['active'] == 0) {
                                 $expiresResult .= ' (Unmuted)';
                             }
                             echo $expiresResult;

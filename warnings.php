@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
                 <?php
-                global $table_warnings, $conn;
+                global $table_warnings, $conn, $show_inactive_bans;
                 $result = run_query($table_warnings);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     $expiresResult = millis_to_date($row['until']);
@@ -44,7 +44,7 @@
                             <?php if ($row['until'] <= 0) {
                                 $expiresResult = 'Permanent Warning';
                             }
-                            if ($row['active'] == 0) {
+                            if ($show_inactive_bans && $row['active'] == 0) {
                                 $expiresResult .= ' (Expired)';
                             }
                             echo $expiresResult;

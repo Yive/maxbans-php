@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                 <?php
-                global $table_bans, $conn;
+                global $table_bans, $conn, $show_inactive_bans;
                 $result = run_query($table_bans);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     $timeResult = millis_to_date($row['time']);
@@ -72,7 +72,7 @@
                             <?php if ($row['until'] <= 0) {
                                 $expiresResult = 'Permanent Ban';
                             }
-                            if ($row['active'] == 0) {
+                            if ($show_inactive_bans && $row['active'] == 0) {
                                 $expiresResult .= ' (Unbanned)';
                             }
                             echo $expiresResult;
