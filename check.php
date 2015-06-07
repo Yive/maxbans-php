@@ -26,7 +26,7 @@ if (isset($_POST['name'], $_POST['table'])) {
         $time = millis_to_date($row['time']);
         $until = millis_to_date($row['until']);
         echo($name . ' is banned! <br>');
-        echo('Banned by ' . $banner . '<br>');
+        echo('Banned by: ' . $banner . '<br>');
         echo('Reason: ' . $reason . '<br>');
         echo('Banned on: ' . $time . '<br>');
         if ($row['until'] > 0) {
