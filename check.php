@@ -1,12 +1,12 @@
 <?php
 if (isset($_POST['name'], $_POST['table'])) {
-    require 'includes/page.php';
     $name = $_POST['name'];
     // validate user input
     if (strlen($name) > 16 || !preg_match("/[0-9a-zA-Z_]/", $name)) {
         echo('Invalid name.');
         return;
     }
+    require 'includes/page.php';
 
     global $table_bans, $table_history, $conn;
     $stmt = $conn->prepare("SELECT name,uuid FROM " . $table_history . " WHERE name=? ORDER BY date LIMIT 1");
