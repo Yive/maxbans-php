@@ -42,11 +42,11 @@ function millis_to_date($millis) {
  * @param $text
  */
 function clean($text) {
-    $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
     if (strstr($text, "\xa7") || strstr($text, "&")) {
         $regex = "/(?i)(\xa7|&)[0-9A-FK-OR]/";
         $text = preg_replace($regex, "", $text);
     }
+    $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
     if (strstr($text, "\n")) {
         $text = preg_replace("/\n/", "<br>", $text);
     }
