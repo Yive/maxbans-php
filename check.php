@@ -7,8 +7,8 @@ if (isset($_POST['name'], $_POST['table'])) {
         return;
     }
     require 'includes/page.php';
+    $name = $_POST['name'];
 
-    global $table_bans, $table_history, $conn;
     $stmt = $conn->prepare("SELECT name,uuid FROM " . $table_history . " WHERE name=? ORDER BY date LIMIT 1");
     if ($stmt->execute(array($name))) {
         if ($row = $stmt->fetch()) {
