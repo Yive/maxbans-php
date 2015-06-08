@@ -38,7 +38,7 @@ function millis_to_date($millis) {
 }
 
 /**
- * Removes chat colors from a string.
+ * Prepares text to be displayed as a ban reason.
  * @param $text
  */
 function clean($text) {
