@@ -1,5 +1,5 @@
-<?php include 'includes/head.php'; ?>
-<?php include 'includes/header.php'; ?>
+<?php include './includes/head.php'; ?>
+<?php include './includes/header.php'; ?>
 <title>Index - <?php echo $name; ?></title>
 <div class="container">
     <div class="jumbotron">
@@ -9,4 +9,4 @@
     </div>
 
 </div>
-<?php include 'includes/footer.php'; ?>
+<?php include './includes/footer.php'; ?>

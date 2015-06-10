@@ -6,7 +6,7 @@ if (isset($_POST['name'], $_POST['table'])) {
         echo('Invalid name.');
         return;
     }
-    require 'includes/page.php';
+    require './includes/page.php';
     $name = $_POST['name'];
 
     $stmt = $conn->prepare("SELECT name,uuid FROM " . $table_history . " WHERE name=? ORDER BY date LIMIT 1");

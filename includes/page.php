@@ -1,7 +1,7 @@
 <?php
-require 'head.php';
-require 'header.php';
-require_once 'settings.php';
+require './includes/head.php';
+require './includes/header.php';
+require_once './includes/settings.php';
 
 litebans_connect();
 

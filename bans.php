@@ -1,4 +1,4 @@
-<?php require 'includes/page.php'; ?>
+<?php require './includes/page.php'; ?>
 <title>Tempbans - <?php echo $name; ?></title>
 <div class="container">
     <div class="row">
@@ -79,11 +79,10 @@
                             ?>
                         </td>
                     </tr>
-                <?php }
-                ?>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
     </div>
-    <?php include 'includes/footer.php'; ?>
+    <?php include './includes/footer.php'; ?>
 </div>

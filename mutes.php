@@ -1,4 +1,4 @@
-<?php require 'includes/page.php'; ?>
+<?php require './includes/page.php'; ?>
 <title>TempMutes - <?php echo $name; ?></title>
 <div class="container">
     <div class="row">
@@ -52,5 +52,5 @@
             </table>
         </div>
     </div>
-    <?php include 'includes/footer.php'; ?>
+    <?php include './includes/footer.php'; ?>
 </div>
