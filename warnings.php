@@ -27,6 +27,9 @@
                     <th>
                         <div style="text-align: center;">Warned Until</div>
                     </th>
+                    <th>
+                        <div style="text-align: center;">Received Warning?</div>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +52,9 @@
                             }
                             echo $expiresResult;
                             ?>
+                        </td>
+                        <td>
+                            <?php echo $row['warned'] == 1 ? "Yes" : "No"; ?>
                         </td>
                     </tr>
                 <?php }
