@@ -65,7 +65,7 @@
                     ?>
                     <tr>
                         <td><?php echo get_avatar($row['name']); ?></td>
-                        <td><?php echo get_avatar($row['banned_by_name']); ?></td>
+                        <td><?php echo get_avatar(get_banner_name($row['banned_by_name'])); ?></td>
                         <td style="width: 30%;"><?php echo clean($row['reason']); ?></td>
                         <td><?php echo $timeResult; ?></td>
                         <td>
