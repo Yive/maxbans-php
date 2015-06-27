@@ -11,7 +11,7 @@ $data = json_decode(file_get_contents('https://mcapi.ca/v2/query/info/?ip=' . $s
                 <span class="icon-bar"></span>
             </button>
             <p class="navbar-text" style="font-size:15px;color:white;">&copy; <a
-                    href="http://www.spigotmc.org/resources/litebans.3715/" target="_blank">LiteBans</a>
+                    href="https://www.spigotmc.org/resources/litebans.3715/" target="_blank">LiteBans</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
