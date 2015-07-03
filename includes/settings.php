@@ -1,7 +1,6 @@
 <?php
 /** Server settings **/
 $name = 'LiteBans';
-$serverip = 'mc.example.com';
 
 /** MySQL settings **/
 // Server host

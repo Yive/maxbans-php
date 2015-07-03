@@ -13,11 +13,13 @@ function get_query($table) {
 
 function run_query($table) {
     global $conn;
+    $time = microtime(true);
     try {
         $result = $conn->query(get_query($table));
     } catch (PDOException $ex) {
         die($ex->getMessage());
     }
+    echo('<!-- Query executed in ' . (microtime(true) - $time) . ' sec -->');
     return $result;
 }
 
