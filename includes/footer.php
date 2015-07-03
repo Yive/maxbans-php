@@ -16,7 +16,10 @@ $data = json_decode(file_get_contents('https://mcapi.ca/v2/query/info/?ip=' . $s
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <p class="navbar-text"
-                   style="color:white;"><?php echo 'Players: ' . $data['players']['online'] . '/' . $data['players']['max']; ?> </p>
+                   style="color:white;"><?php
+                    if (array_key_exists('players', $data)) {
+                        echo('Players: ' . $data['players']['online'] . '/' . $data['players']['max']);
+                    } ?> </p>
             </ul>
         </div>
     </div>
