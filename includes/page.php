@@ -26,10 +26,7 @@ function get_avatar($name) {
 }
 
 function get_banner_name($banner) {
-    if ($banner === "CONSOLE") {
-        return "Console";
-    }
-    return $banner;
+    return clean($banner);
 }
 
 function millis_to_date($millis) {
@@ -38,8 +35,10 @@ function millis_to_date($millis) {
 }
 
 /**
- * Prepares text to be displayed as a ban reason.
+ * Prepares text to be displayed on the web interface.
+ * Removes chat colours, replaces newlines with proper HTML, and sanitizes the text.
  * @param $text
+ * @return mixed|string
  */
 function clean($text) {
     if (strstr($text, "\xa7") || strstr($text, "&")) {
