@@ -25,7 +25,16 @@ function get_avatar($name) {
     return "<img src='https://cravatar.eu/avatar/" . $name . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $name;
 }
 
-function get_banner_name($banner) {
+function get_banner_name($row) {
+    global $conn, $table_history;
+    $uuid = $row['banned_by_uuid'];
+    $stmt = $conn->prepare("SELECT name FROM " . $table_history . " WHERE uuid=? ORDER BY date DESC LIMIT 1");
+    if ($stmt->execute(array($uuid)) && $r = $stmt->fetch()) {
+        $banner = $r['name'];
+        return $banner;
+    }
+    //return "null";
+    $banner = $row['banned_by_name'];
     return clean($banner);
 }
 
