@@ -32,8 +32,10 @@ $uuid_name_cache = [];
 function get_name($uuid) {
     global $conn, $table_history, $uuid_name_cache;
     if (array_key_exists($uuid, $uuid_name_cache)) return $uuid_name_cache[$uuid];
+    $time = microtime(true);
     $stmt = $conn->prepare("SELECT name FROM " . $table_history . " WHERE uuid=? ORDER BY date DESC LIMIT 1");
     if ($stmt->execute(array($uuid)) && $row = $stmt->fetch()) {
+        echo('<!-- Query executed in ' . (microtime(true) - $time) . ' sec -->');
         $banner = $row['name'];
         $uuid_name_cache[$uuid] = $banner;
         return $banner;
