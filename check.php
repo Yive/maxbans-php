@@ -27,7 +27,7 @@ if (isset($_POST['name'], $_POST['table'])) {
             echo($name . ' is not banned.');
             return;
         }
-        $banner = get_banner_name($row['banned_by_name']);
+        $banner = get_banner_name($row);
         $reason = $row['reason'];
         $time = millis_to_date($row['time']);
         $until = millis_to_date($row['until']);
