@@ -5,10 +5,9 @@ require_once './includes/settings.php';
 
 litebans_connect();
 
-
 function get_query($table) {
-    global $table_history, $active_query, $limit_per_page;
-    return 'SELECT * FROM ' . $table . ' INNER JOIN ' . $table_history . ' on ' . $table . '.uuid=' . $table_history . '.uuid ' . $active_query .
+    global $active_query, $limit_per_page;
+    return 'SELECT * FROM ' . $table . $active_query .
     ' GROUP BY ' . $table . '.id ORDER BY time DESC LIMIT ' . $limit_per_page;
 }
 
@@ -26,21 +25,28 @@ function get_avatar($name) {
     return "<img src='https://cravatar.eu/avatar/" . $name . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $name;
 }
 
-$banner_name_cache = [];
+$uuid_name_cache = [];
 
-function get_banner_name($row) {
-    global $conn, $table_history, $banner_name_cache;
-    $uuid = $row['banned_by_uuid'];
-    if (array_key_exists($uuid, $banner_name_cache)) return $banner_name_cache[$uuid];
+function get_name($uuid) {
+    global $conn, $table_history, $uuid_name_cache;
+    if (array_key_exists($uuid, $uuid_name_cache)) return $uuid_name_cache[$uuid];
     $stmt = $conn->prepare("SELECT name FROM " . $table_history . " WHERE uuid=? ORDER BY date DESC LIMIT 1");
-    if ($stmt->execute(array($uuid)) && $r = $stmt->fetch()) {
-        $banner = $r['name'];
-        $banner_name_cache[$uuid] = $banner;
+    if ($stmt->execute(array($uuid)) && $row = $stmt->fetch()) {
+        $banner = $row['name'];
+        $uuid_name_cache[$uuid] = $banner;
         return $banner;
     }
-    //return "null";
-    $banner = $row['banned_by_name'];
-    return clean($banner);
+    return null;
+}
+
+function get_banner_name($row) {
+    $uuid = $row['banned_by_uuid'];
+    $name = get_name($uuid);
+    if ($name !== null) {
+        return $name;
+    }
+    $name = $row['banned_by_name'];
+    return clean($name);
 }
 
 function millis_to_date($millis) {

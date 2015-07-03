@@ -31,7 +31,7 @@
                     $expiresResult = millis_to_date($row['until']);
                     ?>
                     <tr>
-                        <td><?php echo get_avatar($row['name']); ?></td>
+                        <td><?php echo get_avatar(get_name($row['uuid'])); ?></td>
                         <td><?php echo get_avatar(get_banner_name($row)); ?></td>
                         <td style="width: 30%;"><?php echo clean($row['reason']); ?></td>
                         <td><?php echo $timeResult; ?></td>
