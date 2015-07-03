@@ -23,6 +23,12 @@ $limit_per_page = 20;
 // If you set a table prefix in config.yml, put it here too
 $table_prefix = "";
 
+// The date format can be changed here.
+// https://secure.php.net/manual/en/function.date.php
+// Example of default:
+// July 2, 2015, 9:19 pm
+$date_format = 'F j, Y, g:i a';
+
 $driver = 'mysql';
 
 /*****************************************************************************/

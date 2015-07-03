@@ -30,8 +30,9 @@ function get_banner_name($banner) {
 }
 
 function millis_to_date($millis) {
+    global $date_format;
     date_default_timezone_set("UTC");
-    return date('F j, Y, g:i a', $millis / 1000);
+    return date($date_format, $millis / 1000);
 }
 
 /**
