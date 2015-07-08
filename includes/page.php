@@ -27,7 +27,7 @@ function get_avatar($name) {
     return "<img src='https://cravatar.eu/avatar/" . $name . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $name;
 }
 
-$uuid_name_cache = [];
+$uuid_name_cache = array();
 
 function get_name($uuid) {
     global $conn, $table_history, $uuid_name_cache;
