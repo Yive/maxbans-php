@@ -55,7 +55,6 @@ function get_banner_name($row) {
 
 function millis_to_date($millis) {
     global $date_format;
-    date_default_timezone_set("UTC");
     return date($date_format, $millis / 1000);
 }
 
@@ -90,9 +89,7 @@ function print_page_header($title) {
 function print_table_headers($headers) {
     echo("<thead><tr>");
     foreach ($headers as $header) {
-        echo('<th><div style="text-align: center;">');
-        echo($header);
-        echo('</div></th>');
+        echo '<th><div style="text-align: center;">', $header, '</div></th>';
     }
     echo("<tbody>");
 }

@@ -32,9 +32,7 @@
                             <?php echo $row['warned'] ? "Yes" : "No"; ?>
                         </td>
                     </tr>
-                <?php }
-                ?>
-                </tbody>
+                <?php } ?>
             </table>
         </div>
     </div>

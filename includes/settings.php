@@ -27,6 +27,7 @@ $table_prefix = "";
 // Example of default:
 // July 2, 2015, 9:19 pm
 $date_format = 'F j, Y, g:i a';
+date_default_timezone_set("UTC");
 
 $driver = 'mysql';
 
