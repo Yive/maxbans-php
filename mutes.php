@@ -39,7 +39,7 @@
                             <?php if ($row['until'] <= 0) {
                                 $expiresResult = 'Permanent Mute';
                             }
-                            if ($show_inactive_bans && $row['active'] == 0) {
+                            if ($show_inactive_bans && !$row['active']) {
                                 $expiresResult .= ' (Unmuted)';
                             }
                             echo $expiresResult;

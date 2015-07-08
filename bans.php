@@ -72,7 +72,7 @@
                             <?php if ($row['until'] <= 0) {
                                 $expiresResult = 'Permanent Ban';
                             }
-                            if ($show_inactive_bans && $row['active'] == 0) {
+                            if ($show_inactive_bans && !$row['active']) {
                                 $expiresResult .= ' (Unbanned)';
                             }
                             echo $expiresResult;

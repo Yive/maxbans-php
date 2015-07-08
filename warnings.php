@@ -47,14 +47,14 @@
                             <?php if ($row['until'] <= 0) {
                                 $expiresResult = 'Permanent Warning';
                             }
-                            if ($show_inactive_bans && $row['active'] == 0) {
+                            if ($show_inactive_bans && !$row['active']) {
                                 $expiresResult .= ' (Expired)';
                             }
                             echo $expiresResult;
                             ?>
                         </td>
                         <td>
-                            <?php echo $row['warned'] == 1 ? "Yes" : "No"; ?>
+                            <?php echo $row['warned'] ? "Yes" : "No"; ?>
                         </td>
                     </tr>
                 <?php }
