@@ -2,7 +2,7 @@
 if (isset($_POST['name'], $_POST['table'])) {
     $name = $_POST['name'];
     // validate user input
-    if (strlen($name) > 16 || !preg_match("/^[0-9a-zA-Z_]$/", $name)) {
+    if (strlen($name) > 16 || !preg_match("/^[0-9a-zA-Z_]{1,16}$/", $name)) {
         echo('Invalid name.');
         return;
     }
