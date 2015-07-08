@@ -1,30 +1,10 @@
 <?php require './includes/page.php'; ?>
 <title>Tempbans - <?php echo $name; ?></title>
 <div class="container">
-    <?php print_page_header("Bans"); ?>
-    <br/>
-    <!-- Ban check form -->
-    <form onsubmit="captureForm(event);" class="form-inline">
-        <div class="form-group">
-            <input type="text" class="form-control" id="user" placeholder="Player">
-        </div>
-        <button type="submit" class="btn btn-default">Check</button>
-    </form>
-    <script type="text/javascript">
-        function captureForm(e) {
-            $.ajax({
-                type: 'POST',
-                url: 'check.php',
-                data: {name: document.getElementById('user').value, table: 'bans'}
-            }).done(function (msg) {
-                document.getElementById('output').innerHTML = msg;
-            });
-            e.preventDefault();
-            return false;
-        }
-    </script>
-    <div id="output"></div>
-    <!-- End ban check form -->
+    <?php
+    print_page_header("Bans");
+    print_check_form("bans");
+    ?>
     <div class="row" style="margin-bottom:60px;">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered table-condensed">

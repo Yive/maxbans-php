@@ -1,7 +1,9 @@
 <?php require './includes/page.php'; ?>
 <title>Warnings - <?php echo $name; ?></title>
 <div class="container">
-    <?php print_page_header("Warnings"); ?>
+    <?php
+    print_page_header("Warnings");
+    ?>
     <div class="row" style="margin-bottom:60px;">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered table-condensed">
