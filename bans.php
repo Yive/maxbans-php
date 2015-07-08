@@ -1,15 +1,7 @@
 <?php require './includes/page.php'; ?>
 <title>Tempbans - <?php echo $name; ?></title>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Bans</h1>
-            <ol class="breadcrumb">
-                <li><a href="index.php">Home</a></li>
-                <li class="active">Bans</li>
-            </ol>
-        </div>
-    </div>
+    <?php print_page_header("Bans"); ?>
     <br/>
     <!-- Ban check form -->
     <form onsubmit="captureForm(event);" class="form-inline">

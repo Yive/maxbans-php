@@ -1,15 +1,7 @@
 <?php require './includes/page.php'; ?>
 <title>Warnings - <?php echo $name; ?></title>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Warnings</h1>
-            <ol class="breadcrumb">
-                <li><a href="index.php">Home</a></li>
-                <li class="active">Warnings</li>
-            </ol>
-        </div>
-    </div>
+    <?php print_page_header("Warnings"); ?>
     <div class="row" style="margin-bottom:60px;">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered table-condensed">
