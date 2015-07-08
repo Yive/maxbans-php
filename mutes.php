@@ -13,17 +13,8 @@
     <div class="row" style="margin-bottom:60px;">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered table-condensed">
-                <thead>
-                <tr>
-                    <th style="text-align: center;">Name</th>
-                    <th style="text-align: center;">Muted By</th>
-                    <th style="text-align: center;">Reason</th>
-                    <th style="text-align: center;">Muted On</th>
-                    <th style="text-align: center;">Muted Until</th>
-                </tr>
-                </thead>
-                <tbody>
                 <?php
+                print_table_headers(array("Name", "Muted By", "Reason", "Muted On", "Muted Until"));
                 global $table_mutes, $conn, $show_inactive_bans;
                 $result = run_query($table_mutes);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -48,7 +39,6 @@
                     </tr>
                 <?php }
                 ?>
-                </tbody>
             </table>
         </div>
     </div>

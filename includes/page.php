@@ -77,4 +77,14 @@ function clean($text) {
     return $text;
 }
 
+function print_table_headers($headers) {
+    echo("<thead><tr>");
+    foreach ($headers as $header) {
+        echo('<th><div style="text-align: center;">');
+        echo($header);
+        echo('</div></th>');
+    }
+    echo("<tbody>");
+}
+
 ?>

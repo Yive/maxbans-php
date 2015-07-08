@@ -36,27 +36,8 @@
     <div class="row" style="margin-bottom:60px;">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered table-condensed">
-                <thead>
-                <tr>
-                    <th>
-                        <div style="text-align: center;">Name</div>
-                    </th>
-                    <th>
-                        <div style="text-align: center;">Banned By</div>
-                    </th>
-                    <th>
-                        <div style="text-align: center;">Reason</div>
-                    </th>
-                    <th>
-                        <div style="text-align: center;">Banned On</div>
-                    </th>
-                    <th>
-                        <div style="text-align: center;">Banned Until</div>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
                 <?php
+                print_table_headers(array("Name", "Banned By", "Reason", "Banned On", "Banned Until"));
                 global $table_bans, $conn, $show_inactive_bans;
                 $result = run_query($table_bans);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -80,7 +61,6 @@
                         </td>
                     </tr>
                 <?php } ?>
-                </tbody>
             </table>
         </div>
     </div>

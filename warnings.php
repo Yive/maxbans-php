@@ -13,27 +13,8 @@
     <div class="row" style="margin-bottom:60px;">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered table-condensed">
-                <thead>
-                <tr>
-                    <th>
-                        <div style="text-align: center;">Name</div>
-                    </th>
-                    <th>
-                        <div style="text-align: center;">Warned By</div>
-                    </th>
-                    <th>
-                        <div style="text-align: center;">Reason</div>
-                    </th>
-                    <th>
-                        <div style="text-align: center;">Warned Until</div>
-                    </th>
-                    <th>
-                        <div style="text-align: center;">Received Warning?</div>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
                 <?php
+                print_table_headers(array("Name", "Warned By", "Reason", "Warned Until", "Received Warning?"));
                 global $table_warnings, $conn, $show_inactive_bans;
                 $result = run_query($table_warnings);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
