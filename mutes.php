@@ -12,22 +12,23 @@
                 global $table_mutes, $conn, $show_inactive_bans;
                 $result = run_query($table_mutes);
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    $timeResult = millis_to_date($row['time']);
-                    $expiresResult = millis_to_date($row['until']);
+                    $player_name = get_name($row['uuid']);
+                    if ($player_name === null) continue;
+                    $until = millis_to_date($row['until']);
                     ?>
                     <tr>
-                        <td><?php echo get_avatar(get_name($row['uuid'])); ?></td>
+                        <td><?php echo get_avatar($player_name); ?></td>
                         <td><?php echo get_avatar(get_banner_name($row)); ?></td>
                         <td style="width: 30%;"><?php echo clean($row['reason']); ?></td>
-                        <td><?php echo $timeResult; ?></td>
+                        <td><?php echo millis_to_date($row['time']); ?></td>
                         <td>
                             <?php if ($row['until'] <= 0) {
-                                $expiresResult = 'Permanent Mute';
+                                $until = 'Permanent Mute';
                             }
                             if ($show_inactive_bans && !$row['active']) {
-                                $expiresResult .= ' (Unmuted)';
+                                $until .= ' (Unmuted)';
                             }
-                            echo $expiresResult;
+                            echo $until;
                             ?>
                         </td>
                     </tr>
