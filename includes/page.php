@@ -40,6 +40,7 @@ function get_name($uuid) {
         $uuid_name_cache[$uuid] = $banner;
         return $banner;
     }
+    $uuid_name_cache[$uuid] = null;
     return null;
 }
 
