@@ -95,11 +95,15 @@ function print_table_headers($headers) {
 }
 
 function print_check_form($table) {
-    // var table=document.URL.substring(document.URL.lastIndexOf("/")+1); table=table.substring(0,table.indexOf("."));
-    echo('<br>');
-    echo('<form onsubmit="captureForm(event);" class="form-inline"><div class="form-group"><input type="text" class="form-control" id="user" placeholder="Player"></div><button type="submit" class="btn btn-default">Check</button></form>');
-    echo('<script type="text/javascript">function captureForm(b){$.ajax({type:"POST",url:"check.php",data:{name:document.getElementById("user").value,table:"' . $table . '"}}).done(function(c){document.getElementById("output").innerHTML=c});b.preventDefault();return false};</script>');
-    echo('<div id="output"></div>');
+    echo('
+         <div class="row">
+             <div style="margin-left: 15px;">
+                 <form onsubmit="captureForm(event);" class="form-inline"><div class="form-group"><input type="text" class="form-control" id="user" placeholder="Player"></div><button type="submit" class="btn btn-default" style="margin-left: 5px;">Check</button></form>
+             </div>
+             <script type="text/javascript">function captureForm(b){$("#output").removeClass("in");$.ajax({type:"POST",url:"check.php",data:{name:document.getElementById("user").value,table:"' . $table . '"}}).done(function(c){document.getElementById("output").innerHTML=c;$("#output").addClass("in")});b.preventDefault();return false};</script>
+             <div id="output" class="success fade" data-alert="alert" style="margin-left: 15px;"></div>
+         </div>
+         ');
 }
 
 ?>

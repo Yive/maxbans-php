@@ -42,6 +42,7 @@ if (isset($_POST['name'], $_POST['table'])) {
         } else {
             echo('Banned permanently.');
         }
+        echo("<br>");
     }
 }
 ?>
