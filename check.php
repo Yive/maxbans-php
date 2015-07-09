@@ -18,7 +18,7 @@ if (isset($_POST['name'], $_POST['table'])) {
     }
     if (!isset($uuid)) {
         $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-        echo($name . ' has not joined before.');
+        echo($name . ' has not joined before.<br>');
         return;
     }
     $table = $table_bans;
@@ -26,7 +26,7 @@ if (isset($_POST['name'], $_POST['table'])) {
     $stmt = $conn->prepare("SELECT * FROM " . $table . " WHERE (uuid=? AND active=1) LIMIT 1");
     if ($stmt->execute(array($uuid))) {
         if (!($row = $stmt->fetch())) {
-            echo($name . ' is not banned.');
+            echo($name . ' is not banned.<br>');
             return;
         }
         $banner = get_banner_name($row);
@@ -40,9 +40,8 @@ if (isset($_POST['name'], $_POST['table'])) {
         if ($row['until'] > 0) {
             echo('Banned until: ' . $until . '<br>');
         } else {
-            echo('Banned permanently.');
+            echo('Banned permanently.<br>');
         }
-        echo("<br>");
     }
 }
 ?>

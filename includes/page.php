@@ -100,7 +100,7 @@ function print_check_form($table) {
              <div style="margin-left: 15px;">
                  <form onsubmit="captureForm(event);" class="form-inline"><div class="form-group"><input type="text" class="form-control" id="user" placeholder="Player"></div><button type="submit" class="btn btn-default" style="margin-left: 5px;">Check</button></form>
              </div>
-             <script type="text/javascript">function captureForm(b){$("#output").removeClass("in");$.ajax({type:"POST",url:"check.php",data:{name:document.getElementById("user").value,table:"' . $table . '"}}).done(function(c){document.getElementById("output").innerHTML=c;$("#output").addClass("in")});b.preventDefault();return false};</script>
+             <script type="text/javascript">function captureForm(b){o=$("#output");o.removeClass("in");x=setTimeout(function(){o.html("<br>")}, 150);$.ajax({type:"POST",url:"check.php",data:{name:$("#user").val(),table:"' . $table . '"}}).done(function(c){clearTimeout(x);o.html(c);o.addClass("in")});b.preventDefault();return false};</script>
              <div id="output" class="success fade" data-alert="alert" style="margin-left: 15px;"></div>
          </div>
          ');
