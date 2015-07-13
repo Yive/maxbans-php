@@ -3,8 +3,6 @@ require './includes/head.php';
 require './includes/header.php';
 require_once './includes/settings.php';
 
-//litebans_connect();
-
 class Page {
     public function __construct() {
         $settings = new Settings();
@@ -30,9 +28,8 @@ class Page {
     }
 
     function get_avatar($name) {
-        return "<img src='https://cravatar.eu/avatar/" . $name . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $name;
+        return "<img src='https://cravatar.eu/avatar/$name/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />$name";
     }
-
 
     function get_name($uuid) {
         if (array_key_exists($uuid, $this->uuid_name_cache)) return $this->uuid_name_cache[$uuid];
@@ -41,10 +38,10 @@ class Page {
         if ($stmt->execute(array($uuid)) && $row = $stmt->fetch()) {
             echo('<!-- Query executed in ' . (microtime(true) - $time) . ' sec -->');
             $banner = $row['name'];
-            $uuid_name_cache[$uuid] = $banner;
+            $this->uuid_name_cache[$uuid] = $banner;
             return $banner;
         }
-        $uuid_name_cache[$uuid] = null;
+        $this->uuid_name_cache[$uuid] = null;
         return null;
     }
 
@@ -82,12 +79,12 @@ class Page {
 
     function print_page_header($title) {
         echo('
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="' . ($title === "Bans" ? "modal" : "navbar") . '-header">' . $title . '</h1>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="' . ($title === "Bans" ? "modal" : "navbar") . '-header">' . $title . '</h1>
+            </div>
         </div>
-    </div>
-    ');
+        ');
     }
 
     function print_table_headers($headers) {
