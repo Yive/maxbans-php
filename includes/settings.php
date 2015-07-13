@@ -1,61 +1,57 @@
 <?php
-/** Server settings **/
-$name = 'LiteBans';
 
-/** MySQL settings **/
-// Server host
-$dbhost = 'localhost';
-$dbport = 3306;
+final class Settings {
+    public function __construct($connect = true) {
+        // Server name
+        $this->name = 'LiteBans';
 
-$username = 'root';
-$password = 'password';
+        // Server host
+        $dbhost = 'localhost';
+        $dbport = 3306;
 
-// Database name
-$database = 'litebans';
+        $username = 'root';
+        $password = 'password';
 
-// Show inactive bans? Removed bans will show (Unbanned), mutes will show (Unmuted), warnings will show (Expired).
-$show_inactive_bans = true;
+        // Database name
+        $database = 'litebans';
 
-// Amount of bans/mutes/warnings to show on each page
-$limit_per_page = 20;
+        // Show inactive bans? Removed bans will show (Unbanned), mutes will show (Unmuted), warnings will show (Expired).
+        $this->show_inactive_bans = true;
 
-// If you set a table prefix in config.yml, put it here too
-$table_prefix = "";
+        // Amount of bans/mutes/warnings to show on each page
+        $this->limit_per_page = 20;
 
-// The date format can be changed here.
-// https://secure.php.net/manual/en/function.date.php
-// Example of default:
-// July 2, 2015, 9:19 pm
-$date_format = 'F j, Y, g:i a';
-date_default_timezone_set("UTC");
+        // If you set a table prefix in config.yml, put it here too
+        $this->table_prefix = "";
 
-$driver = 'mysql';
+        $this->table_bans = $this->table_prefix . "bans";
+        $this->table_mutes = $this->table_prefix . "mutes";
+        $this->table_warnings = $this->table_prefix . "warnings";
+        $this->table_history = $this->table_prefix . "history";
 
-/*****************************************************************************/
-function litebans_connect() {
-    // imported
-    global $dbhost, $dbport, $username, $password, $database, $table_prefix, $show_inactive_bans, $driver;
+        // The date format can be changed here.
+        // https://secure.php.net/manual/en/function.date.php
+        // Example of default:
+        // July 2, 2015, 9:19 pm
+        $this->date_format = 'F j, Y, g:i a';
+        date_default_timezone_set("UTC");
 
-    // exported
-    global $conn, $active_query;
-    global $table_bans, $table_mutes, $table_warnings, $table_history;
+        $this->driver = 'mysql';
 
-    $dsn = $driver . ':dbname=' . $database . ';host=' . $dbhost . ';port=' . $dbport . ';charset=utf8';
+        $this->active_query = "";
+        if (!$this->show_inactive_bans) {
+            $this->active_query = "WHERE active=1";
+        }
 
-    try {
-        $conn = new PDO($dsn, $username, $password);
-    } catch (PDOException $e) {
-        echo 'Connection failed: ' . $e->getMessage();
-    }
+        if ($connect) {
+            $dsn = $this->driver . ':dbname=' . $database . ';host=' . $dbhost . ';port=' . $dbport . ';charset=utf8';
 
-    $table_bans     = $table_prefix . "bans";
-    $table_mutes    = $table_prefix . "mutes";
-    $table_warnings = $table_prefix . "warnings";
-    $table_history  = $table_prefix . "history";
-
-    $active_query = "WHERE active=1";
-    if ($show_inactive_bans) {
-        $active_query = "";
+            try {
+                $this->conn = new PDO($dsn, $username, $password);
+            } catch (PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+        }
     }
 }
 

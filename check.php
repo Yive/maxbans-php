@@ -7,9 +7,10 @@ if (isset($_POST['name'], $_POST['table'])) {
         return;
     }
     require './includes/page.php';
+    $page = new Page();
     $name = $_POST['name'];
 
-    $stmt = $conn->prepare("SELECT name,uuid FROM " . $table_history . " WHERE name=? ORDER BY date LIMIT 1");
+    $stmt = $page->conn->prepare("SELECT name,uuid FROM " . $page->settings->table_history . " WHERE name=? ORDER BY date LIMIT 1");
     if ($stmt->execute(array($name))) {
         if ($row = $stmt->fetch()) {
             $name = $row['name'];
@@ -21,21 +22,21 @@ if (isset($_POST['name'], $_POST['table'])) {
         echo($name . ' has not joined before.<br>');
         return;
     }
-    $table = $table_bans;
+    $table = $page->settings->table_bans;
 
-    $stmt = $conn->prepare("SELECT * FROM " . $table . " WHERE (uuid=? AND active=1) LIMIT 1");
+    $stmt = $page->conn->prepare("SELECT * FROM " . $table . " WHERE (uuid=? AND active=1) LIMIT 1");
     if ($stmt->execute(array($uuid))) {
         if (!($row = $stmt->fetch())) {
             echo($name . ' is not banned.<br>');
             return;
         }
-        $banner = get_banner_name($row);
+        $banner = $page->get_banner_name($row);
         $reason = $row['reason'];
-        $time = millis_to_date($row['time']);
-        $until = millis_to_date($row['until']);
+        $time = $page->millis_to_date($row['time']);
+        $until = $page->millis_to_date($row['until']);
         echo($name . ' is banned!<br>');
         echo('Banned by: ' . $banner . '<br>');
-        echo('Reason: ' . clean($reason) . '<br>');
+        echo('Reason: ' . $page->clean($reason) . '<br>');
         echo('Banned on: ' . $time . '<br>');
         if ($row['until'] > 0) {
             echo('Banned until: ' . $until . '<br>');
