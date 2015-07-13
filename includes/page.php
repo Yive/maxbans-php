@@ -12,18 +12,17 @@ class Page {
     }
 
     function get_query($table) {
-        return 'SELECT * FROM ' . $table . $this->settings->active_query .
-        ' GROUP BY ' . $table . '.id ORDER BY time DESC LIMIT ' . $this->settings->limit_per_page;
+        $active_query = $this->settings->active_query;
+        $limit = $this->settings->limit_per_page;
+        return "SELECT * FROM $table $active_query GROUP BY $table.id ORDER BY time DESC LIMIT $limit";
     }
 
     function run_query($table) {
-        $time = microtime(true);
         try {
             $result = $this->conn->query($this->get_query($table));
         } catch (PDOException $ex) {
             die($ex->getMessage());
         }
-        echo('<!-- Query executed in ' . (microtime(true) - $time) . ' sec -->');
         return $result;
     }
 
@@ -33,10 +32,9 @@ class Page {
 
     function get_name($uuid) {
         if (array_key_exists($uuid, $this->uuid_name_cache)) return $this->uuid_name_cache[$uuid];
-        $time = microtime(true);
-        $stmt = $this->conn->prepare("SELECT name FROM " . $this->settings->table_history . " WHERE uuid=? ORDER BY date DESC LIMIT 1");
+        $history = $this->settings->table_history;
+        $stmt = $this->conn->prepare("SELECT name FROM $history WHERE uuid=? ORDER BY date DESC LIMIT 1");
         if ($stmt->execute(array($uuid)) && $row = $stmt->fetch()) {
-            echo('<!-- Query executed in ' . (microtime(true) - $time) . ' sec -->');
             $banner = $row['name'];
             $this->uuid_name_cache[$uuid] = $banner;
             return $banner;
@@ -78,19 +76,20 @@ class Page {
     }
 
     function print_page_header($title) {
-        echo('
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="' . ($title === "Bans" ? "modal" : "navbar") . '-header">' . $title . '</h1>
+        $type = $title === "Bans" ? "modal" : "navbar";
+        echo("
+        <div class=\"row\">
+            <div class=\"col-lg-12\">
+                <h1 class=\"$type-header\">$title</h1>
             </div>
         </div>
-        ');
+        ");
     }
 
     function print_table_headers($headers) {
         echo("<thead><tr>");
         foreach ($headers as $header) {
-            echo '<th><div style="text-align: center;">', $header, '</div></th>';
+            echo "<th><div style=\"text-align: center;\">$header</div></th>";
         }
         echo("<tbody>");
     }

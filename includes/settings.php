@@ -22,12 +22,12 @@ final class Settings {
         $this->limit_per_page = 20;
 
         // If you set a table prefix in config.yml, put it here too
-        $this->table_prefix = "";
+        $table_prefix = "";
 
-        $this->table_bans = $this->table_prefix . "bans";
-        $this->table_mutes = $this->table_prefix . "mutes";
-        $this->table_warnings = $this->table_prefix . "warnings";
-        $this->table_history = $this->table_prefix . "history";
+        $this->table_bans = "{$table_prefix}bans";
+        $this->table_mutes = "{$table_prefix}mutes";
+        $this->table_warnings = "{$table_prefix}warnings";
+        $this->table_history = "{$table_prefix}history";
 
         // The date format can be changed here.
         // https://secure.php.net/manual/en/function.date.php
@@ -36,7 +36,7 @@ final class Settings {
         $this->date_format = 'F j, Y, g:i a';
         date_default_timezone_set("UTC");
 
-        $this->driver = 'mysql';
+        $driver = 'mysql';
 
         $this->active_query = "";
         if (!$this->show_inactive_bans) {
@@ -44,7 +44,7 @@ final class Settings {
         }
 
         if ($connect) {
-            $dsn = $this->driver . ':dbname=' . $database . ';host=' . $dbhost . ';port=' . $dbport . ';charset=utf8';
+            $dsn = "$driver:dbname=$database;host=$dbhost;port=$dbport;charset=utf8";
 
             try {
                 $this->conn = new PDO($dsn, $username, $password);
