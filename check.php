@@ -8,7 +8,6 @@ if (isset($_POST['name'], $_POST['table'])) {
     }
     require './includes/page.php';
     $page = new Page();
-    $name = $_POST['name'];
 
     $stmt = $page->conn->prepare("SELECT name,uuid FROM " . $page->settings->table_history . " WHERE name=? ORDER BY date LIMIT 1");
     if ($stmt->execute(array($name))) {
