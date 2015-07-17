@@ -40,5 +40,5 @@ $page = new Page();
             </table>
         </div>
     </div>
-    <?php include './includes/footer.php'; ?>
+    <?php $page->print_footer(); ?>
 </div>

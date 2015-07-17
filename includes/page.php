@@ -9,6 +9,7 @@ class Page {
         $this->conn = $settings->conn;
         $this->settings = $settings;
         $this->uuid_name_cache = array();
+        $this->time = microtime(true);
     }
 
     function get_query($table) {
@@ -104,6 +105,12 @@ class Page {
              <div id="output" class="success fade" data-alert="alert" style="margin-left: 15px;"><br></div>
          </div>
          ');
+    }
+
+    function print_footer() {
+        include './includes/footer.php';
+        $time = microtime(true) - $this->time;
+        echo "<!-- Page generated in $time seconds. -->";
     }
 }
 
