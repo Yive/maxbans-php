@@ -22,7 +22,7 @@ final class Settings {
         $this->show_pager = true;
 
         // Amount of bans/mutes/warnings to show on each page
-        $this->limit_per_page = 20;
+        $this->limit_per_page = 10;
 
         // If you set a table prefix in config.yml, put it here too
         $table_prefix = "";
