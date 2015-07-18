@@ -128,11 +128,11 @@ class Page {
         $prev = $this->page - 1;
         $next = $this->page + 1;
 
-        $pager_prev = "<div style=\"float:left;\">&lt;&lt;</div>";
+        $pager_prev = "<div style=\"float:left; font-size:30px;\">«</div>";
         if ($this->page > 0) {
             $pager_prev = "<a href=\"$page?page=$prev\">$pager_prev</a>";
         }
-        $pager_next = "<a href=\"$page?page=$next\"><div style=\"float: right;\">&gt;&gt;</div></a>";
+        $pager_next = "<a href=\"$page?page=$next\"><div style=\"float: right; font-size:30px;\">»</div></a>";
         echo "$pager_prev $pager_next";
     }
 
