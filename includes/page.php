@@ -10,25 +10,41 @@ class Page {
         $this->settings = $settings;
         $this->uuid_name_cache = array();
         $this->time = microtime(true);
-    }
+        $this->page = 0;
 
-    function get_query($table) {
-        $active_query = $this->settings->active_query;
-        $limit = $this->settings->limit_per_page;
-        return "SELECT * FROM $table $active_query GROUP BY $table.id ORDER BY time DESC LIMIT $limit";
+        if (isset($_GET['page'])) {
+            $page = $_GET['page']; // user input
+            if (filter_var($page, FILTER_VALIDATE_INT)) {
+                $this->page = (int)$page;
+            }
+        }
     }
 
     function run_query($table) {
         try {
-            $result = $this->conn->query($this->get_query($table));
+            $active_query = $this->settings->active_query;
+            $limit = $this->settings->limit_per_page;
+
+            $offset = 0;
+            if ($this->settings->show_pager) {
+                $offset = ($limit * $this->page);
+            }
+            $query = "SELECT * FROM $table $active_query GROUP BY $table.id ORDER BY time DESC LIMIT :limit OFFSET :offset";
+            $st = $this->conn->prepare($query);
+
+            $st->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $st->bindParam(':limit', $limit, PDO::PARAM_INT);
+
+            $st->execute();
+
+            return $st;
         } catch (PDOException $ex) {
             die($ex->getMessage());
         }
-        return $result;
     }
 
     function get_avatar($name) {
-        return "<img src='https://cravatar.eu/avatar/$name/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />$name";
+        return "<img src='https://cravatar.eu/avatar/$name/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;'/>$name";
     }
 
     function get_name($uuid) {
@@ -105,6 +121,19 @@ class Page {
              <div id="output" class="success fade" data-alert="alert" style="margin-left: 15px;"><br></div>
          </div>
          ');
+    }
+
+    function print_pager($page) {
+        if (!$this->settings->show_pager) return;
+        $prev = $this->page - 1;
+        $next = $this->page + 1;
+
+        $pager_prev = "<div style=\"float:left;\">&lt;&lt;</div>";
+        if ($this->page > 0) {
+            $pager_prev = "<a href=\"$page?page=$prev\">$pager_prev</a>";
+        }
+        $pager_next = "<a href=\"$page?page=$next\"><div style=\"float: right;\">&gt;&gt;</div></a>";
+        echo "$pager_prev $pager_next";
     }
 
     function print_footer() {

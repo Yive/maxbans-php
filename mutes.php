@@ -36,6 +36,7 @@ $page = new Page();
                     </tr>
                 <?php } ?>
             </table>
+            <?php $page->print_pager("mutes.php"); ?>
         </div>
     </div>
     <?php $page->print_footer(); ?>

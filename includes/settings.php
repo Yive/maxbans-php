@@ -18,6 +18,9 @@ final class Settings {
         // Show inactive bans? Removed bans will show (Unbanned), mutes will show (Unmuted), warnings will show (Expired).
         $this->show_inactive_bans = true;
 
+        // Show pager? This allows users to page through the list of bans.
+        $this->show_pager = true;
+
         // Amount of bans/mutes/warnings to show on each page
         $this->limit_per_page = 20;
 
