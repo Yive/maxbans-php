@@ -136,7 +136,7 @@ class Page {
         $next = $this->page + 1;
 
         $pager_prev = "<div style=\"float:left; font-size:30px;\">«</div>";
-        if ($this->page > 0) {
+        if ($cur > 1) {
             $pager_prev = "<a href=\"$page?page=$prev\">$pager_prev</a>";
         }
 
