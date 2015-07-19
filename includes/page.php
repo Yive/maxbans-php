@@ -10,7 +10,7 @@ class Page {
         $this->settings = $settings;
         $this->uuid_name_cache = array();
         $this->time = microtime(true);
-        $this->page = 0;
+        $this->page = 1;
 
         if (isset($_GET['page'])) {
             $page = $_GET['page']; // user input
@@ -27,7 +27,8 @@ class Page {
 
             $offset = 0;
             if ($this->settings->show_pager) {
-                $offset = ($limit * $this->page);
+                $page = $this->page - 1;
+                $offset = ($limit * $page);
             }
             $query = "SELECT * FROM $table $active_query GROUP BY $table.id ORDER BY time DESC LIMIT :limit OFFSET :offset";
             $st = $this->conn->prepare($query);
@@ -123,17 +124,28 @@ class Page {
          ');
     }
 
-    function print_pager($page) {
+    function print_pager($page, $table) {
         if (!$this->settings->show_pager) return;
-        $prev = $this->page - 1;
+        $result = $this->conn->query("SELECT COUNT(*) AS count FROM $table")->fetch(PDO::FETCH_ASSOC);
+        $total = $result['count'];
+
+        $pages = (int)($total / $this->settings->limit_per_page) + 1;
+
+        $cur = $this->page;
+        $prev = $cur - 1;
         $next = $this->page + 1;
 
         $pager_prev = "<div style=\"float:left; font-size:30px;\">«</div>";
         if ($this->page > 0) {
             $pager_prev = "<a href=\"$page?page=$prev\">$pager_prev</a>";
         }
-        $pager_next = "<a href=\"$page?page=$next\"><div style=\"float: right; font-size:30px;\">»</div></a>";
-        echo "$pager_prev $pager_next";
+
+        $pager_next = "<div style=\"float: right; font-size:30px;\">»</div>";
+        if ($cur < $pages) {
+            $pager_next = "<a href=\"$page?page=$next\">$pager_next</a>";
+        }
+        $pager_count = "<div style=\"margin-top: 32px;\"><div style=\"text-align: center; font-size:15px;\">Page $cur/$pages</div></div>";
+        echo "$pager_prev $pager_next $pager_count";
     }
 
     function print_footer() {

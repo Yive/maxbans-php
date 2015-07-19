@@ -37,7 +37,7 @@ $page = new Page();
                     </tr>
                 <?php } ?>
             </table>
-            <?php $page->print_pager("bans.php"); ?>
+            <?php $page->print_pager("bans.php", $page->settings->table_bans); ?>
         </div>
     </div>
     <?php $page->print_footer(); ?>

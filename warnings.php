@@ -38,7 +38,7 @@ $page = new Page();
                     </tr>
                 <?php } ?>
             </table>
-            <?php $page->print_pager("warnings.php"); ?>
+            <?php $page->print_pager("warnings.php", $page->settings->table_warnings); ?>
         </div>
     </div>
     <?php $page->print_footer(); ?>
