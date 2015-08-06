@@ -2,18 +2,17 @@
 
 final class Settings {
     public function __construct($connect = true) {
-        // Server name
+        // Server name, shown on the main page and on the header
         $this->name = 'LiteBans';
 
-        // Server host
-        $dbhost = 'localhost';
-        $dbport = 3306;
+        // Database information
+        $host = 'localhost';
+        $port = 3306;
+
+        $database = 'litebans';
 
         $username = 'root';
         $password = 'password';
-
-        // Database name
-        $database = 'litebans';
 
         // Show inactive bans? Removed bans will show (Unbanned), mutes will show (Unmuted), warnings will show (Expired).
         $this->show_inactive_bans = true;
@@ -47,7 +46,7 @@ final class Settings {
         }
 
         if ($connect) {
-            $dsn = "$driver:dbname=$database;host=$dbhost;port=$dbport;charset=utf8";
+            $dsn = "$driver:dbname=$database;host=$host;port=$port;charset=utf8";
 
             try {
                 $this->conn = new PDO($dsn, $username, $password);
