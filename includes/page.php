@@ -44,10 +44,20 @@ class Page {
         }
     }
 
+    /**
+     * Returns an <img> tag representing the Minecraft avatar for a specific name.
+     * @param string
+     * @return string
+     */
     function get_avatar($name) {
         return "<img class='avatar noselect' src='https://cravatar.eu/avatar/$name/25'/>$name";
     }
 
+    /**
+     * Returns the last name for a UUID, or null if their name is not recorded in the database.
+     * @param string
+     * @return null|string
+     */
     function get_name($uuid) {
         if (array_key_exists($uuid, $this->uuid_name_cache)) return $this->uuid_name_cache[$uuid];
         $history = $this->settings->table_history;
@@ -61,6 +71,11 @@ class Page {
         return null;
     }
 
+    /**
+     * Returns the banner name for a specific row in the database, converting UUID->name if necessary.
+     * @param row
+     * @return string
+     */
     function get_banner_name($row) {
         $uuid = $row['banned_by_uuid'];
         $name = $this->get_name($uuid);
@@ -71,6 +86,11 @@ class Page {
         return $this->clean($name);
     }
 
+    /**
+     * Converts a timestamp (in milliseconds) to a date using the configured date format.
+     * @param int
+     * @return string
+     */
     function millis_to_date($millis) {
         return date($this->settings->date_format, $millis / 1000);
     }
@@ -78,8 +98,8 @@ class Page {
     /**
      * Prepares text to be displayed on the web interface.
      * Removes chat colours, replaces newlines with proper HTML, and sanitizes the text.
-     * @param $text
-     * @return mixed|string
+     * @param string
+     * @return string
      */
     function clean($text) {
         if (strstr($text, "\xa7") || strstr($text, "&")) {
@@ -94,7 +114,7 @@ class Page {
     }
 
     function print_page_header($title) {
-        $type = $title === "Bans" ? "modal" : "navbar";
+        $type = ($title === "Bans") ? "modal" : "navbar";
         echo("
         <div class=\"row\">
             <div class=\"col-lg-12\">
