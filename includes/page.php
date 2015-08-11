@@ -45,7 +45,7 @@ class Page {
     }
 
     function get_avatar($name) {
-        return "<img class='noselect' src='https://cravatar.eu/avatar/$name/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;'/>$name";
+        return "<img class='avatar noselect' src='https://cravatar.eu/avatar/$name/25'/>$name";
     }
 
     function get_name($uuid) {

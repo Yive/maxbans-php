@@ -10,3 +10,9 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
+
+.avatar {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    border-radius: 2px;
+}
