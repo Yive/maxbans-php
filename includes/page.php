@@ -72,7 +72,8 @@ class Page {
     }
 
     /**
-     * Returns the banner name for a specific row in the database, converting UUID->name if necessary.
+     * Returns the banner name for a specific row in the database
+     * using their UUID->name if possible, otherwise returns their last recorded name.
      * @param row
      * @return string
      */
