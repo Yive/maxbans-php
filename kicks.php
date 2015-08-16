@@ -2,7 +2,7 @@
 require_once './includes/page.php';
 $page = new Page();
 ?>
-<title>Tempbans - <?php echo $page->settings->name; ?></title>
+<title>Kicks - <?php echo $page->settings->name; ?></title>
 <div class="container">
     <?php
     $page->print_page_header("Kicks");
