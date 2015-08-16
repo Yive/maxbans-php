@@ -29,6 +29,7 @@ final class Settings {
         $this->table_bans = "{$table_prefix}bans";
         $this->table_mutes = "{$table_prefix}mutes";
         $this->table_warnings = "{$table_prefix}warnings";
+        $this->table_kicks = "${table_prefix}kicks";
         $this->table_history = "{$table_prefix}history";
 
         // The date format can be changed here.
