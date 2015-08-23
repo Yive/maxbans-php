@@ -1,6 +1,8 @@
 <?php
 
 final class Settings {
+    public static $TRUE = "1", $FALSE = "0";
+
     public function __construct($connect = true) {
         // Server name, shown on the main page and on the header
         $this->name = 'LiteBans';
@@ -41,11 +43,19 @@ final class Settings {
 
         $driver = 'mysql';
 
+        /*** End of configuration ***/
+
         $this->active_query = "";
-        if (!$this->show_inactive_bans) {
-            $this->active_query = "WHERE active=1";
+
+        if ($driver === "pgsql") {
+            Settings::$TRUE = "B'1'";
+            Settings::$FALSE = "B'0'";
         }
 
+        if (!$this->show_inactive_bans) {
+            $this->active_query = "WHERE active=" . Settings::$TRUE;
+        }
+        $this->driver = $driver;
         if ($connect) {
             $dsn = "$driver:dbname=$database;host=$host;port=$port";
             if ($driver === 'mysql') {

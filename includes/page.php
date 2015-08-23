@@ -1,17 +1,18 @@
 <?php
-require './includes/head.php';
-require './includes/header.php';
-require_once './includes/settings.php';
 
 class Page {
-    public function __construct() {
+    public function __construct($header = true) {
+        if ($header) {
+            require_once './includes/head.php';
+            require_once './includes/header.php';
+        }
+        require_once './includes/settings.php';
         $settings = new Settings();
         $this->conn = $settings->conn;
         $this->settings = $settings;
         $this->uuid_name_cache = array();
         $this->time = microtime(true);
         $this->page = 1;
-
         if (isset($_GET['page'])) {
             $page = $_GET['page']; // user input
             if (filter_var($page, FILTER_VALIDATE_INT)) {
