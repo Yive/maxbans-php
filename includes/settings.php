@@ -47,12 +47,18 @@ final class Settings {
         }
 
         if ($connect) {
-            $dsn = "$driver:dbname=$database;host=$host;port=$port;charset=utf8";
+            $dsn = "$driver:dbname=$database;host=$host;port=$port";
+            if ($driver === 'mysql') {
+                $dsn .= ';charset=utf8';
+            }
 
             try {
                 $this->conn = new PDO($dsn, $username, $password);
             } catch (PDOException $e) {
                 echo 'Connection failed: ' . $e->getMessage();
+            }
+            if ($driver === 'pgsql') {
+                $this->conn->query("SET NAMES 'UTF8';");
             }
         }
     }
