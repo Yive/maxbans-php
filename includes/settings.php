@@ -55,7 +55,7 @@ final class Settings {
             try {
                 $this->conn = new PDO($dsn, $username, $password);
             } catch (PDOException $e) {
-                echo 'Connection failed: ' . $e->getMessage();
+                die('Connection failed: ' . $e->getMessage());
             }
             if ($driver === 'pgsql') {
                 $this->conn->query("SET NAMES 'UTF8';");
