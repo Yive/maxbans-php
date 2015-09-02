@@ -2,7 +2,7 @@
 require_once './includes/page.php';
 $page = new Page();
 ?>
-<title>TempMutes - <?php echo $page->settings->name; ?></title>
+<title>Mutes - <?php echo $page->settings->name; ?></title>
 <div class="container">
     <?php
     $page->print_page_header("Mutes");
