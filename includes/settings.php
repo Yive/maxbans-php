@@ -7,6 +7,9 @@ final class Settings {
         // Server name, shown on the main page and on the header
         $this->name = 'LiteBans';
 
+        // Clicking on the header name will send you to this address.
+        $this->name_link = '#';
+
         // Database information
         $host = 'localhost';
         $port = 3306;
@@ -28,22 +31,22 @@ final class Settings {
         // If you set a table prefix in config.yml, put it here too
         $table_prefix = "";
 
+        // The date format can be changed here.
+        // https://secure.php.net/manual/en/function.date.php
+        // Example of default: July 2, 2015, 9:19 pm
+        $this->date_format = 'F j, Y, g:i a';
+        date_default_timezone_set("UTC");
+
+        // Supported drivers: mysql, pgsql
+        $driver = 'mysql';
+
+        /*** End of configuration ***/
+
         $this->table_bans = "{$table_prefix}bans";
         $this->table_mutes = "{$table_prefix}mutes";
         $this->table_warnings = "{$table_prefix}warnings";
         $this->table_kicks = "${table_prefix}kicks";
         $this->table_history = "{$table_prefix}history";
-
-        // The date format can be changed here.
-        // https://secure.php.net/manual/en/function.date.php
-        // Example of default:
-        // July 2, 2015, 9:19 pm
-        $this->date_format = 'F j, Y, g:i a';
-        date_default_timezone_set("UTC");
-
-        $driver = 'mysql';
-
-        /*** End of configuration ***/
 
         $this->active_query = "";
 

@@ -1,11 +1,11 @@
+<?php
+require_once './includes/settings.php';
+$settings = new Settings(false);
+?>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><?php
-                require_once './includes/settings.php';
-                $settings = new Settings(false);
-                echo $settings->name;
-                ?></a>
+            <a class="navbar-brand" href="<?php echo $settings->name_link; ?>"><?php echo $settings->name; ?></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

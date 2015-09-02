@@ -2,7 +2,6 @@
 include './includes/head.php';
 include './includes/header.php';
 include_once './includes/settings.php';
-$settings = new Settings(false);
 ?>
 <title>Index - <?php echo $settings->name; ?></title>
 <div class="container">
