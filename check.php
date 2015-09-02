@@ -61,4 +61,3 @@ if (isset($_POST['name'], $_POST['table'])) {
     $check = new Check();
     $check->run($_POST['name']);
 }
-?>

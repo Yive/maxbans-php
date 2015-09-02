@@ -176,5 +176,3 @@ class Page {
         echo "<!-- Page generated in $time seconds. -->";
     }
 }
-
-?>
