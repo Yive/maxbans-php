@@ -46,6 +46,14 @@ final class Settings {
         $this->console_name = "Console";
         $this->console_image = "includes/img/console.png";
 
+        // Avatar images for all players will be fetched from this URL.
+        // Examples:
+        /* 'https://cravatar.eu/avatar/$UUID/25'
+         * 'https://crafatar.com/avatars/$UUID?size=25'
+         * 'https://minotar.net/avatar/$NAME/25'
+         */
+        $this->avatar_source = 'https://cravatar.eu/avatar/$UUID/25';
+
         // The date format can be changed here.
         // https://secure.php.net/manual/en/function.date.php
         // Example of default: July 2, 2015, 9:19 PM

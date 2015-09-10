@@ -22,8 +22,8 @@ $headers = array("Name", "Muted By", "Reason", "Muted On", "Muted Until");
                 if ($player_name === null) continue;
 
                 $page->print_table_rows($row, array(
-                    'Name'        => $page->get_avatar($player_name),
-                    'Muted By'    => $page->get_avatar($page->get_banner_name($row)),
+                    'Name'     => $page->get_avatar($player_name, $row['uuid']),
+                    'Muted By' => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
                     'Reason'      => $page->clean($row['reason']),
                     'Muted On'    => $page->millis_to_date($row['time']),
                     'Muted Until' => $page->expiry($row),

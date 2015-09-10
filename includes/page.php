@@ -86,12 +86,17 @@ class Page {
     }
 
     /**
-     * Returns an <img> tag representing the Minecraft avatar for a specific name.
-     * @param string
+     * Returns an <img> tag representing the Minecraft avatar for a specific name or UUID.
+     * @param $name
+     * @param $uuid
      * @return string
      */
-    function get_avatar($name) {
-        $src = "https://cravatar.eu/avatar/$name/25";
+    function get_avatar($name, $uuid) {
+        if ($uuid[14] === '3') {
+            // Avatars cannot be associated with offline mode UUIDs (version 3)
+            $uuid = $name;
+        }
+        $src = str_replace('$NAME', $name, str_replace('$UUID', $uuid, $this->settings->avatar_source));
         if (in_array($name, $this->settings->console_aliases)) {
             $src = $this->settings->console_image;
             $name = $this->settings->console_name;

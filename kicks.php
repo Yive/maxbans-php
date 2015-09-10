@@ -22,8 +22,8 @@ $headers = array("Name", "Kicked By", "Reason", "Date");
                 if ($player_name === null) continue;
 
                 $page->print_table_rows($row, array(
-                    'Name'      => $page->get_avatar($player_name),
-                    'Kicked By' => $page->get_avatar($page->get_banner_name($row)),
+                    'Name'      => $page->get_avatar($player_name, $row['uuid']),
+                    'Kicked By' => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
                     'Reason'    => $page->clean($row['reason']),
                     'Date'      => $page->millis_to_date($row['time']),
                 ));

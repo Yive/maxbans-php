@@ -45,8 +45,8 @@ class BanInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Banned Player' => $page->get_avatar($player_name),
-            'Banned By'     => $page->get_avatar($page->get_banner_name($row)),
+            'Banned Player' => $page->get_avatar($player_name, $row['uuid']),
+            'Banned By'     => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
             'Ban Reason'    => $page->clean($row['reason']),
             'Ban Placed'    => $page->millis_to_date($row['time']),
             'Expires'       => $page->expiry($row),
@@ -58,8 +58,8 @@ class MuteInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Muted Player' => $page->get_avatar($player_name),
-            'Muted By'     => $page->get_avatar($page->get_banner_name($row)),
+            'Muted Player' => $page->get_avatar($player_name, $row['uuid']),
+            'Muted By'     => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
             'Mute Reason'  => $page->clean($row['reason']),
             'Mute Placed'  => $page->millis_to_date($row['time']),
             'Expires'      => $page->expiry($row),
@@ -75,8 +75,8 @@ class WarnInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Warned Player'  => $page->get_avatar($player_name),
-            'Warned By'      => $page->get_avatar($page->get_banner_name($row)),
+            'Warned Player' => $page->get_avatar($player_name, $row['uuid']),
+            'Warned By'     => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
             'Warning Reason' => $page->clean($row['reason']),
             'Warning Placed' => $page->millis_to_date($row['time']),
             'Expires'        => $page->expiry($row),
@@ -88,8 +88,8 @@ class KickInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Kicked Player' => $page->get_avatar($player_name),
-            'Kicked By'     => $page->get_avatar($page->get_banner_name($row)),
+            'Kicked Player' => $page->get_avatar($player_name, $row['uuid']),
+            'Kicked By'     => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
             'Kick Reason'   => $page->clean($row['reason']),
             'Kick Date'     => $page->millis_to_date($row['time']),
         );
