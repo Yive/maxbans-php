@@ -145,10 +145,10 @@ if ($st->execute(array($id))) {
         }
     }
 
-    $page->print_page_header();
     ?>
     <div class="container">
         <div class="row" style="margin-bottom:60px;">
+            <?php $page->print_page_header(); ?>
             <div style="text-align: center;" class="col-lg-12">
                 <table class="table st-light table-bordered table-condensed">
                     <?php
