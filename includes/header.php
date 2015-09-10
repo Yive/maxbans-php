@@ -1,4 +1,6 @@
 <?php
+namespace litebans;
+
 require_once './includes/settings.php';
 $settings = new Settings(false);
 ?>

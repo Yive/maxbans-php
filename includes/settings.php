@@ -1,4 +1,7 @@
 <?php
+namespace litebans;
+
+use PDO, PDOException;
 
 final class Settings {
     public static $TRUE = "1", $FALSE = "0";
@@ -28,13 +31,13 @@ final class Settings {
         // Amount of bans/mutes/warnings to show on each page
         $this->limit_per_page = 10;
 
-        // If you set a table prefix in config.yml, put it here too
+        // If you set a table prefix in config.yml, set it here as well
         $table_prefix = "";
 
         // The date format can be changed here.
         // https://secure.php.net/manual/en/function.date.php
-        // Example of default: July 2, 2015, 9:19 pm
-        $this->date_format = 'F j, Y, g:i a';
+        // Example of default: July 2, 2015, 9:19 PM
+        $this->date_format = 'F j, Y, g:i A';
         date_default_timezone_set("UTC");
 
         // Supported drivers: mysql, pgsql
@@ -42,11 +45,13 @@ final class Settings {
 
         /*** End of configuration ***/
 
-        $this->table_bans = "{$table_prefix}bans";
-        $this->table_mutes = "{$table_prefix}mutes";
-        $this->table_warnings = "{$table_prefix}warnings";
-        $this->table_kicks = "${table_prefix}kicks";
-        $this->table_history = "{$table_prefix}history";
+        $this->table = array(
+            'bans'     => "${table_prefix}bans",
+            'mutes'    => "${table_prefix}mutes",
+            'warnings' => "${table_prefix}warnings",
+            'kicks'    => "${table_prefix}kicks",
+            'history'  => "${table_prefix}history",
+        );
 
         $this->active_query = "";
 
@@ -67,10 +72,10 @@ final class Settings {
 
             try {
                 $this->conn = new PDO($dsn, $username, $password);
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 die('Connection failed: ' . $e->getMessage());
             }
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if ($driver === 'pgsql') {
                 $this->conn->query("SET NAMES 'UTF8';");
             }

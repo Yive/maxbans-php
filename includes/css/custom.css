@@ -16,3 +16,29 @@ body {
     margin-right: 5px;
     border-radius: 2px;
 }
+
+table tr td a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+table tr td {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* table links */
+a,
+a:hover,
+a:focus {
+    text-decoration: none !important;
+}
+
+.pager-active {
+    color: darkcyan;
+}
+
+.pager-inactive {
+    color: transparent;
+}

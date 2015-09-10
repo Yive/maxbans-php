@@ -1,7 +1,11 @@
 <?php
+namespace litebans;
+
+use PDO;
+use PDOException;
 
 class Page {
-    public function __construct($header = true) {
+    public function __construct($name, $header = true) {
         if ($header) {
             require_once './includes/head.php';
             require_once './includes/header.php';
@@ -19,10 +23,46 @@ class Page {
                 $this->page = (int)$page;
             }
         }
+        $this->name = $name;
+        switch ($name) {
+            case "ban":
+            case "bans":
+                $this->type = "ban";
+                $this->table = $settings->table['bans'];
+                break;
+            case "mute":
+            case "mutes":
+                $this->type = "mute";
+                $this->table = $settings->table['mutes'];
+                break;
+            case "warn":
+            case "warnings":
+                $this->type = "warn";
+                $this->table = $settings->table['warnings'];
+                break;
+            case "kick":
+            case "kicks":
+                $this->type = "kick";
+                $this->table = $settings->table['kicks'];
+                break;
+        }
+        $this->permanent = array(
+            'ban'  => 'Permanent Ban',
+            'mute' => 'Permanent Mute',
+            'warn' => 'Permanent',
+            'kick' => null,
+        );
+        $this->expired = array(
+            'ban'  => '(Unbanned)',
+            'mute' => '(Unmuted)',
+            'warn' => '(Expired)',
+            'kick' => null,
+        );
     }
 
-    function run_query($table) {
+    function run_query() {
         try {
+            $table = $this->table;
             $active_query = $this->settings->active_query;
             $limit = $this->settings->limit_per_page;
 
@@ -61,7 +101,7 @@ class Page {
      */
     function get_name($uuid) {
         if (array_key_exists($uuid, $this->uuid_name_cache)) return $this->uuid_name_cache[$uuid];
-        $history = $this->settings->table_history;
+        $history = $this->settings->table['history'];
         $stmt = $this->conn->prepare("SELECT name FROM $history WHERE uuid=? ORDER BY date DESC LIMIT 1");
         if ($stmt->execute(array($uuid)) && $row = $stmt->fetch()) {
             $banner = $row['name'];
@@ -105,28 +145,71 @@ class Page {
      */
     function clean($text) {
         if (strstr($text, "\xa7") || strstr($text, "&")) {
-            $regex = "/(?i)(\xa7|&)[0-9A-FK-OR]/";
-            $text = preg_replace($regex, "", $text);
+            $text = preg_replace("/(?i)(\xa7|&)[0-9A-FK-OR]/", "", $text);
         }
-        $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+        $text = htmlspecialchars($text, ENT_QUOTES, "UTF-8");
         if (strstr($text, "\n")) {
             $text = preg_replace("/\n/", "<br>", $text);
         }
         return $text;
     }
 
-    function print_page_header($title) {
-        $type = ($title === "Bans") ? "modal" : "navbar";
+    /**
+     * Returns a string that shows the expiry date of a punishment.
+     * If the punishment does not expire, it will be shown as permanent.
+     * If the punishment has already expired, it will show as expired.
+     * @param row
+     * @return string
+     */
+    public function expiry($row) {
+        if ($row['until'] <= 0) {
+            return $this->permanent[$this->type];
+        }
+        $until = $this->millis_to_date($row['until']);
+        if ($this->settings->show_inactive_bans && !$row['active']) {
+            $until .= ' ' . $this->expired[$this->type];
+        }
+        return $until;
+    }
+
+    function title() {
+        return ucfirst($this->name);
+    }
+
+    function print_title() {
+        $title = $this->title();
+        $name = $this->settings->name;
+        echo "<title>$title - $name</title>";
+    }
+
+    function print_table_rows($row, $array) {
+        $id = $row['id'];
+        $type = $this->type;
+        echo "<tr>";
+        foreach ($array as $header => $text) {
+            $style = "";
+            if ($header === "Reason") {
+                $style = "style=\"width: 30%;\"";
+            }
+            echo "<td $style><a style=\"color: #fcfcfc;\" href=\"info.php?type=$type&id=$id\">$text</a></td>";
+        }
+        echo "</tr>";
+    }
+
+    function print_page_header() {
+        $title = $this->title();
+        //$type = ($title === "Bans") ? "modal-header" : "navbar-header";
+        $type = "modal-header";
         echo("
         <div class=\"row\">
-            <div class=\"col-lg-12\">
-                <h1 class=\"$type-header\">$title</h1>
+            <div style=\"text-align: center;\" class=\"col-lg-12\">
+                <h1 class=\"$type\">$title</h1>
             </div>
         </div>
         ");
     }
 
-    function print_table_headers($headers) {
+    function table_print_headers($headers) {
         echo("<thead><tr>");
         foreach ($headers as $header) {
             echo "<th><div style=\"text-align: center;\">$header</div></th>";
@@ -134,9 +217,10 @@ class Page {
         echo("<tbody>");
     }
 
-    function print_check_form($table) {
+    function print_check_form() {
+        $table = $this->name;
         echo('
-         <div class="row">
+         <div style="text-align: left;" class="row">
              <div style="margin-left: 15px;">
                  <form onsubmit="captureForm(event);" class="form-inline"><div class="form-group"><input type="text" class="form-control" id="user" placeholder="Player"></div><button type="submit" class="btn btn-default" style="margin-left: 5px;">Check</button></form>
              </div>
@@ -146,7 +230,10 @@ class Page {
          ');
     }
 
-    function print_pager($page, $table) {
+    function print_pager() {
+        $table = $this->table;
+        $page = $this->name . ".php";
+
         if (!$this->settings->show_pager) return;
         $result = $this->conn->query("SELECT COUNT(*) AS count FROM $table")->fetch(PDO::FETCH_ASSOC);
         $total = $result['count'];
@@ -157,12 +244,18 @@ class Page {
         $prev = $cur - 1;
         $next = $this->page + 1;
 
-        $pager_prev = "<div style=\"float:left; font-size:30px;\">«</div>";
+        $prev_active = ($cur > 1);
+        $next_active = ($cur < $pages);
+
+        $prev_class = $prev_active ? "pager-active" : "pager-inactive";
+        $next_class = $next_active ? "pager-active" : "pager-inactive";
+
+        $pager_prev = "<div class=\"$prev_class\" style=\"float:left; font-size:30px;\">«</div>";
         if ($cur > 1) {
             $pager_prev = "<a href=\"$page?page=$prev\">$pager_prev</a>";
         }
 
-        $pager_next = "<div style=\"float: right; font-size:30px;\">»</div>";
+        $pager_next = "<div  class=\"$next_class\" style=\"float: right; font-size:30px;\">»</div>";
         if ($cur < $pages) {
             $pager_next = "<a href=\"$page?page=$next\">$pager_next</a>";
         }
@@ -174,5 +267,13 @@ class Page {
         include './includes/footer.php';
         $time = microtime(true) - $this->time;
         echo "<!-- Page generated in $time seconds. -->";
+    }
+
+    public function table_begin() {
+        echo '<table class="table table-striped table-bordered table-condensed">';
+    }
+
+    public function table_end() {
+        echo '</table>';
     }
 }

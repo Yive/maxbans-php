@@ -1,7 +1,10 @@
 <?php
+namespace litebans;
+
 include './includes/head.php';
 include './includes/header.php';
 include_once './includes/settings.php';
+$settings = new Settings(false);
 ?>
 <title>Index - <?php echo $settings->name; ?></title>
 <div class="container">
@@ -10,6 +13,5 @@ include_once './includes/settings.php';
 
         <div style="text-align: center;"><p>Here is where our Bans, Mutes, and Warnings are listed.</p></div>
     </div>
-
 </div>
 <?php include './includes/footer.php'; ?>

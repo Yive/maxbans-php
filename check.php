@@ -1,4 +1,8 @@
 <?php
+namespace litebans;
+
+use PDOException;
+
 require_once './includes/page.php';
 
 class Check {
@@ -8,8 +12,8 @@ class Check {
             $this->println("Invalid name.");
             return;
         }
-        $page = new Page(false);
-        $history = $page->settings->table_history;
+        $page = new Page("check", false);
+        $history = $page->settings->table['history'];
 
         try {
             $stmt = $page->conn->prepare("SELECT name,uuid FROM $history WHERE name=? ORDER BY date LIMIT 1");
@@ -24,7 +28,7 @@ class Check {
                 $this->println("$name has not joined before.");
                 return;
             }
-            $table = $page->settings->table_bans;
+            $table = $page->settings->table['bans'];
 
             $stmt = $page->conn->prepare("SELECT * FROM $table WHERE (uuid=? AND active=" . Settings::$TRUE . ") LIMIT 1");
             if ($stmt->execute(array($uuid))) {
