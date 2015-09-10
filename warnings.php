@@ -22,8 +22,8 @@ $headers = array("Name", "Warned By", "Reason", "Warned Until", "Received Warnin
                 if ($player_name === null) continue;
 
                 $page->print_table_rows($row, array(
-                    'Name'      => $page->get_avatar($player_name, $row['uuid']),
-                    'Warned By' => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
+                    'Name'              => $page->get_avatar($player_name, $row['uuid']),
+                    'Warned By'         => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
                     'Reason'            => $page->clean($row['reason']),
                     'Warned Until'      => $page->expiry($row),
                     'Received Warning?' => $row['warned'] ? "Yes" : "No",

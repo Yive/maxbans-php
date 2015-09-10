@@ -75,8 +75,8 @@ class WarnInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Warned Player' => $page->get_avatar($player_name, $row['uuid']),
-            'Warned By'     => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
+            'Warned Player'  => $page->get_avatar($player_name, $row['uuid']),
+            'Warned By'      => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
             'Warning Reason' => $page->clean($row['reason']),
             'Warning Placed' => $page->millis_to_date($row['time']),
             'Expires'        => $page->expiry($row),

@@ -23,8 +23,8 @@ $headers = array("Name", "Banned By", "Reason", "Banned On", "Banned Until");
                 if ($player_name === null) continue;
 
                 $page->print_table_rows($row, array(
-                    'Name'      => $page->get_avatar($player_name, $row['uuid']),
-                    'Banned By' => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
+                    'Name'         => $page->get_avatar($player_name, $row['uuid']),
+                    'Banned By'    => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
                     'Reason'       => $page->clean($row['reason']),
                     'Banned On'    => $page->millis_to_date($row['time']),
                     'Banned Until' => $page->expiry($row),
