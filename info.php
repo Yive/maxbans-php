@@ -16,16 +16,6 @@ abstract class Info {
         $this->table = $page->table;
     }
 
-    function name() {
-        return ucfirst($this->page->type);
-    }
-
-    function permanent() {
-        return $this->row['until'] <= 0;
-    }
-
-    abstract function basic_info($row, $player_name);
-
     static function create($row, $page, $type) {
         switch ($type) {
             case "ban":
@@ -39,6 +29,16 @@ abstract class Info {
         }
         return null;
     }
+
+    function name() {
+        return ucfirst($this->page->type);
+    }
+
+    function permanent() {
+        return $this->row['until'] <= 0;
+    }
+
+    abstract function basic_info($row, $player_name);
 }
 
 class BanInfo extends Info {
@@ -120,7 +120,7 @@ if ($st->execute(array($id))) {
         die("Error: $type not found in database.");
     }
     $player_name = $page->get_name($row['uuid']);
-    if ($player_name == null) {
+    if ($player_name === null) {
         die("Error: Player name not found.");
     }
 
@@ -150,18 +150,18 @@ if ($st->execute(array($id))) {
         <div class="row" style="margin-bottom:60px;">
             <?php $page->print_page_header(); ?>
             <div style="text-align: center;" class="col-lg-12">
-                    <?php
-                    $page->table_begin();
-                    $map = $info->basic_info($row, $player_name);
-                    $permanent_val = $info->page->permanent[$type];
-                    foreach ($map as $key => $val) {
-                        if ($permanent && $key === "Expires" && $val === $permanent_val) {
-                            continue;
-                        }
-                        echo "<tr><td>$key</td><td>$val</td></tr>";
+                <?php
+                $page->table_begin();
+                $map = $info->basic_info($row, $player_name);
+                $permanent_val = $info->page->permanent[$type];
+                foreach ($map as $key => $val) {
+                    if ($permanent && $key === "Expires" && $val === $permanent_val) {
+                        continue;
                     }
-                    $page->table_end(false);
-                    ?>
+                    echo "<tr><td>$key</td><td>$val</td></tr>";
+                }
+                $page->table_end(false);
+                ?>
             </div>
         </div>
         <?php
