@@ -1,7 +1,8 @@
 <?php
 namespace litebans;
 
-use PDO, PDOException;
+use PDO;
+use PDOException;
 
 final class Settings {
     public static $TRUE = "1", $FALSE = "0";
@@ -22,6 +23,9 @@ final class Settings {
         $username = 'root';
         $password = 'password';
 
+        // Supported drivers: mysql, pgsql
+        $driver = 'mysql';
+
         // Show inactive bans? Removed bans will show (Unbanned), mutes will show (Unmuted), warnings will show (Expired).
         $this->show_inactive_bans = true;
 
@@ -34,14 +38,20 @@ final class Settings {
         // If you set a table prefix in config.yml, set it here as well
         $table_prefix = "";
 
+        // The server console will be identified by any of these names.
+        // It will be given a standard name and avatar image.
+        $this->console_aliases = array(
+            "CONSOLE", "Console",
+        );
+        $this->console_name = "Console";
+        $this->console_image = "includes/img/console.png";
+
         // The date format can be changed here.
         // https://secure.php.net/manual/en/function.date.php
         // Example of default: July 2, 2015, 9:19 PM
         $this->date_format = 'F j, Y, g:i A';
         date_default_timezone_set("UTC");
 
-        // Supported drivers: mysql, pgsql
-        $driver = 'mysql';
 
         /*** End of configuration ***/
 

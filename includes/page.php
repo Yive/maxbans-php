@@ -91,7 +91,12 @@ class Page {
      * @return string
      */
     function get_avatar($name) {
-        return "<img class='avatar noselect' src='https://cravatar.eu/avatar/$name/25'/>$name";
+        $src = "https://cravatar.eu/avatar/$name/25";
+        if (in_array($name, $this->settings->console_aliases)) {
+            $src = $this->settings->console_image;
+            $name = $this->settings->console_name;
+        }
+        return "<img class='avatar noselect' src='$src'/>$name";
     }
 
     /**
@@ -120,12 +125,16 @@ class Page {
      */
     function get_banner_name($row) {
         $uuid = $row['banned_by_uuid'];
+        $display_name = $row['banned_by_name'];
+        $console_aliases = $this->settings->console_aliases;
+        if (in_array($uuid, $console_aliases) || in_array($row['banned_by_name'], $console_aliases)) {
+            return $this->settings->console_name;
+        }
         $name = $this->get_name($uuid);
         if ($name !== null) {
             return $name;
         }
-        $name = $row['banned_by_name'];
-        return $this->clean($name);
+        return $this->clean($display_name);
     }
 
     /**
