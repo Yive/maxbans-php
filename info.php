@@ -150,7 +150,7 @@ if ($st->execute(array($id))) {
         <div class="row" style="margin-bottom:60px;">
             <?php $page->print_page_header(); ?>
             <div style="text-align: center;" class="col-lg-12">
-                <table class="table st-light table-bordered table-condensed">
+                <table class="table table-striped table-bordered table-condensed">
                     <?php
                     $map = $info->basic_info($row, $player_name);
                     $permanent_val = $info->page->permanent[$type];
