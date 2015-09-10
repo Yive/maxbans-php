@@ -17,11 +17,11 @@ body {
     border-radius: 2px;
 }
 
-table tr td a {
+/*table tr td a {
     display: block;
     height: 100%;
     width: 100%;
-}
+}*/
 
 table tr td {
     padding-left: 0;
@@ -33,6 +33,10 @@ a,
 a:hover,
 a:focus {
     text-decoration: none !important;
+}
+
+tr.hover {
+    cursor: pointer;
 }
 
 .pager-active {

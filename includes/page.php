@@ -275,5 +275,6 @@ class Page {
 
     public function table_end() {
         echo '</table>';
+        echo "<script type=\"text/javascript\">$('tr').click(function(){window.location=$(this).find('a').attr('href');}).hover(function(){\$(this).toggleClass('hover');});</script>";
     }
 }
