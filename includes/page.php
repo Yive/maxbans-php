@@ -273,8 +273,10 @@ class Page {
         echo '<table class="table table-striped table-bordered table-condensed">';
     }
 
-    public function table_end() {
+    public function table_end($clicky = true) {
         echo '</table>';
-        echo "<script type=\"text/javascript\">$('tr').click(function(){window.location=$(this).find('a').attr('href');}).hover(function(){\$(this).toggleClass('hover');});</script>";
+        if ($clicky) {
+            echo "<script type=\"text/javascript\">$('tr').click(function(){window.location=$(this).find('a').attr('href');}).hover(function(){\$(this).toggleClass('hover');});</script>";
+        }
     }
 }

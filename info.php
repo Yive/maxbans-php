@@ -150,8 +150,8 @@ if ($st->execute(array($id))) {
         <div class="row" style="margin-bottom:60px;">
             <?php $page->print_page_header(); ?>
             <div style="text-align: center;" class="col-lg-12">
-                <table class="table table-striped table-bordered table-condensed">
                     <?php
+                    $page->table_begin();
                     $map = $info->basic_info($row, $player_name);
                     $permanent_val = $info->page->permanent[$type];
                     foreach ($map as $key => $val) {
@@ -160,8 +160,8 @@ if ($st->execute(array($id))) {
                         }
                         echo "<tr><td>$key</td><td>$val</td></tr>";
                     }
+                    $page->table_end(false);
                     ?>
-                </table>
             </div>
         </div>
         <?php
