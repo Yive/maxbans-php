@@ -6,7 +6,7 @@ use PDO;
 require_once './includes/page.php';
 $page = new Page("warnings");
 $page->print_title();
-$headers = array("Name", "Warned By", "Reason", "Warned Until", "Received Warning?");
+$headers = array("Name", "Warned By", "Reason", "Warned Until", "Received Warning");
 
 $page->print_page_header();
 
@@ -19,11 +19,11 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     if ($player_name === null) continue;
 
     $page->print_table_rows($row, array(
-        'Name'              => $page->get_avatar($player_name, $row['uuid']),
-        'Warned By'         => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
-        'Reason'            => $page->clean($row['reason']),
-        'Warned Until'      => $page->expiry($row),
-        'Received Warning?' => $row['warned'] ? "Yes" : "No",
+        'Name'             => $page->get_avatar($player_name, $row['uuid']),
+        'Warned By'        => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
+        'Reason'           => $page->clean($row['reason']),
+        'Warned Until'     => $page->expiry($row),
+        'Received Warning' => $row['warned'] ? "Yes" : "No",
     ));
 }
 $page->table_end();

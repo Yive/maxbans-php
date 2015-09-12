@@ -205,7 +205,13 @@ class Page {
             if ($header === "Reason") {
                 $style = "style=\"width: 30%;\"";
             }
-            echo "<td $style><a style=\"color: #fcfcfc;\" href=\"info.php?type=$type&id=$id\">$text</a></td>";
+            $a = "a";
+            if ($header === "Received Warning") {
+                $icon = ($text !== "No") ? "glyphicon-ok" : "glyphicon-remove";
+                $a .= " class=\"glyphicon $icon\" aria-hidden=true";
+                $text = "";
+            }
+            echo "<td $style><$a style=\"color: #fcfcfc;\" href=\"info.php?type=$type&id=$id\">$text</a></td>";
         }
         echo "</tr>";
     }
