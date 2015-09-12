@@ -264,12 +264,12 @@ class Page {
         $next_class = $next_active ? "pager-active" : "pager-inactive";
 
         $pager_prev = "<div class=\"$prev_class\" style=\"float:left; font-size:30px;\">«</div>";
-        if ($cur > 1) {
+        if ($prev_active) {
             $pager_prev = "<a href=\"$page?page=$prev\">$pager_prev</a>";
         }
 
-        $pager_next = "<div  class=\"$next_class\" style=\"float: right; font-size:30px;\">»</div>";
-        if ($cur < $pages) {
+        $pager_next = "<div class=\"$next_class\" style=\"float: right; font-size:30px;\">»</div>";
+        if ($next_active) {
             $pager_next = "<a href=\"$page?page=$next\">$pager_next</a>";
         }
         $pager_count = "<div style=\"margin-top: 32px;\"><div style=\"text-align: center; font-size:15px;\">Page $cur/$pages</div></div>";
