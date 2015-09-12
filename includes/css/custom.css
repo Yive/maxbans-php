@@ -17,16 +17,19 @@ body {
     border-radius: 2px;
 }
 
-/*table tr td a {
-    display: block;
-    height: 100%;
-    width: 100%;
-}*/
-
 table tr td {
     padding-left: 0;
     padding-right: 0;
 }
+
+.pager-active {
+    color: darkcyan;
+}
+
+.pager-inactive {
+    color: transparent;
+}
+
 
 /* table links */
 a,
@@ -37,12 +40,4 @@ a:focus {
 
 tr.hover {
     cursor: pointer;
-}
-
-.pager-active {
-    color: darkcyan;
-}
-
-.pager-inactive {
-    color: transparent;
 }
