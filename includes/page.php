@@ -210,17 +210,16 @@ class Page {
         echo "</tr>";
     }
 
-    function print_page_header() {
+    function print_page_header($container_start = true) {
         $title = $this->title();
-        //$type = ($title === "Bans") ? "modal-header" : "navbar-header";
-        $type = "modal-header";
-        echo("
-        <div class=\"row\">
-            <div style=\"text-align: center;\" class=\"col-lg-12\">
-                <h1 class=\"$type\">$title</h1>
-            </div>
-        </div>
-        ");
+        if ($container_start) {
+            echo '<div class="container">';
+        }
+
+        echo "<div class=\"row\"><div style=\"text-align: center;\" class=\"col-lg-12\"><h1 class=\"modal-header\">$title</h1></div></div>";
+        if ($container_start) {
+            echo '<div class="row"><div style="text-align: center;" class="col-lg-12">';
+        }
     }
 
     function table_print_headers($headers) {
@@ -277,7 +276,10 @@ class Page {
         echo "$pager_prev $pager_next $pager_count";
     }
 
-    function print_footer() {
+    function print_footer($container_end = true) {
+        if ($container_end) {
+            echo "</div></div></div>";
+        }
         include './includes/footer.php';
         $time = microtime(true) - $this->time;
         echo "<!-- Page generated in $time seconds. -->";

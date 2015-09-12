@@ -144,29 +144,17 @@ if ($st->execute(array($id))) {
             $page->name .= "<span $style class='label label-danger'>Permanent</span>";
         }
     }
+    $page->print_page_header();
 
-    ?>
-    <div class="container">
-        <div class="row" style="margin-bottom:60px;">
-            <?php $page->print_page_header(); ?>
-            <div style="text-align: center;" class="col-lg-12">
-                <?php
-                $page->table_begin();
-                $map = $info->basic_info($row, $player_name);
-                $permanent_val = $info->page->permanent[$type];
-                foreach ($map as $key => $val) {
-                    if ($permanent && $key === "Expires" && $val === $permanent_val) {
-                        continue;
-                    }
-                    echo "<tr><td>$key</td><td>$val</td></tr>";
-                }
-                $page->table_end(false);
-                ?>
-            </div>
-        </div>
-        <?php
-        $page->print_footer();
-        ?>
-    </div>
-    <?php
+    $page->table_begin();
+    $map = $info->basic_info($row, $player_name);
+    $permanent_val = $info->page->permanent[$type];
+    foreach ($map as $key => $val) {
+        if ($permanent && $key === "Expires" && $val === $permanent_val) {
+            continue;
+        }
+        echo "<tr><td>$key</td><td>$val</td></tr>";
+    }
+    $page->table_end(false);
+    $page->print_footer();
 }
