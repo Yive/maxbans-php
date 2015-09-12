@@ -23,7 +23,7 @@ $headers = array("Name", "Muted By", "Reason", "Muted On", "Muted Until");
 
                 $page->print_table_rows($row, array(
                     'Name'        => $page->get_avatar($player_name, $row['uuid']),
-                    'Muted By'    => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
+                    'Muted By'    => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
                     'Reason'      => $page->clean($row['reason']),
                     'Muted On'    => $page->millis_to_date($row['time']),
                     'Muted Until' => $page->expiry($row),

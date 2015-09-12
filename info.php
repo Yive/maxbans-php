@@ -46,7 +46,7 @@ class BanInfo extends Info {
         $page = $this->page;
         return array(
             'Banned Player' => $page->get_avatar($player_name, $row['uuid']),
-            'Banned By'     => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
+            'Banned By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
             'Ban Reason'    => $page->clean($row['reason']),
             'Ban Placed'    => $page->millis_to_date($row['time']),
             'Expires'       => $page->expiry($row),
@@ -59,7 +59,7 @@ class MuteInfo extends Info {
         $page = $this->page;
         return array(
             'Muted Player' => $page->get_avatar($player_name, $row['uuid']),
-            'Muted By'     => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
+            'Muted By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
             'Mute Reason'  => $page->clean($row['reason']),
             'Mute Placed'  => $page->millis_to_date($row['time']),
             'Expires'      => $page->expiry($row),
@@ -76,7 +76,7 @@ class WarnInfo extends Info {
         $page = $this->page;
         return array(
             'Warned Player'  => $page->get_avatar($player_name, $row['uuid']),
-            'Warned By'      => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
+            'Warned By'      => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
             'Warning Reason' => $page->clean($row['reason']),
             'Warning Placed' => $page->millis_to_date($row['time']),
             'Expires'        => $page->expiry($row),
@@ -89,7 +89,7 @@ class KickInfo extends Info {
         $page = $this->page;
         return array(
             'Kicked Player' => $page->get_avatar($player_name, $row['uuid']),
-            'Kicked By'     => $page->get_avatar($page->get_banner_name($row), $row['uuid']),
+            'Kicked By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
             'Kick Reason'   => $page->clean($row['reason']),
             'Kick Date'     => $page->millis_to_date($row['time']),
         );
