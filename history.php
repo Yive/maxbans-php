@@ -14,15 +14,16 @@ class History {
      * then appends all rows from $table matching $uuid to $array
      * @param Page $page
      * @param array $array
-     * @param string $table
+     * @param string $type
      * @param string $uuid
      * @param array $counts
      */
-    static function push($page, &$array, $table, $uuid, &$counts) {
+    static function push($page, &$array, $type, $uuid, &$counts) {
+        $table = $page->settings->table[$type];
         $count_st = $page->conn->prepare("SELECT COUNT(*) AS count FROM $table WHERE uuid=:uuid");
         $count_st->bindParam(":uuid", $uuid, PDO::PARAM_STR);
         if ($count_st->execute() && ($row = $count_st->fetch()) !== null) {
-            $counts[$table] = $row['count'];
+            $counts[$type] = $row['count'];
         }
 
         $st = $page->conn->prepare("SELECT * FROM $table WHERE uuid=:uuid ORDER BY time");
@@ -33,7 +34,7 @@ class History {
 
         if ($st->execute()) {
             while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
-                $row['__table__'] = $table;
+                $row['__table__'] = $type;
                 array_push($array, $row);
             }
         }
