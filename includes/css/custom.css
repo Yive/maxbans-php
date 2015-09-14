@@ -41,3 +41,19 @@ a:focus {
 tr.hover {
     cursor: pointer;
 }
+
+.label-ban {
+    background-color: darkred;
+}
+
+.label-mute {
+    background-color: dimgrey;
+}
+
+.label-warn {
+    background-color: darkorange;
+}
+
+.label-kick {
+    background-color: tomato;
+}

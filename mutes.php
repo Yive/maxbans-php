@@ -10,6 +10,8 @@ $headers = array("Name", "Muted By", "Reason", "Muted On", "Muted Until");
 
 $page->print_page_header();
 
+$page->print_check_form();
+
 $page->table_begin();
 $page->table_print_headers($headers);
 

@@ -38,6 +38,11 @@ abstract class Info {
         return $this->row['until'] <= 0;
     }
 
+    function history_link($player_name, $row) {
+        $uuid = $row['uuid'];
+        return "<a href=\"history.php?uuid=$uuid\">$player_name</a>";
+    }
+
     abstract function basic_info($row, $player_name);
 }
 
@@ -45,8 +50,8 @@ class BanInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Banned Player' => $page->get_avatar($player_name, $row['uuid']),
-            'Banned By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
+            'Banned Player' => $page->get_avatar($player_name, $row['uuid'], false, $this->history_link($player_name, $row)),
+            'Banned By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid'], false),
             'Ban Reason'    => $page->clean($row['reason']),
             'Ban Placed'    => $page->millis_to_date($row['time']),
             'Expires'       => $page->expiry($row),
@@ -58,8 +63,8 @@ class MuteInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Muted Player' => $page->get_avatar($player_name, $row['uuid']),
-            'Muted By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
+            'Muted Player' => $page->get_avatar($player_name, $row['uuid'], false, $this->history_link($player_name, $row)),
+            'Muted By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid'], false),
             'Mute Reason'  => $page->clean($row['reason']),
             'Mute Placed'  => $page->millis_to_date($row['time']),
             'Expires'      => $page->expiry($row),
@@ -75,8 +80,8 @@ class WarnInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Warned Player'  => $page->get_avatar($player_name, $row['uuid']),
-            'Warned By'      => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
+            'Warned Player'  => $page->get_avatar($player_name, $row['uuid'], false, $this->history_link($player_name, $row)),
+            'Warned By'      => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid'], false),
             'Warning Reason' => $page->clean($row['reason']),
             'Warning Placed' => $page->millis_to_date($row['time']),
             'Expires'        => $page->expiry($row),
@@ -88,12 +93,17 @@ class KickInfo extends Info {
     function basic_info($row, $player_name) {
         $page = $this->page;
         return array(
-            'Kicked Player' => $page->get_avatar($player_name, $row['uuid']),
-            'Kicked By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
+            'Kicked Player' => $page->get_avatar($player_name, $row['uuid'], false, $this->history_link($player_name, $row)),
+            'Kicked By'     => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid'], false),
             'Kick Reason'   => $page->clean($row['reason']),
             'Kick Date'     => $page->millis_to_date($row['time']),
         );
     }
+}
+
+// check if info.php is requested, otherwise it's included
+if ((substr($_SERVER['SCRIPT_NAME'], -strlen("info.php"))) !== "info.php") {
+    return;
 }
 
 if (!isset($_GET['type'], $_GET['id'])) {

@@ -10,6 +10,8 @@ $headers = array("Name", "Warned By", "Reason", "Warned Until", "Received Warnin
 
 $page->print_page_header();
 
+$page->print_check_form();
+
 $page->table_begin();
 $page->table_print_headers($headers);
 

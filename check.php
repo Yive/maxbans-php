@@ -6,7 +6,7 @@ use PDOException;
 require_once './includes/page.php';
 
 class Check {
-    public function run($name) {
+    public function run($name, $from) {
         // validate user input
         if (strlen($name) > 16 || !preg_match("/^[0-9a-zA-Z_]{1,16}$/", $name)) {
             $this->println("Invalid name.");
@@ -28,6 +28,17 @@ class Check {
                 $this->println("$name has not joined before.");
                 return;
             }
+            $href = "history.php?uuid=$uuid";
+
+            // sanitize $_POST['table'] ($from)
+            $from_type = $page->type_info($from);
+            $type = $from_type['type'];
+            if ($type !== null) {
+                $href .= "&from=" . lcfirst($from_type['title']);
+            }
+
+            echo "<script type=\"text/javascript\">document.location=\"$href\";</script>";
+            /*
             $table = $page->settings->table['bans'];
 
             $stmt = $page->conn->prepare("SELECT * FROM $table WHERE (uuid=? AND active=" . Settings::$TRUE . ") LIMIT 1");
@@ -51,6 +62,7 @@ class Check {
                     $this->println("Banned permanently.");
                 }
             }
+            */
         } catch (PDOException $ex) {
             die($ex->getMessage());
         }
@@ -61,7 +73,7 @@ class Check {
     }
 }
 
-if (isset($_POST['name'], $_POST['table'])) {
+if (isset($_GET['name'], $_GET['table'])) {
     $check = new Check();
-    $check->run($_POST['name']);
+    $check->run($_GET['name'], $_GET['table']);
 }

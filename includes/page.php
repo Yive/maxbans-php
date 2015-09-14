@@ -24,28 +24,14 @@ class Page {
             }
         }
         $this->name = $name;
-        switch ($name) {
-            case "ban":
-            case "bans":
-                $this->type = "ban";
-                $this->table = $settings->table['bans'];
-                break;
-            case "mute":
-            case "mutes":
-                $this->type = "mute";
-                $this->table = $settings->table['mutes'];
-                break;
-            case "warn":
-            case "warnings":
-                $this->type = "warn";
-                $this->table = $settings->table['warnings'];
-                break;
-            case "kick":
-            case "kicks":
-                $this->type = "kick";
-                $this->table = $settings->table['kicks'];
-                break;
-        }
+
+        $this->type = null;
+        $this->table = null;
+        $this->title = null;
+
+        $info = $this->type_info($name);
+        $this->set_info($info);
+
         $this->permanent = array(
             'ban'  => 'Permanent Ban',
             'mute' => 'Permanent Mute',
@@ -58,6 +44,46 @@ class Page {
             'warn' => '(Expired)',
             'kick' => null,
         );
+    }
+
+    public function type_info($type) {
+        $settings = $this->settings;
+        switch ($type) {
+            case "ban":
+            case "bans":
+                return array(
+                    "type"  => "ban",
+                    "table" => $settings->table['bans'],
+                    "title" => "Bans",
+                );
+            case "mute":
+            case "mutes":
+                return array(
+                    "type"  => "mute",
+                    "table" => $settings->table['mutes'],
+                    "title" => "Mutes",
+                );
+            case "warn":
+            case "warnings":
+                return array(
+                    "type"  => "warn",
+                    "table" => $settings->table['warnings'],
+                    "title" => "Warnings",
+                );
+            case "kick":
+            case "kicks":
+                return array(
+                    "type"  => "kick",
+                    "table" => $settings->table['kicks'],
+                    "title" => "Kicks",
+                );
+            default:
+                return array(
+                    "type"  => null,
+                    "table" => null,
+                    "title" => null,
+                );
+        }
     }
 
     function run_query() {
@@ -86,12 +112,14 @@ class Page {
     }
 
     /**
-     * Returns an <img> tag representing the Minecraft avatar for a specific name or UUID.
+     * Returns HTML representing the Minecraft avatar for a specific name or UUID.
      * @param $name
      * @param $uuid
+     * @param bool $name_under
+     * @param string $name_repl
      * @return string
      */
-    function get_avatar($name, $uuid) {
+    function get_avatar($name, $uuid, $name_under = true, $name_repl = null) {
         if (strlen($uuid) === 36 && $uuid[14] === '3') {
             // Avatars cannot be associated with offline mode UUIDs (version 3)
             $uuid = $name;
@@ -100,6 +128,12 @@ class Page {
         if (in_array($name, $this->settings->console_aliases)) {
             $src = $this->settings->console_image;
             $name = $this->settings->console_name;
+        }
+        if ($name_repl !== null) {
+            $name = $name_repl;
+        }
+        if ($name_under) {
+            return "<p align='center'><img class='avatar noselect' src='$src'/><br>$name</p>";
         }
         return "<img class='avatar noselect' src='$src'/>$name";
     }
@@ -176,6 +210,9 @@ class Page {
      * @return string
      */
     public function expiry($row) {
+        if ($this->type === "kick") {
+            return "N/A";
+        }
         if ($row['until'] <= 0) {
             return $this->permanent[$this->type];
         }
@@ -243,19 +280,21 @@ class Page {
              <div style="margin-left: 15px;">
                  <form onsubmit="captureForm(event);" class="form-inline"><div class="form-group"><input type="text" class="form-control" id="user" placeholder="Player"></div><button type="submit" class="btn btn-default" style="margin-left: 5px;">Check</button></form>
              </div>
-             <script type="text/javascript">function captureForm(b){o=$("#output");o.removeClass("in");x=setTimeout(function(){o.html("<br>")}, 150);$.ajax({type:"POST",url:"check.php",data:{name:$("#user").val(),table:"' . $table . '"}}).done(function(c){clearTimeout(x);o.html(c);o.addClass("in")});b.preventDefault();return false};</script>
+             <script type="text/javascript">function captureForm(b){o=$("#output");o.removeClass("in");x=setTimeout(function(){o.html("<br>")}, 150);$.ajax({type:"GET",url:"check.php?name="+$("#user").val()+"&table=' . $table . '"}).done(function(c){clearTimeout(x);o.html(c);o.addClass("in")});b.preventDefault();return false};</script>
              <div id="output" class="success fade" data-alert="alert" style="margin-left: 15px;"><br></div>
          </div>
          ');
     }
 
-    function print_pager() {
+    function print_pager($total = -1, $args = "") {
         $table = $this->table;
         $page = $this->name . ".php";
 
         if (!$this->settings->show_pager) return;
-        $result = $this->conn->query("SELECT COUNT(*) AS count FROM $table")->fetch(PDO::FETCH_ASSOC);
-        $total = $result['count'];
+        if ($total === -1) {
+            $result = $this->conn->query("SELECT COUNT(*) AS count FROM $table")->fetch(PDO::FETCH_ASSOC);
+            $total = $result['count'];
+        }
 
         $pages = (int)($total / $this->settings->limit_per_page) + 1;
 
@@ -271,12 +310,12 @@ class Page {
 
         $pager_prev = "<div class=\"$prev_class\" style=\"float:left; font-size:30px;\">«</div>";
         if ($prev_active) {
-            $pager_prev = "<a href=\"$page?page=$prev\">$pager_prev</a>";
+            $pager_prev = "<a href=\"$page?page={$prev}{$args}\">$pager_prev</a>";
         }
 
         $pager_next = "<div class=\"$next_class\" style=\"float: right; font-size:30px;\">»</div>";
         if ($next_active) {
-            $pager_next = "<a href=\"$page?page=$next\">$pager_next</a>";
+            $pager_next = "<a href=\"$page?page={$next}{$args}\">$pager_next</a>";
         }
         $pager_count = "<div style=\"margin-top: 32px;\"><div style=\"text-align: center; font-size:15px;\">Page $cur/$pages</div></div>";
         echo "$pager_prev $pager_next $pager_count";
@@ -300,5 +339,14 @@ class Page {
         if ($clicky) {
             echo "<script type=\"text/javascript\">$('tr').click(function(){window.location=$(this).find('a').attr('href');}).hover(function(){\$(this).toggleClass('hover');});</script>";
         }
+    }
+
+    /**
+     * @param $info
+     */
+    public function set_info($info) {
+        $this->type = $info['type'];
+        $this->table = $info['table'];
+        $this->title = $info['title'];
     }
 }
