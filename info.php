@@ -96,6 +96,10 @@ class KickInfo extends Info {
     }
 }
 
+if (!isset($_GET['type'], $_GET['id'])) {
+    die("Missing arguments (type, id).");
+}
+
 $type = $_GET['type'];
 $id = $_GET['id'];
 $page = new Page($type);
