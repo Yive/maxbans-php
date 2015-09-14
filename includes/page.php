@@ -214,9 +214,10 @@ class Page {
             return "N/A";
         }
         if ($row['until'] <= 0) {
-            return $this->permanent[$this->type];
+            $until = $this->permanent[$this->type];
+        } else {
+            $until = $this->millis_to_date($row['until']);
         }
-        $until = $this->millis_to_date($row['until']);
         if ($this->settings->show_inactive_bans && !$row['active']) {
             $until .= ' ' . $this->expired[$this->type];
         }
