@@ -17,7 +17,7 @@ $settings = new Settings(false);
                 <li><a href="warnings.php">Warnings</a></li>
                 <li><a href="kicks.php">Kicks</a></li>
             </ul>
-            <p class="navbar-text" style="float: right; font-size:15px;color:white;">&copy;
+            <p class="navbar-text" style="float: right; font-size:15px;">&copy;
                 <a href="https://www.spigotmc.org/resources/litebans.3715/" target="_blank">LiteBans</a>
         </div>
     </div>

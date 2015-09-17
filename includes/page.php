@@ -249,7 +249,7 @@ class Page {
                 $a .= " class=\"glyphicon $icon\" aria-hidden=true";
                 $text = "";
             }
-            echo "<td $style><$a style=\"color: #fcfcfc;\" href=\"info.php?type=$type&id=$id\">$text</a></td>";
+            echo "<td $style><$a href=\"info.php?type=$type&id=$id\">$text</a></td>";
         }
         echo "</tr>";
     }
