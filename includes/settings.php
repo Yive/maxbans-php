@@ -54,6 +54,9 @@ final class Settings {
          */
         $this->avatar_source = 'https://cravatar.eu/avatar/$UUID/25';
 
+        // If enabled, names will be shown below avatars instead of being shown next to them.
+        $this->avatar_names_below = true;
+
         // The date format can be changed here.
         // https://secure.php.net/manual/en/function.date.php
         // Example of default: July 2, 2015, 9:19 PM

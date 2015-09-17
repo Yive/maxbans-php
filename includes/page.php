@@ -120,6 +120,9 @@ class Page {
      * @return string
      */
     function get_avatar($name, $uuid, $name_under = true, $name_repl = null) {
+        if ($name_under) {
+            $name_under = $this->settings->avatar_names_below;
+        }
         if (strlen($uuid) === 36 && $uuid[14] === '3') {
             // Avatars cannot be associated with offline mode UUIDs (version 3)
             $uuid = $name;
