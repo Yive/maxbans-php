@@ -73,6 +73,20 @@ $page->name = "Recent Punishments for $name";
 $page->print_title();
 $page->print_page_header();
 
+$from = null;
+$from_title = null;
+$from_href = null;
+
+if (isset($_GET['from'])) {
+    // sanitize $_GET['from']
+    $info = $page->type_info($_GET['from']);
+    if ($info['type'] !== null) {
+        $from_title = $info['title'];
+        $from = lcfirst($from_title);
+        $from_href = "$from.php";
+    }
+}
+
 try {
     $all = array();
     $counts = array();
@@ -133,20 +147,18 @@ try {
         // print pager
         if ($page->settings->show_pager) {
             $page->name = "history";
-            $page->print_pager($total, "&uuid=$uuid");
+            $args = "&uuid=$uuid";
+            if ($from !== null) {
+                $args .= "&from=$from";
+            }
+            $page->print_pager($total, $args);
         }
     } else {
         echo "No punishments found.<br><br>";
     }
 
-    if (isset($_GET['from'])) {
-        // sanitize $_GET['from']
-        $info = $page->type_info($_GET['from']);
-        if ($info['type'] !== null) {
-            $title = $info['title'];
-            $href = lcfirst($title) . ".php";
-            echo "<a class=\"btn\" href=\"$href\">Return to $title</a>";
-        }
+    if ($from_href !== null) {
+        echo "<br><a class=\"btn\" href=\"$from_href\">Return to $from_title</a>";
     }
 
     $page->print_footer();
