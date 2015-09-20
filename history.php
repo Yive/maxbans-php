@@ -16,17 +16,18 @@ class History {
      * @param array $array
      * @param string $type
      * @param string $uuid
+     * @param string $field
      * @param array $counts
      */
-    static function push($page, &$array, $type, $uuid, &$counts) {
+    static function push($page, &$array, $type, $uuid, $field, &$counts) {
         $table = $page->settings->table[$type];
-        $count_st = $page->conn->prepare("SELECT COUNT(*) AS count FROM $table WHERE uuid=:uuid");
+        $count_st = $page->conn->prepare("SELECT COUNT(*) AS count FROM $table WHERE $field=:uuid");
         $count_st->bindParam(":uuid", $uuid, PDO::PARAM_STR);
         if ($count_st->execute() && ($row = $count_st->fetch()) !== null) {
             $counts[$type] = $row['count'];
         }
 
-        $st = $page->conn->prepare("SELECT * FROM $table WHERE uuid=:uuid ORDER BY time");
+        $st = $page->conn->prepare("SELECT * FROM $table WHERE $field=:uuid ORDER BY time");
 
         $st->bindParam(":uuid", $uuid, PDO::PARAM_STR);
         // Incompatible with pager as rows are usort()'d
@@ -62,6 +63,8 @@ if (!isset($_GET['uuid'])) {
     die("Missing arguments (uuid).");
 }
 
+$staffhistory = (isset($_GET['staffhistory']) && $_GET['staffhistory'] === "1");
+
 $uuid = $_GET['uuid'];
 $name = $page->get_name($uuid);
 
@@ -69,7 +72,13 @@ if ($name === null) {
     die("Player not found in database.");
 }
 
-$page->name = "Recent Punishments for $name";
+if ($staffhistory) {
+    $page->name = "Recent Punishments by $name";
+} else {
+    $page->name = "Recent Punishments for $name";
+}
+
+
 $page->print_title();
 $page->print_page_header();
 
@@ -91,10 +100,15 @@ try {
     $all = array();
     $counts = array();
 
-    History::push($page, $all, 'bans', $uuid, $counts);
-    History::push($page, $all, 'mutes', $uuid, $counts);
-    History::push($page, $all, 'warnings', $uuid, $counts);
-    History::push($page, $all, 'kicks', $uuid, $counts);
+    $field = "uuid";
+    if ($staffhistory) {
+        $field = "banned_by_uuid";
+    }
+
+    History::push($page, $all, 'bans', $uuid, $field, $counts);
+    History::push($page, $all, 'mutes', $uuid, $field, $counts);
+    History::push($page, $all, 'warnings', $uuid, $field, $counts);
+    History::push($page, $all, 'kicks', $uuid, $field, $counts);
 
     $total = 0;
     foreach ($counts as $count) {
@@ -135,7 +149,7 @@ try {
 
             $page->print_table_rows($row, array(
                 'Type'      => $label,
-                'Player'    => $page->get_avatar($name, $row['uuid']),
+                'Player'    => $page->get_avatar($page->get_name($row['uuid']), $row['uuid']),
                 'Moderator' => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
                 'Reason'    => $page->clean($row['reason']),
                 'Date'      => $page->millis_to_date($row['time']),
@@ -150,6 +164,9 @@ try {
             $args = "&uuid=$uuid";
             if ($from !== null) {
                 $args .= "&from=$from";
+            }
+            if ($staffhistory) {
+                $args .= "&staffhistory=1";
             }
             $page->print_pager($total, $args);
         }
