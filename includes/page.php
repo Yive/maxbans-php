@@ -7,7 +7,6 @@ use PDOException;
 class Page {
     public function __construct($name, $header = true) {
         if ($header) {
-            require_once './includes/head.php';
             require_once './includes/header.php';
         }
         require_once './includes/settings.php';
@@ -329,9 +328,10 @@ class Page {
         if ($container_end) {
             echo "</div></div></div>";
         }
-        include './includes/footer.php';
         $time = microtime(true) - $this->time;
         echo "<!-- Page generated in $time seconds. -->";
+
+        include_once './includes/footer.php';
     }
 
     public function table_begin() {

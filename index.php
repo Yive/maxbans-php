@@ -1,8 +1,7 @@
 <?php
 namespace litebans;
 
-include './includes/head.php';
-include './includes/header.php';
+include_once './includes/header.php';
 include_once './includes/settings.php';
 $settings = new Settings(false);
 ?>
@@ -14,4 +13,4 @@ $settings = new Settings(false);
         <div style="text-align: center;"><p>Here is where our Bans, Mutes, Warnings, and Kicks are listed.</p></div>
     </div>
 </div>
-<?php include './includes/footer.php'; ?>
+<?php include_once './includes/footer.php'; ?>
