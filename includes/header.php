@@ -43,15 +43,15 @@ function navbar($links) {
             <a class="navbar-brand" href="<?php echo $settings->name_link; ?>"><?php echo $settings->name; ?></a>
         </div>
         <nav id="litebans-navbar" class="collapse navbar-collapse">
-                <?php
-                navbar(array(
-                    "index.php"    => "Home",
-                    "bans.php"     => "Bans",
-                    "mutes.php"    => "Mutes",
-                    "warnings.php" => "Warnings",
-                    "kicks.php"    => "Kicks",
-                ));
-                ?>
+            <?php
+            navbar(array(
+                "index.php"    => "Home",
+                "bans.php"     => "Bans",
+                "mutes.php"    => "Mutes",
+                "warnings.php" => "Warnings",
+                "kicks.php"    => "Kicks",
+            ));
+            ?>
             <div class="nav navbar-nav navbar-right">
                 <a href="https://www.spigotmc.org/resources/litebans.3715/" class="navbar-text"
                    target="_blank">&copy; LiteBans</a>
