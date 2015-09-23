@@ -171,7 +171,7 @@ try {
             $page->print_pager($total, $args);
         }
     } else {
-        echo "No punishments found.<br><br>";
+        echo "No punishments found.<br>";
     }
 
     if ($from_href !== null) {

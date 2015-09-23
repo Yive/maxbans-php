@@ -37,7 +37,7 @@ class Check {
                 $href .= "&from=" . lcfirst($from_type['title']);
             }
 
-            echo "<script type=\"text/javascript\">document.location=\"$href\";</script>";
+            echo "<br><script type=\"text/javascript\">document.location=\"$href\";</script>";
             /*
             $table = $page->settings->table['bans'];
 
