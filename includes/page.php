@@ -356,6 +356,6 @@ class Page {
 
     public function active($row) {
         $active = $row['active'];
-        return $active === 1 || $active === true;
+        return $active === 1 || $active === true || $active === "1";
     }
 }
