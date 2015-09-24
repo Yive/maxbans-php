@@ -220,7 +220,7 @@ class Page {
         } else {
             $until = $this->millis_to_date($row['until']);
         }
-        if ($this->settings->show_inactive_bans && !$row['active']) {
+        if ($this->settings->show_inactive_bans && $this->active($row) === false) {
             $until .= ' ' . $this->expired[$this->type];
         }
         return $until;
@@ -352,5 +352,10 @@ class Page {
         $this->type = $info['type'];
         $this->table = $info['table'];
         $this->title = $info['title'];
+    }
+
+    public function active($row) {
+        $active = $row['active'];
+        return $active === 1 || $active === true;
     }
 }

@@ -150,7 +150,7 @@ if ($st->execute(array($id))) {
 
     $name = $info->name();
     $permanent = $info->permanent();
-    $active = $row['active'];
+    $active = $page->active($row);
 
     $page->name = "$name #$id";
     $page->print_title();
