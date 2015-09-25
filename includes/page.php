@@ -308,15 +308,15 @@ class Page {
         $prev_active = ($cur > 1);
         $next_active = ($cur < $pages);
 
-        $prev_class = $prev_active ? "pager-active" : "pager-inactive";
-        $next_class = $next_active ? "pager-active" : "pager-inactive";
+        $prev_class = "litebans-" . ($prev_active ? "pager-active" : "pager-inactive");
+        $next_class = "litebans-" . ($next_active ? "pager-active" : "pager-inactive");
 
-        $pager_prev = "<div class=\"$prev_class\" style=\"float:left; font-size:30px;\">«</div>";
+        $pager_prev = "<div class=\"litebans-pager litebans-pager-left $prev_class\">«</div>";
         if ($prev_active) {
             $pager_prev = "<a href=\"$page?page={$prev}{$args}\">$pager_prev</a>";
         }
 
-        $pager_next = "<div class=\"$next_class\" style=\"float: right; font-size:30px;\">»</div>";
+        $pager_next = "<div class=\"litebans-pager litebans-pager-right $next_class\">»</div>";
         if ($next_active) {
             $pager_next = "<a href=\"$page?page={$next}{$args}\">$pager_next</a>";
         }
@@ -354,8 +354,8 @@ class Page {
         $this->title = $info['title'];
     }
 
-    public function active($row) {
-        $active = $row['active'];
+    public function active($row, $column = "active") {
+        $active = $row[$column];
         return $active === 1 || $active === true || $active === "1";
     }
 }

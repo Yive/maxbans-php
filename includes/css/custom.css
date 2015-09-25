@@ -18,14 +18,25 @@ table tr td {
     padding-right: 0;
 }
 
-.pager-active {
+.litebans-pager {
+    font-size: 30px;
+}
+
+.litebans-pager-left {
+    float: left;
+}
+
+.litebans-pager-right {
+    float: right;
+}
+
+.litebans-pager-active {
     color: darkcyan;
 }
 
-.pager-inactive {
+.litebans-pager-inactive {
     color: transparent;
 }
-
 
 /* table links */
 a,
