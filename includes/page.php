@@ -96,7 +96,20 @@ class Page {
                 $page = $this->page - 1;
                 $offset = ($limit * $page);
             }
-            $query = "SELECT * FROM $table $active_query GROUP BY $table.id ORDER BY time DESC LIMIT :limit OFFSET :offset";
+
+            if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+                $sel = "*";
+            } else {
+                // PDO+MySQL under PHP 5.3.x has a bug with BIT columns.
+                // An empty string is returned no matter what the value is.
+                // Workaround: cast to unsigned.
+                $sel = "id,uuid,reason,banned_by_name,banned_by_uuid,time,until,CAST(active AS UNSIGNED) AS active";
+                if ($table === $this->settings->table['warnings']) {
+                    $sel .= ",CAST(warned AS UNSIGNED) AS warned";
+                }
+            }
+
+            $query = "SELECT $sel FROM $table $active_query GROUP BY $table.id ORDER BY time DESC LIMIT :limit OFFSET :offset";
             $st = $this->conn->prepare($query);
 
             $st->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -146,12 +159,11 @@ class Page {
      * @return null|string
      */
     function get_name($uuid) {
-        $console_aliases = $this->settings->console_aliases;
-        if (in_array($uuid, $console_aliases)) {
+        if (in_array($uuid, $this->settings->console_aliases)) {
             return $this->settings->console_name;
         }
-
         if (array_key_exists($uuid, $this->uuid_name_cache)) return $this->uuid_name_cache[$uuid];
+
         $history = $this->settings->table['history'];
         $stmt = $this->conn->prepare("SELECT name FROM $history WHERE uuid=? ORDER BY date DESC LIMIT 1");
         if ($stmt->execute(array($uuid)) && $row = $stmt->fetch()) {
@@ -361,6 +373,6 @@ class Page {
 
     public function active($row, $column = "active") {
         $active = $row[$column];
-        return $active === 1 || $active === true || $active === "1";
+        return  $active === "1" || $active === 1 || $active === true;
     }
 }
