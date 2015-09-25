@@ -146,6 +146,11 @@ class Page {
      * @return null|string
      */
     function get_name($uuid) {
+        $console_aliases = $this->settings->console_aliases;
+        if (in_array($uuid, $console_aliases)) {
+            return $this->settings->console_name;
+        }
+
         if (array_key_exists($uuid, $this->uuid_name_cache)) return $this->uuid_name_cache[$uuid];
         $history = $this->settings->table['history'];
         $stmt = $this->conn->prepare("SELECT name FROM $history WHERE uuid=? ORDER BY date DESC LIMIT 1");
@@ -269,16 +274,16 @@ class Page {
     }
 
     function table_print_headers($headers) {
-        echo("<thead><tr>");
+        echo "<thead><tr>";
         foreach ($headers as $header) {
             echo "<th><div style=\"text-align: center;\">$header</div></th>";
         }
-        echo("<tbody>");
+        echo "<tbody>";
     }
 
     function print_check_form() {
         $table = $this->name;
-        echo('
+        echo '
          <div style="text-align: left;" class="row">
              <div style="margin-left: 15px;">
                  <form onsubmit="captureForm(event);" class="form-inline"><div class="form-group"><input type="text" class="form-control" id="user" placeholder="Player"></div><button type="submit" class="btn btn-default" style="margin-left: 5px;">Check</button></form>
@@ -286,7 +291,7 @@ class Page {
              <script type="text/javascript">function captureForm(b){o=$("#output");o.removeClass("in");x=setTimeout(function(){o.html("<br>")}, 150);$.ajax({type:"GET",url:"check.php?name="+$("#user").val()+"&table=' . $table . '"}).done(function(c){clearTimeout(x);o.html(c);o.addClass("in")});b.preventDefault();return false};</script>
              <div id="output" class="success fade" data-alert="alert" style="margin-left: 15px;"><br></div>
          </div>
-         ');
+         ';
     }
 
     function print_pager($total = -1, $args = "") {
