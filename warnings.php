@@ -25,7 +25,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         'Warned By'        => $page->get_avatar($page->get_banner_name($row), $row['banned_by_uuid']),
         'Reason'           => $page->clean($row['reason']),
         'Warned Until'     => $page->expiry($row),
-        'Received Warning' => $row['warned'] ? "Yes" : "No",
+        'Received Warning' => $page->active($row, 'warned') ? "Yes" : "No",
     ));
 }
 $page->table_end();
