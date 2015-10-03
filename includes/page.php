@@ -254,6 +254,9 @@ class Page {
     }
 
     function print_table_rows($row, $array) {
+        if ($this->settings->debug_mode > 0) {
+            var_dump($row);
+        }
         $id = $row['id'];
         $type = $this->type;
         echo "<tr>";

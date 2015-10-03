@@ -63,6 +63,7 @@ final class Settings {
         $this->date_format = 'F j, Y, g:i A';
         date_default_timezone_set("UTC");
 
+        $this->debug_mode = 0;
 
         /*** End of configuration ***/
 
