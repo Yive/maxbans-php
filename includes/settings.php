@@ -23,6 +23,9 @@ final class Settings {
         $username = 'root';
         $password = 'password';
 
+        // If you set a table prefix in config.yml, set it here as well
+        $table_prefix = "litebans_";
+
         // Supported drivers: mysql, pgsql
         $driver = 'mysql';
 
@@ -34,9 +37,6 @@ final class Settings {
 
         // Amount of bans/mutes/warnings to show on each page
         $this->limit_per_page = 10;
-
-        // If you set a table prefix in config.yml, set it here as well
-        $table_prefix = "";
 
         // The server console will be identified by any of these names.
         // It will be given a standard name and avatar image.
