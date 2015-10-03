@@ -101,6 +101,10 @@ final class Settings {
             if ($driver === 'pgsql') {
                 $this->conn->query("SET NAMES 'UTF8';");
             }
+
+            if ($this->debug_mode > 0) {
+                echo PHP_VERSION;
+            }
         }
     }
 }
