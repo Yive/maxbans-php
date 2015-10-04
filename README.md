@@ -4,4 +4,4 @@ maxbans-php
 PHP listings script for MaxBans
 
 
-Demo: http://yive.me/maxbans/
+Demo: http://maxbans.yive.me/
