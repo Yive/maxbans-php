@@ -28,6 +28,14 @@ function navbar($links) {
     <!-- CSS -->
     <link href="includes/css/bootstrap.min.css" rel="stylesheet">
     <link href="includes/css/custom.css" rel="stylesheet">
+    <script type="text/javascript">
+        function withjQuery(f) {
+            if (window.jQuery) f();
+            else window.setTimeout(function () {
+                withjQuery(f);
+            }, 100);
+        }
+    </script>
 </head>
 
 <header class="navbar navbar-default navbar-static-top" role="banner">

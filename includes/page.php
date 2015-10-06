@@ -361,7 +361,7 @@ class Page {
     public function table_end($clicky = true) {
         echo '</table>';
         if ($clicky) {
-            echo "<script type=\"text/javascript\">$('tr').click(function(){window.location=$(this).find('a').attr('href');}).hover(function(){\$(this).toggleClass('hover');});</script>";
+            echo "<script type=\"text/javascript\">withjQuery(function(){ $('tr').click(function(){window.location=$(this).find('a').attr('href');}).hover(function(){\$(this).toggleClass('hover');}); });</script>";
         }
     }
 
@@ -376,6 +376,6 @@ class Page {
 
     public function active($row, $column = "active") {
         $active = $row[$column];
-        return  $active === "1" || $active === 1 || $active === true;
+        return $active === "1" || $active === 1 || $active === true;
     }
 }
