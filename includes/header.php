@@ -26,7 +26,7 @@ function navbar($links) {
     <meta name="author" content="LiteBans">
     <link rel="shortcut icon" href="includes/img/minecraft.ico">
     <!-- CSS -->
-    <link href="includes/css/bootstrap.css" rel="stylesheet">
+    <link href="includes/css/bootstrap.min.css" rel="stylesheet">
     <link href="includes/css/custom.css" rel="stylesheet">
 </head>
 
