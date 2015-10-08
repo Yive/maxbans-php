@@ -361,7 +361,7 @@ class Page {
     public function table_end($clicky = true) {
         echo '</table>';
         if ($clicky) {
-            echo "<script type=\"text/javascript\">withjQuery(function(){ $('tr').click(function(){window.location=$(this).find('a').attr('href');}).hover(function(){\$(this).toggleClass('hover');}); });</script>";
+            echo "<script type=\"text/javascript\">withjQuery(function(){ $('tr').click(function(){var href=$(this).find('a').attr('href');if(href!==undefined)window.location=href;}).hover(function(){\$(this).toggleClass('hover');}); });</script>";
         }
     }
 
