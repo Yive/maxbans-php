@@ -30,8 +30,6 @@ class History {
         $st = $page->conn->prepare("SELECT * FROM $table WHERE $field=:uuid ORDER BY time");
 
         $st->bindParam(":uuid", $uuid, PDO::PARAM_STR);
-        // Incompatible with pager as rows are usort()'d
-        // $st->bindParam(':limit', $limit, PDO::PARAM_INT);
 
         if ($st->execute()) {
             while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
@@ -59,18 +57,14 @@ class History {
 
 $page = new Page("history");
 
-if (!isset($_GET['uuid'])) {
-    die("Missing arguments (uuid).");
-}
+isset($_GET['uuid']) or die("Missing arguments (uuid).");
 
 $staffhistory = (isset($_GET['staffhistory']) && $_GET['staffhistory'] === "1");
 
 $uuid = $_GET['uuid'];
 $name = $page->get_name($uuid);
 
-if ($name === null) {
-    die("Player not found in database.");
-}
+$name !== null or die("Player not found in database.");
 
 if ($staffhistory) {
     $page->name = "Recent Punishments by $name";

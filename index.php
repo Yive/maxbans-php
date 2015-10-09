@@ -1,16 +1,16 @@
 <?php
 namespace litebans;
 
-include_once './includes/header.php';
-include_once './includes/settings.php';
-$settings = new Settings(false);
+require_once './includes/page.php';
+$page = new Page("index");
+$page->print_title();
+
 ?>
-<title>Index - <?php echo $settings->name; ?></title>
 <div class="container">
     <div class="jumbotron">
-        <div style="text-align: center;"><h2>Welcome to <?php echo $settings->name; ?>'s Ban List.</h2></div>
+        <div style="text-align: center;"><h2>Welcome to <?php echo $page->settings->name; ?>'s Ban List.</h2></div>
 
-        <div style="text-align: center;"><p>Here is where our Bans, Mutes, Warnings, and Kicks are listed.</p></div>
+        <div style="text-align: center;"><p>Here is where all of our punishments are listed.</p></div>
     </div>
 </div>
-<?php include_once './includes/footer.php'; ?>
+<?php $page->print_footer(false); ?>

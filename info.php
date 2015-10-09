@@ -114,21 +114,16 @@ if ((substr($_SERVER['SCRIPT_NAME'], -strlen("info.php"))) !== "info.php") {
     return;
 }
 
-if (!isset($_GET['type'], $_GET['id'])) {
-    die("Missing arguments (type, id).");
-}
+isset($_GET['type'], $_GET['id']) or die("Missing arguments (type, id).");
 
 $type = $_GET['type'];
 $id = $_GET['id'];
 $page = new Page($type);
 
-if ($page->type === null) {
-    die("Unknown page type requested.");
-}
+($page->type !== null) or die("Unknown page type requested.");
 
-if (!filter_var($id, FILTER_VALIDATE_INT)) {
-    die("Invalid ID.");
-}
+filter_var($id, FILTER_VALIDATE_INT) or die("Invalid ID.");
+
 $id = (int)$id;
 
 $type = $page->type;
@@ -138,13 +133,11 @@ $query = "SELECT * FROM $table WHERE id=? LIMIT 1";
 $st = $page->conn->prepare($query);
 
 if ($st->execute(array($id))) {
-    if (!($row = $st->fetch())) {
-        die("Error: $type not found in database.");
-    }
+    ($row = $st->fetch()) or die("Error: $type not found in database.");
+
     $player_name = $page->get_name($row['uuid']);
-    if ($player_name === null) {
-        die("Error: Player name not found.");
-    }
+
+    ($player_name !== null) or die("Error: Player name not found.");
 
     $info = Info::create($row, $page, $type);
 
@@ -173,6 +166,7 @@ if ($st->execute(array($id))) {
     $permanent_val = $info->page->permanent[$type];
     foreach ($map as $key => $val) {
         if ($permanent && $key === "Expires" && $val === $permanent_val) {
+            // skip "Expires" row if punishment is permanent
             continue;
         }
         echo "<tr><td>$key</td><td>$val</td></tr>";

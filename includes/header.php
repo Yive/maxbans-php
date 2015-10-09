@@ -1,8 +1,34 @@
 <?php
 namespace litebans;
 
-require_once './includes/settings.php';
-$settings = new Settings(false);
+use PDO;
+
+class Header {
+/**
+ * @param $page Page
+ */
+function __construct($page) {
+    $this->page = $page;
+    if ($page->settings->header_show_totals) {
+        $t = $page->settings->table;
+        $t_bans = $t['bans'];
+        $t_mutes = $t['mutes'];
+        $t_warnings = $t['warnings'];
+        $t_kicks = $t['kicks'];
+        $st = $page->conn->query("SELECT
+            (SELECT COUNT(*) FROM $t_bans) AS c_bans,
+            (SELECT COUNT(*) FROM $t_mutes) AS c_mutes,
+            (SELECT COUNT(*) FROM $t_warnings) AS c_warnings,
+            (SELECT COUNT(*) FROM $t_kicks) AS c_kicks");
+        ($row = $st->fetch(PDO::FETCH_ASSOC)) or die('Failed to fetch row counts.');
+        $this->count = array(
+            'bans.php'     => $row['c_bans'],
+            'mutes.php'    => $row['c_mutes'],
+            'warnings.php' => $row['c_warnings'],
+            'kicks.php'    => $row['c_kicks'],
+        );
+    }
+}
 
 function navbar($links) {
     echo '<ul class="nav navbar-nav">';
@@ -11,11 +37,18 @@ function navbar($links) {
         if ((substr($_SERVER['SCRIPT_NAME'], -strlen($page))) === $page) {
             $li .= ' class="active"';
         }
+        if ($this->page->settings->header_show_totals && isset($this->count[$page])) {
+            $title .= " <span class=\"badge\">";
+            $title .= $this->count[$page];
+            $title .= "</span>";
+        }
         echo "<$li><a href=\"$page\">$title</a></li>";
     }
     echo '</ul>';
 }
 
+function print_header() {
+$settings = $this->page->settings;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,11 +81,12 @@ function navbar($links) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo $settings->name_link; ?>"><?php echo $settings->name; ?></a>
+            <a class="navbar-brand"
+               href="<?php echo $settings->name_link; ?>"><?php echo $settings->name; ?></a>
         </div>
         <nav id="litebans-navbar" class="collapse navbar-collapse">
             <?php
-            navbar(array(
+            $this->navbar(array(
                 "index.php"    => "Home",
                 "bans.php"     => "Bans",
                 "mutes.php"    => "Mutes",
@@ -67,3 +101,8 @@ function navbar($links) {
         </nav>
     </div>
 </header>
+<?php
+}
+}
+
+?>

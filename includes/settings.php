@@ -57,6 +57,9 @@ final class Settings {
         // If enabled, names will be shown below avatars instead of being shown next to them.
         $this->avatar_names_below = true;
 
+        // If enabled, the total amount of bans, mutes, warnings, and kicks will be shown next to the buttons in the header.
+        $this->header_show_totals = true;
+
         // The date format can be changed here.
         // https://secure.php.net/manual/en/function.date.php
         // Example of default: July 2, 2015, 9:19 PM
@@ -85,6 +88,7 @@ final class Settings {
         if (!$this->show_inactive_bans) {
             $this->active_query = "WHERE active=" . Settings::$TRUE;
         }
+
         $this->driver = $driver;
         if ($connect) {
             $dsn = "$driver:dbname=$database;host=$host;port=$port";
