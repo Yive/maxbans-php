@@ -92,18 +92,14 @@ class Page {
     }
 
     function get_selection($table) {
-        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-            $selection = "*";
-        } else {
-            // PDO+MySQL under PHP 5.3.x has a bug with BIT columns.
-            // An empty string is returned no matter what the value is.
-            // Workaround: cast to unsigned.
-            $selection = "id,uuid,reason,banned_by_name,banned_by_uuid,time,until,CAST(active AS UNSIGNED) AS active";
-            if ($table === $this->settings->table['warnings']) {
-                $selection .= ",CAST(warned AS UNSIGNED) AS warned";
-            }
+        // Under certain versions of PHP, there is a bug with BIT columns.
+        // An empty string is returned no matter what the value is.
+        // Workaround: cast to unsigned.
+        $selection = "id,uuid,reason,banned_by_name,banned_by_uuid,time,until,CAST(active AS UNSIGNED) AS active";
+        if ($table === $this->settings->table['warnings']) {
+            $selection .= ",CAST(warned AS UNSIGNED) AS warned";
+            return $selection;
         }
-        return $selection;
     }
 
     function run_query() {
@@ -239,7 +235,8 @@ class Page {
      * @param row
      * @return string
      */
-    public function expiry($row) {
+    public
+    function expiry($row) {
         if ($this->type === "kick") {
             return "N/A";
         }
@@ -369,11 +366,13 @@ class Page {
         include_once './includes/footer.php';
     }
 
-    public function table_begin() {
+    public
+    function table_begin() {
         echo '<table class="table table-striped table-bordered table-condensed">';
     }
 
-    public function table_end($clicky = true) {
+    public
+    function table_end($clicky = true) {
         echo '</table>';
         if ($clicky) {
             echo "<script type=\"text/javascript\">withjQuery(function(){ $('tr').click(function(){var href=$(this).find('a').attr('href');if(href!==undefined)window.location=href;}).hover(function(){\$(this).toggleClass('hover');}); });</script>";
@@ -383,7 +382,8 @@ class Page {
     /**
      * @param $info
      */
-    public function set_info($info) {
+    public
+    function set_info($info) {
         $this->type = $info['type'];
         $this->table = $info['table'];
         $this->title = $info['title'];
