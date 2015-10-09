@@ -235,7 +235,6 @@ class Page {
      * @param row
      * @return string
      */
-    public
     function expiry($row) {
         if ($this->type === "kick") {
             return "N/A";
@@ -366,12 +365,10 @@ class Page {
         include_once './includes/footer.php';
     }
 
-    public
     function table_begin() {
         echo '<table class="table table-striped table-bordered table-condensed">';
     }
 
-    public
     function table_end($clicky = true) {
         echo '</table>';
         if ($clicky) {
@@ -382,7 +379,6 @@ class Page {
     /**
      * @param $info
      */
-    public
     function set_info($info) {
         $this->type = $info['type'];
         $this->table = $info['table'];
