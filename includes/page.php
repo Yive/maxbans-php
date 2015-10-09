@@ -88,6 +88,21 @@ class Page {
         }
     }
 
+    function get_selection($table) {
+        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+            $selection = "*";
+        } else {
+            // PDO+MySQL under PHP 5.3.x has a bug with BIT columns.
+            // An empty string is returned no matter what the value is.
+            // Workaround: cast to unsigned.
+            $selection = "id,uuid,reason,banned_by_name,banned_by_uuid,time,until,CAST(active AS UNSIGNED) AS active";
+            if ($table === $this->settings->table['warnings']) {
+                $selection .= ",CAST(warned AS UNSIGNED) AS warned";
+            }
+        }
+        return $selection;
+    }
+
     function run_query() {
         try {
             $table = $this->table;
@@ -100,17 +115,7 @@ class Page {
                 $offset = ($limit * $page);
             }
 
-            if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-                $sel = "*";
-            } else {
-                // PDO+MySQL under PHP 5.3.x has a bug with BIT columns.
-                // An empty string is returned no matter what the value is.
-                // Workaround: cast to unsigned.
-                $sel = "id,uuid,reason,banned_by_name,banned_by_uuid,time,until,CAST(active AS UNSIGNED) AS active";
-                if ($table === $this->settings->table['warnings']) {
-                    $sel .= ",CAST(warned AS UNSIGNED) AS warned";
-                }
-            }
+            $sel = $this->get_selection($table);
 
             $query = "SELECT $sel FROM $table $active_query GROUP BY $table.id ORDER BY time DESC LIMIT :limit OFFSET :offset";
             $st = $this->conn->prepare($query);

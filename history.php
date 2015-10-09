@@ -26,8 +26,9 @@ class History {
         if ($count_st->execute() && ($row = $count_st->fetch()) !== null) {
             $counts[$type] = $row['count'];
         }
+        $sel = $page->get_selection($table);
 
-        $st = $page->conn->prepare("SELECT * FROM $table WHERE $field=:uuid ORDER BY time");
+        $st = $page->conn->prepare("SELECT $sel FROM $table WHERE $field=:uuid ORDER BY time");
 
         $st->bindParam(":uuid", $uuid, PDO::PARAM_STR);
 

@@ -128,7 +128,8 @@ $id = (int)$id;
 
 $type = $page->type;
 $table = $page->table;
-$query = "SELECT * FROM $table WHERE id=? LIMIT 1";
+$sel = $page->get_selection($table);
+$query = "SELECT $sel FROM $table WHERE id=? LIMIT 1";
 
 $st = $page->conn->prepare($query);
 

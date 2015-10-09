@@ -99,6 +99,7 @@ final class Settings {
             try {
                 $this->conn = new PDO($dsn, $username, $password);
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             } catch (PDOException $e) {
                 die('Connection failed: ' . $e->getMessage());
             }
