@@ -81,8 +81,9 @@ $settings = $this->page->settings;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand"
-               href="<?php echo $settings->name_link; ?>"><?php echo $settings->name; ?></a>
+            <a class="navbar-brand" href="<?php echo $settings->name_link; ?>">
+                <?php echo $settings->name; ?>
+            </a>
         </div>
         <nav id="litebans-navbar" class="collapse navbar-collapse">
             <?php

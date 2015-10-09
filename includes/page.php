@@ -44,8 +44,11 @@ class Page {
             'kick' => null,
         );
 
-        $h = new Header($this);
-        $h->print_header();
+        if ($header) {
+            $h = new Header($this);
+            $this->header = $h;
+            $h->print_header();
+        }
     }
 
     public function type_info($type) {
