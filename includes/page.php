@@ -98,8 +98,8 @@ class Page {
         $selection = "id,uuid,reason,banned_by_name,banned_by_uuid,time,until,CAST(active AS UNSIGNED) AS active";
         if ($table === $this->settings->table['warnings']) {
             $selection .= ",CAST(warned AS UNSIGNED) AS warned";
-            return $selection;
         }
+        return $selection;
     }
 
     function run_query() {
