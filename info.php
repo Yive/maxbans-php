@@ -35,7 +35,7 @@ abstract class Info {
     }
 
     function permanent() {
-        return $this->row['until'] <= 0;
+        return ((int)$this->row['until']) <= 0;
     }
 
     function history_link($player_name, $uuid, $args = "") {
@@ -149,7 +149,8 @@ if ($st->execute(array($id))) {
 
     if (!($info instanceof KickInfo)) {
         $style = 'style="margin-left: 13px; font-size: 16px;"';
-        if ($row['active'] === "1") {
+        $active = $page->active($row);
+        if ($active === true) {
             $page->name .= "<span $style class='label label-danger'>Active</span>";
         } else {
             $page->name .= "<span $style class='label label-warning'>Inactive</span>";

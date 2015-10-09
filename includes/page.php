@@ -6,6 +6,7 @@ use PDOException;
 
 class Page {
     public function __construct($name, $header = true) {
+        $this->time = microtime(true);
         if ($header) {
             require_once './includes/header.php';
         }
@@ -14,7 +15,6 @@ class Page {
         $this->conn = $settings->conn;
         $this->settings = $settings;
         $this->uuid_name_cache = array();
-        $this->time = microtime(true);
         $this->page = 1;
         if (isset($_GET['page'])) {
             $page = $_GET['page']; // user input
@@ -240,10 +240,14 @@ class Page {
         } else {
             $until = $this->millis_to_date($row['until']);
         }
-        if ($this->settings->show_inactive_bans && $row['active'] === "0") {
+        if ($this->settings->show_inactive_bans && $this->active($row) === false) {
             $until .= ' ' . $this->expired[$this->type];
         }
         return $until;
+    }
+
+    function active($row, $field = 'active') {
+        return (((int)$row[$field]) !== 0);
     }
 
     function title() {
@@ -375,10 +379,5 @@ class Page {
         $this->type = $info['type'];
         $this->table = $info['table'];
         $this->title = $info['title'];
-    }
-
-    public function active($row, $column = "active") {
-        $active = $row[$column];
-        return $active === "1" || $active === 1 || $active === true;
     }
 }
