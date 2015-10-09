@@ -143,14 +143,13 @@ if ($st->execute(array($id))) {
 
     $name = $info->name();
     $permanent = $info->permanent();
-    $active = $page->active($row);
 
     $page->name = "$name #$id";
     $page->print_title();
 
     if (!($info instanceof KickInfo)) {
         $style = 'style="margin-left: 13px; font-size: 16px;"';
-        if ($active) {
+        if ($row['active'] === "1") {
             $page->name .= "<span $style class='label label-danger'>Active</span>";
         } else {
             $page->name .= "<span $style class='label label-warning'>Inactive</span>";

@@ -19,7 +19,7 @@ class Page {
         if (isset($_GET['page'])) {
             $page = $_GET['page']; // user input
             if (filter_var($page, FILTER_VALIDATE_INT)) {
-                $this->page = max(0,(int)$page);
+                $this->page = max(0, (int)$page);
             }
         }
         $this->name = $name;
@@ -240,7 +240,7 @@ class Page {
         } else {
             $until = $this->millis_to_date($row['until']);
         }
-        if ($this->settings->show_inactive_bans && $this->active($row) === false) {
+        if ($this->settings->show_inactive_bans && $row['active'] === "0") {
             $until .= ' ' . $this->expired[$this->type];
         }
         return $until;
