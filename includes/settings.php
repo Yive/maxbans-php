@@ -68,7 +68,16 @@ final class Settings {
 
         $this->debug_mode = 0;
 
+        // Enable PHP error reporting.
+        $error_reporting = true;
+
+
         /*** End of configuration ***/
+
+        if ($error_reporting) {
+            error_reporting(E_ALL);
+            ini_set("display_errors", 1);
+        }
 
         $this->table = array(
             'bans'     => "${table_prefix}bans",
