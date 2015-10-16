@@ -2,6 +2,7 @@
 namespace litebans;
 
 use PDO;
+use PDOException;
 
 class Header {
 /**
@@ -15,18 +16,22 @@ function __construct($page) {
         $t_mutes = $t['mutes'];
         $t_warnings = $t['warnings'];
         $t_kicks = $t['kicks'];
-        $st = $page->conn->query("SELECT
+        try {
+            $st = $page->conn->query("SELECT
             (SELECT COUNT(*) FROM $t_bans) AS c_bans,
             (SELECT COUNT(*) FROM $t_mutes) AS c_mutes,
             (SELECT COUNT(*) FROM $t_warnings) AS c_warnings,
             (SELECT COUNT(*) FROM $t_kicks) AS c_kicks");
-        ($row = $st->fetch(PDO::FETCH_ASSOC)) or die('Failed to fetch row counts.');
-        $this->count = array(
-            'bans.php'     => $row['c_bans'],
-            'mutes.php'    => $row['c_mutes'],
-            'warnings.php' => $row['c_warnings'],
-            'kicks.php'    => $row['c_kicks'],
-        );
+            ($row = $st->fetch(PDO::FETCH_ASSOC)) or die('Failed to fetch row counts.');
+            $this->count = array(
+                'bans.php'     => $row['c_bans'],
+                'mutes.php'    => $row['c_mutes'],
+                'warnings.php' => $row['c_warnings'],
+                'kicks.php'    => $row['c_kicks'],
+            );
+        } catch (PDOException $ex) {
+            die($ex->getMessage());
+        }
     }
 }
 
