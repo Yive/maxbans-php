@@ -49,6 +49,7 @@ class Page {
             $this->header = $h;
             $h->print_header();
         }
+        $this->table_headers_printed = false;
     }
 
     public function type_info($type) {
@@ -264,7 +265,12 @@ class Page {
         echo "<title>$title - $name</title>";
     }
 
-    function print_table_rows($row, $array) {
+    function print_table_rows($row, $array, $print_headers = true) {
+        if ($print_headers && !$this->table_headers_printed) {
+            $headers = array_keys($array);
+            $this->table_print_headers($headers);
+            $this->table_headers_printed = true;
+        }
         if ($this->settings->debug_mode > 0) {
             var_dump($row);
         }
@@ -275,6 +281,9 @@ class Page {
             $style = "";
             if ($header === "Reason") {
                 $style = "style=\"width: 30%;\"";
+                if ($text === "") {
+                    $text = "-";
+                }
             }
             $a = "a";
             if ($header === "Received Warning") {

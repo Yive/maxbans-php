@@ -114,7 +114,6 @@ try {
 
     if (!empty($all)) {
         $page->table_begin();
-        $page->table_print_headers(array("Type", "Player", "Moderator", "Reason", "Date", "Expires"));
 
         $offset = 0;
         $limit = $page->settings->limit_per_page;

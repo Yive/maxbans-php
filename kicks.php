@@ -6,14 +6,12 @@ use PDO;
 require_once './includes/page.php';
 $page = new Page("kicks");
 $page->print_title();
-$headers = array("Name", "Kicked By", "Reason", "Date");
 
 $page->print_page_header();
 
 $page->print_check_form();
 
 $page->table_begin();
-$page->table_print_headers($headers);
 
 $result = $page->run_query();
 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
