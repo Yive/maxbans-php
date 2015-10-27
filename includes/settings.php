@@ -66,8 +66,6 @@ final class Settings {
         $this->date_format = 'F j, Y, g:i A';
         date_default_timezone_set("UTC");
 
-        $this->debug_mode = 0;
-
         // Enable PHP error reporting.
         $error_reporting = true;
 
@@ -114,10 +112,6 @@ final class Settings {
             }
             if ($driver === 'pgsql') {
                 $this->conn->query("SET NAMES 'UTF8';");
-            }
-
-            if ($this->debug_mode > 0) {
-                echo PHP_VERSION;
             }
         }
     }

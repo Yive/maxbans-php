@@ -271,9 +271,6 @@ class Page {
             $this->table_print_headers($headers);
             $this->table_headers_printed = true;
         }
-        if ($this->settings->debug_mode > 0) {
-            var_dump($row);
-        }
         $id = $row['id'];
         $type = $this->type;
         echo "<tr>";
