@@ -114,7 +114,7 @@ if ((substr($_SERVER['SCRIPT_NAME'], -strlen("info.php"))) !== "info.php") {
     return;
 }
 
-isset($_GET['type'], $_GET['id']) or die("Missing arguments (type, id).");
+isset($_GET['type'], $_GET['id']) && is_string($_GET['type']) && is_string($_GET['id']) or die("Missing arguments (type, id).");
 
 $type = $_GET['type'];
 $id = $_GET['id'];

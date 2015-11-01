@@ -58,7 +58,7 @@ class History {
 
 $page = new Page("history");
 
-isset($_GET['uuid']) or die("Missing arguments (uuid).");
+isset($_GET['uuid']) && is_string($_GET['uuid']) or die("Missing arguments (uuid).");
 
 $staffhistory = (isset($_GET['staffhistory']) && $_GET['staffhistory'] === "1");
 

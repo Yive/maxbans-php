@@ -73,7 +73,7 @@ class Check {
     }
 }
 
-if (isset($_GET['name'], $_GET['table'])) {
+if (isset($_GET['name'], $_GET['table']) && is_string($_GET['name']) && is_string($_GET['table'])) {
     $check = new Check();
     $check->run($_GET['name'], $_GET['table']);
 }
