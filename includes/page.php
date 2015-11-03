@@ -36,13 +36,13 @@ class Page {
         $this->set_info($info);
 
         $this->permanent = array(
-            'ban' => 'Permanent Ban',
+            'ban'  => 'Permanent Ban',
             'mute' => 'Permanent Mute',
             'warn' => 'Permanent',
             'kick' => null,
         );
         $this->expired = array(
-            'ban' => '(Unbanned)',
+            'ban'  => '(Unbanned)',
             'mute' => '(Unmuted)',
             'warn' => '(Expired)',
             'kick' => null,
@@ -62,49 +62,47 @@ class Page {
             case "ban":
             case "bans":
                 return array(
-                    "type" => "ban",
+                    "type"  => "ban",
                     "table" => $settings->table['bans'],
                     "title" => "Bans",
                 );
             case "mute":
             case "mutes":
                 return array(
-                    "type" => "mute",
+                    "type"  => "mute",
                     "table" => $settings->table['mutes'],
                     "title" => "Mutes",
                 );
             case "warn":
             case "warnings":
                 return array(
-                    "type" => "warn",
+                    "type"  => "warn",
                     "table" => $settings->table['warnings'],
                     "title" => "Warnings",
                 );
             case "kick":
             case "kicks":
                 return array(
-                    "type" => "kick",
+                    "type"  => "kick",
                     "table" => $settings->table['kicks'],
                     "title" => "Kicks",
                 );
             default:
                 return array(
-                    "type" => null,
+                    "type"  => null,
                     "table" => null,
                     "title" => null,
                 );
         }
     }
 
-    function get_selection($table) {
-        // Under certain versions of PHP, there is a bug with BIT columns.
-        // An empty string is returned no matter what the value is.
-        // Workaround: cast to unsigned.
-        $selection = "id,uuid,reason,banned_by_name,banned_by_uuid,time,until,CAST(active AS UNSIGNED) AS active";
-        if ($table === $this->settings->table['warnings']) {
-            $selection .= ",CAST(warned AS UNSIGNED) AS warned";
-        }
-        return $selection;
+    /**
+     * @param $info
+     */
+    function set_info($info) {
+        $this->type = $info['type'];
+        $this->table = $info['table'];
+        $this->title = $info['title'];
     }
 
     function run_query() {
@@ -133,6 +131,17 @@ class Page {
         } catch (PDOException $ex) {
             die($ex->getMessage());
         }
+    }
+
+    function get_selection($table) {
+        // Under certain versions of PHP, there is a bug with BIT columns.
+        // An empty string is returned no matter what the value is.
+        // Workaround: cast to unsigned.
+        $selection = "id,uuid,reason,banned_by_name,banned_by_uuid,time,until,CAST(active AS UNSIGNED) AS active";
+        if ($table === $this->settings->table['warnings']) {
+            $selection .= ",CAST(warned AS UNSIGNED) AS warned";
+        }
+        return $selection;
     }
 
     /**
@@ -166,28 +175,6 @@ class Page {
     }
 
     /**
-     * Returns the last name for a UUID, or null if their name is not recorded in the database.
-     * @param string
-     * @return null|string
-     */
-    function get_name($uuid) {
-        if (in_array($uuid, $this->settings->console_aliases)) {
-            return $this->settings->console_name;
-        }
-        if (array_key_exists($uuid, $this->uuid_name_cache)) return $this->uuid_name_cache[$uuid];
-
-        $history = $this->settings->table['history'];
-        $stmt = $this->conn->prepare("SELECT name FROM $history WHERE uuid=? ORDER BY date DESC LIMIT 1");
-        if ($stmt->execute(array($uuid)) && $row = $stmt->fetch()) {
-            $banner = $row['name'];
-            $this->uuid_name_cache[$uuid] = $banner;
-            return $banner;
-        }
-        $this->uuid_name_cache[$uuid] = null;
-        return null;
-    }
-
-    /**
      * Returns the banner name for a specific row in the database
      * using their UUID->name if possible, otherwise returns their last recorded name.
      * @param row
@@ -208,12 +195,25 @@ class Page {
     }
 
     /**
-     * Converts a timestamp (in milliseconds) to a date using the configured date format.
-     * @param int
-     * @return string
+     * Returns the last name for a UUID, or null if their name is not recorded in the database.
+     * @param string
+     * @return null|string
      */
-    function millis_to_date($millis) {
-        return date($this->settings->date_format, $millis / 1000);
+    function get_name($uuid) {
+        if (in_array($uuid, $this->settings->console_aliases)) {
+            return $this->settings->console_name;
+        }
+        if (array_key_exists($uuid, $this->uuid_name_cache)) return $this->uuid_name_cache[$uuid];
+
+        $history = $this->settings->table['history'];
+        $stmt = $this->conn->prepare("SELECT name FROM $history WHERE uuid=? ORDER BY date DESC LIMIT 1");
+        if ($stmt->execute(array($uuid)) && $row = $stmt->fetch()) {
+            $banner = $row['name'];
+            $this->uuid_name_cache[$uuid] = $banner;
+            return $banner;
+        }
+        $this->uuid_name_cache[$uuid] = null;
+        return null;
     }
 
     /**
@@ -255,18 +255,27 @@ class Page {
         return $until;
     }
 
-    function active($row, $field = 'active') {
-        return (((int)$row[$field]) !== 0);
+    /**
+     * Converts a timestamp (in milliseconds) to a date using the configured date format.
+     * @param int
+     * @return string
+     */
+    function millis_to_date($millis) {
+        return date($this->settings->date_format, $millis / 1000);
     }
 
-    function title() {
-        return ucfirst($this->name);
+    function active($row, $field = 'active') {
+        return (((int)$row[$field]) !== 0);
     }
 
     function print_title() {
         $title = $this->title();
         $name = $this->settings->name;
         echo "<title>$title - $name</title>";
+    }
+
+    function title() {
+        return ucfirst($this->name);
     }
 
     function print_table_rows($row, $array, $print_headers = true) {
@@ -297,6 +306,14 @@ class Page {
         echo "</tr>";
     }
 
+    function table_print_headers($headers) {
+        echo "<thead><tr>";
+        foreach ($headers as $header) {
+            echo "<th><div style=\"text-align: center;\">$header</div></th>";
+        }
+        echo "<tbody>";
+    }
+
     function print_page_header($container_start = true) {
         $title = $this->title();
         if ($container_start) {
@@ -307,14 +324,6 @@ class Page {
         if ($container_start) {
             echo '<div class="row"><div style="text-align: center;" class="col-lg-12">';
         }
-    }
-
-    function table_print_headers($headers) {
-        echo "<thead><tr>";
-        foreach ($headers as $header) {
-            echo "<th><div style=\"text-align: center;\">$header</div></th>";
-        }
-        echo "<tbody>";
     }
 
     function print_check_form() {
@@ -384,14 +393,5 @@ class Page {
         if ($clicky) {
             echo "<script type=\"text/javascript\">withjQuery(function(){ $('tr').click(function(){var href=$(this).find('a').attr('href');if(href!==undefined)window.location=href;}).hover(function(){\$(this).toggleClass('hover');}); });</script>";
         }
-    }
-
-    /**
-     * @param $info
-     */
-    function set_info($info) {
-        $this->type = $info['type'];
-        $this->table = $info['table'];
-        $this->title = $info['title'];
     }
 }

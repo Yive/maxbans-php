@@ -38,12 +38,12 @@ abstract class Info {
         return ((int)$this->row['until']) <= 0;
     }
 
-    function history_link($player_name, $uuid, $args = "") {
-        return "<a href=\"history.php?uuid=$uuid$args\">$player_name</a>";
-    }
-
     function punished_avatar($player_name, $row) {
         return $this->page->get_avatar($player_name, $row['uuid'], false, $this->history_link($player_name, $row['uuid']));
+    }
+
+    function history_link($player_name, $uuid, $args = "") {
+        return "<a href=\"history.php?uuid=$uuid$args\">$player_name</a>";
     }
 
     function moderator_avatar($row) {
