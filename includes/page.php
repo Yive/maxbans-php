@@ -6,6 +6,10 @@ use PDOException;
 
 class Page {
     public function __construct($name, $header = true) {
+        ini_set('mbstring.internal_encoding', 'UTF-8');
+        ini_set('default_charset', 'utf-8');
+        header('Content-Type: text/html; charset=UTF-8');
+
         $this->time = microtime(true);
         if ($header) {
             require_once './includes/header.php';
@@ -32,13 +36,13 @@ class Page {
         $this->set_info($info);
 
         $this->permanent = array(
-            'ban'  => 'Permanent Ban',
+            'ban' => 'Permanent Ban',
             'mute' => 'Permanent Mute',
             'warn' => 'Permanent',
             'kick' => null,
         );
         $this->expired = array(
-            'ban'  => '(Unbanned)',
+            'ban' => '(Unbanned)',
             'mute' => '(Unmuted)',
             'warn' => '(Expired)',
             'kick' => null,
@@ -58,34 +62,34 @@ class Page {
             case "ban":
             case "bans":
                 return array(
-                    "type"  => "ban",
+                    "type" => "ban",
                     "table" => $settings->table['bans'],
                     "title" => "Bans",
                 );
             case "mute":
             case "mutes":
                 return array(
-                    "type"  => "mute",
+                    "type" => "mute",
                     "table" => $settings->table['mutes'],
                     "title" => "Mutes",
                 );
             case "warn":
             case "warnings":
                 return array(
-                    "type"  => "warn",
+                    "type" => "warn",
                     "table" => $settings->table['warnings'],
                     "title" => "Warnings",
                 );
             case "kick":
             case "kicks":
                 return array(
-                    "type"  => "kick",
+                    "type" => "kick",
                     "table" => $settings->table['kicks'],
                     "title" => "Kicks",
                 );
             default:
                 return array(
-                    "type"  => null,
+                    "type" => null,
                     "table" => null,
                     "title" => null,
                 );
