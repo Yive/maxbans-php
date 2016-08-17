@@ -1,6 +1,6 @@
 maxbans-php
 ===========
-WARNING: This will no longer be updated, I am going to rewrite this in 2016 to fix all issues & possibly make it more stable.
+# This repo has been completely abandoned. I've moved to a new framework that not many people use so not worth updating this to a framework that not many people use.
 ===========
 
 PHP listings script for MaxBans
