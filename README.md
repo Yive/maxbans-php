@@ -1,8 +1,6 @@
 maxbans-php
 ===========
-# This is updated version of maxbans-php
-
-This is unofficial fork.
+# This is unofficial/updated version of maxbans-php
 
 PHP listings script for MaxBans
 
