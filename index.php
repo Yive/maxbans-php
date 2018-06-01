@@ -27,10 +27,10 @@
 		</nav>
 		<div id="main" class="col-sm-11">
 		<?php
-		if($_GET["bans"] === "") { include 'bans.php'; echo "<title>$name - Bans<title>";}
-		else if($_GET["ipbans"] === "") { include 'ipbans.php'; echo "<title>$name - IP-Bans<title>";}
-		else if($_GET["mutes"] === "") { include 'mutes.php'; echo "<title>$name - Mutes<title>";}
-		else if($_GET["warn"] === "") { include 'warnings.php'; echo "<title>$name - Warns<title>";}
+		if($_GET["bans"] === "") { include 'bans.php'; echo "<title>$name - Bans</title>";}
+		else if($_GET["ipbans"] === "") { include 'ipbans.php'; echo "<title>$name - IP-Bans</title>";}
+		else if($_GET["mutes"] === "") { include 'mutes.php'; echo "<title>$name - Mutes</title>";}
+		else if($_GET["warn"] === "") { include 'warnings.php'; echo "<title>$name - Warns</title>";}
 		else { include 'bans.php'; }
 		?>
 		</div>
