@@ -55,7 +55,7 @@
                         echo $numbers;
                         ?>
                   </td>
-                  <td><?php echo "<img src='http://cravatar.eu/avatar/" . $row['banner'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner'];?></td>
+                  <td><?php echo "<img src='https://cravatar.eu/avatar/" . $row['banner'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner'];?></td>
 				  <td style="width: 30%;"><center><?php echo $row['reason'];?></center></td>
 				  <td><?php echo $timeResult;?></td>
 				  <td><center><?php if($row['expires'] == 0) {
