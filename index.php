@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php echo "<title>".$name"</title>" ?>
+		<title><?php echo $name;?></title>
 		<link rel="stylesheet" href="include/css/style.css">
 		<link href='https://fonts.googleapis.com/css?family=Martel Sans' rel='stylesheet'>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
