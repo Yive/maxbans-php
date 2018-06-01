@@ -51,8 +51,8 @@
                   $expiresResult = date('F j, Y, g:i a', $expiresConvert);
                   ?>
                <tr>
-                  <td><?php echo "<img src='https://mcapi.ca/avatar/2d/" . $row['name'] . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['name'];?></td>
-                  <td><?php echo "<img src='https://mcapi.ca/avatar/2d/" . $row['banner'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner'];?></td>
+                  <td><?php echo "<img src='http://cravatar.eu/avatar/" . $row['name'] . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['name'];?></td>
+                  <td><?php echo "<img src='http://cravatar.eu/avatar/" . $row['banner'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner'];?></td>
                   <td style="width: 30%;"><?php echo $row['reason'];?></td>
                   <td><?php echo $timeResult;?></td>
                   <td><?php if($row['expires'] == 0) {
