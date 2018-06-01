@@ -1,0 +1,53 @@
+#logo {
+	margin-left:2%;	
+}
+body {
+	background: url(background.png);
+	height: 100%;
+    width: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+	 overflow-x: hidden;
+}
+#main {
+	margin-left:2%;
+	margin-right:2%;
+	background-image:url(white.png);
+	padding:10px 10px;
+	border-radius:5px;
+	margin-bottom:2%;
+	min-height:100px;
+	height:inherit;
+}
+nav {
+	background-image:url(white.png);
+	width:auto;
+}
+li a {
+	color:#282828;
+}
+li:hover {
+	background-image:url(white.png);
+}
+.navbar {
+	margin-left:1%;
+	margin-right:1%;
+}
+html,body {
+    overflow-x: hidden;
+}
+#server-status {
+	font-family:'Open Sans';
+	font-size:1em;
+}
+#green {
+	color:green;
+}
+th, td, tr {
+    border-bottom: 1px solid #ddd;
+}
+.hoverable:hover {
+	background-image:url(white.png);
+}
