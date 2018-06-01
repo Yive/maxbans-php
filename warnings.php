@@ -1,22 +1,11 @@
 <?php
-   include 'includes/head.php';
-   include 'includes/header.php';
-   ?>
-<head>
-   <title>Warnings - <?php echo $name; ?></title>
-</head>
-<?php
    // <<-----------------Database Connection------------>> //
    require 'includes/data/database.php';
    $sql = 'SELECT name, reason, banner, expires FROM warnings ORDER BY expires DESC LIMIT 20';
    $retval = $conn->query($sql);
    ?>
 <body>
-   <div class="container content">
-   <div class="row">
-   <div class="col-lg-12">
-      <h1 class="page-header">Warnings</h1>
-      <table class="table table-hover table-bordered table-condensed">
+      <table class="col-sm-12 table-condensed">
       <thead>
          <tr>
             <th>
@@ -44,17 +33,16 @@
             $expiresResult = date('F j, Y, g:i a', $expiresConvert);
             ?>
          <tr>
-            <td><?php echo "<img src='https://mcapi.ca/avatar/2d/" . $row['name'] . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['name'];?></td>
-            <td><?php echo "<img src='https://mcapi.ca/avatar/2d/" . $row['banner'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner'];?></td>
-            <td style="width: 30%;"><?php echo $row['reason'];?></td>
-            <td><?php if($row['expires'] == 0) {
-               echo 'Permanent Warning';
-               } else {
-               echo $expiresResult; }?></td>
-         </tr>
-         <?php }
-            $conn->close();
-            echo "</tbody></table>";
-            ?>
-   </div>
-   <?php include 'includes/footer.php'; ?>
+				  <td><?php echo "<img src='http://cravatar.eu/avatar/" . $row['name'] . "/25' style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['name'];?></td>
+				  <td><?php echo "<img src='http://cravatar.eu/avatar/" . $row['banner'] . "/25'  style='margin-bottom:5px;margin-right:5px;border-radius:2px;' />" . $row['banner'];?></td>
+				  <td style="width: 30%;"><center><?php echo $row['reason'];?></center></td>
+				  <td><?php echo $timeResult;?></td>
+				  <td><center><?php if($row['expires'] == 0) {
+					 echo 'Permanent Warning';
+					 } else {
+					 echo $expiresResult; }?></center></td>
+			   </tr>
+			   <?php }
+				  $conn->close();
+				  echo "</tbody></table>";
+				  ?>
