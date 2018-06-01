@@ -5,4 +5,5 @@ maxbans-php
 PHP listings script for MaxBans
 
 Demo: https://crafters.ga/ban/
+
 Demo (old): http://maxbans.yive.me/
