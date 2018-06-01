@@ -2,7 +2,7 @@
 	margin-left:2%;	
 }
 body {
-	background: url(background.png);
+	background: white;
 	height: 100%;
     width: 100%;
 	background-size: cover;
@@ -14,7 +14,7 @@ body {
 #main {
 	margin-left:2%;
 	margin-right:2%;
-	background-image:url(white.png);
+	background-color:white;
 	padding:10px 10px;
 	border-radius:5px;
 	margin-bottom:2%;
@@ -22,14 +22,14 @@ body {
 	height:inherit;
 }
 nav {
-	background-image:url(white.png);
+	background-color:white;
 	width:auto;
 }
 li a {
 	color:#282828;
 }
 li:hover {
-	background-image:url(white.png);
+	background-color:white;
 }
 .navbar {
 	margin-left:1%;
@@ -49,5 +49,5 @@ th, td, tr {
     border-bottom: 1px solid #ddd;
 }
 .hoverable:hover {
-	background-image:url(white.png);
+	background-image:white.png;
 }
