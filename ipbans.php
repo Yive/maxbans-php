@@ -1,3 +1,4 @@
+<head><link rel="stylesheet" href="includes/tablestyle.css"></head>
 <?php
    // <<-----------------Database Connection------------>> //
    require 'includes/data/database.php';
