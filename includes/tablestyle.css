@@ -1,0 +1,6 @@
+th, td, tr {
+    border-bottom: 1px solid #ddd;
+}
+.table-condensed {
+  padding: 5px;
+ }
